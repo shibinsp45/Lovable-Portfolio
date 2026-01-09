@@ -1,50 +1,127 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, Mail, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 const Contact = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 1, 1, 0.8]);
+
   return (
-    <section id="contact" className="py-24 bg-background relative overflow-hidden">
-      {/* Background texture */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
-      </div>
+    <section id="contact" className="py-24 bg-background relative overflow-hidden" ref={containerRef}>
+      {/* Animated background elements */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
+        style={{ y }}
+      >
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.3, 0.5]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          style={{ scale, opacity }}
+          initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center space-y-8"
         >
-          <Button variant="secondary" className="rounded-full px-6">
-            Contact
-          </Button>
-
-          <h2 className="text-4xl md:text-6xl font-serif">
-            <span className="text-muted-foreground">Let's </span>
-            <span className="text-primary">Get in Touch</span>
-          </h2>
-
-          <p className="text-muted-foreground max-w-md mx-auto">
-            Let's connect and start with your project ASAP.
-          </p>
-
-          <div className="flex justify-center">
-            <div className="w-2 h-2 rounded-full bg-primary" />
-          </div>
-
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary"
-            asChild
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <a href="mailto:shibinsp45@gmail.com">
-              Email me <ArrowUpRight className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+            <Button variant="secondary" className="rounded-full px-6">
+              Contact
+            </Button>
+          </motion.div>
+
+          <motion.h2 
+            className="text-4xl md:text-6xl font-serif"
+            initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <span className="text-muted-foreground">Let's </span>
+            <span className="text-primary relative">
+              Get in Touch
+              <motion.span
+                className="absolute -top-2 -right-6"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.8, type: "spring" }}
+              >
+                <Sparkles className="w-5 h-5 text-primary" />
+              </motion.span>
+            </span>
+          </motion.h2>
+
+          <motion.p 
+            className="text-muted-foreground max-w-md mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Let's connect and start with your project ASAP.
+          </motion.p>
+
+          <motion.div 
+            className="flex justify-center"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5, type: "spring" }}
+          >
+            <div className="w-2 h-2 rounded-full bg-primary" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
+              asChild
+            >
+              <a href="mailto:shibinsp45@gmail.com" className="flex items-center gap-2">
+                <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                Email me 
+                <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+              </a>
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 const projects = [
   {
@@ -20,53 +21,74 @@ const projects = [
 ];
 
 const Projects = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+
   return (
-    <section id="portfolio" className="py-24 bg-background">
+    <section id="portfolio" className="py-24 bg-background overflow-hidden" ref={containerRef}>
       <div className="container mx-auto px-6">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-4xl md:text-5xl font-serif text-center mb-16"
         >
           My Projects
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <motion.div style={{ y }} className="grid md:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="group"
+              initial={{ opacity: 0, y: 80, rotateX: 10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.15,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              className="group perspective-1000"
             >
-              <div className="bg-card rounded-3xl p-6 border border-border hover:border-primary/50 transition-all duration-300 h-full flex flex-col">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-secondary">
-                  <img
+              <div className="bg-card rounded-3xl p-6 border border-border hover:border-primary/50 transition-all duration-500 h-full flex flex-col hover:shadow-xl hover:shadow-primary/5">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-secondary relative">
+                  <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-card-foreground">
+                <motion.h3 
+                  className="text-xl font-semibold mb-3 text-card-foreground"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
                   {project.title}
-                </h3>
+                </motion.h3>
                 <p className="text-muted-foreground text-sm mb-6 flex-1">
                   {project.description}
                 </p>
                 <Button
                   variant="secondary"
-                  className="w-full rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="w-full rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02]"
                 >
                   View Projects
                 </Button>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
