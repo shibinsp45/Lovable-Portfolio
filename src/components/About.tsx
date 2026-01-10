@@ -58,7 +58,7 @@ const About = () => {
         delay: 0.3,
         type: "spring"
       }}>
-          <div className="w-2 h-2 rounded-full bg-primary" />
+          
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
