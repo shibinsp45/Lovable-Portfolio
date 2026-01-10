@@ -20,7 +20,12 @@ const About = () => {
   const contentY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   return (
-    <section id="about" className="py-24 bg-background overflow-hidden" ref={containerRef}>
+    <section id="about" className="py-24 bg-background overflow-hidden relative" ref={containerRef}>
+      {/* Glassmorphism background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-[hsl(280,70%,55%)]/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
+      </div>
       <div className="container mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}

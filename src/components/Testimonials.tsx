@@ -27,7 +27,12 @@ const Testimonials = () => {
   const rightX = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   return (
-    <section className="py-24 bg-background overflow-hidden" ref={containerRef}>
+    <section className="py-24 bg-background overflow-hidden relative" ref={containerRef}>
+      {/* Glassmorphism background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]" />
+      </div>
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left Content */}
@@ -108,7 +113,7 @@ const Testimonials = () => {
                   scale: 1.02,
                   transition: { duration: 0.3 } 
                 }}
-                className="bg-card rounded-3xl p-6 border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 relative group"
+                className="bg-card/50 backdrop-blur-xl rounded-3xl p-6 border border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 relative group"
               >
                 {/* Quote icon */}
                 <motion.div

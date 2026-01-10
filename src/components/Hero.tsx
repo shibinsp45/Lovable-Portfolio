@@ -87,19 +87,19 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Skills Marquee - Rounded with silver border */}
+      {/* Skills Marquee - Full width with silver border */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="w-full max-w-4xl mx-auto px-6 mb-12"
+        className="w-full mb-0"
       >
-        <div className="overflow-hidden rounded-full border border-border/60 bg-card/30 backdrop-blur-md py-4 hover:border-primary/40 transition-colors duration-300">
+        <div className="overflow-hidden border-y border-border/40 bg-card/20 backdrop-blur-xl py-5 hover:bg-card/30 transition-all duration-500">
           <div className="animate-marquee flex whitespace-nowrap">
-            {[...skills, ...skills].map((skill, index) => (
+            {[...skills, ...skills, ...skills].map((skill, index) => (
               <motion.span
                 key={index}
-                className="mx-8 text-muted-foreground text-sm md:text-base font-medium cursor-default"
+                className="mx-10 text-muted-foreground text-base md:text-lg font-medium cursor-default"
                 whileHover={{ scale: 1.1, color: "hsl(var(--primary))" }}
                 transition={{ duration: 0.2 }}
               >

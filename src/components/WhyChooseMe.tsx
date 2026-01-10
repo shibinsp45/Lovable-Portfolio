@@ -31,7 +31,12 @@ const WhyChooseMe = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
 
   return (
-    <section className="py-24 bg-background overflow-hidden" ref={containerRef}>
+    <section className="py-24 bg-background overflow-hidden relative" ref={containerRef}>
+      {/* Glassmorphism background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[hsl(220,80%,60%)]/10 rounded-full blur-[100px]" />
+      </div>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -86,7 +91,7 @@ const WhyChooseMe = () => {
                 y: -15, 
                 transition: { duration: 0.3 } 
               }}
-              className="bg-card rounded-3xl p-8 border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 group"
+              className="bg-card/50 backdrop-blur-xl rounded-3xl p-8 border border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 group"
             >
               <motion.div 
                 className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors duration-300"
