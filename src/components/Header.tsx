@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, ArrowUpRight, Menu, X } from "lucide-react";
+import { Sparkles, Sun, ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -64,7 +64,6 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Theme Toggle - Right */}
           <div className="hidden md:flex">
             <Button
               variant="ghost"
@@ -73,9 +72,9 @@ const Header = () => {
               className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl hover:bg-secondary/50"
             >
               {isDark ? (
-                <Sun className="h-4 w-4" />
+                <Sparkles className="h-4 w-4 text-foreground" />
               ) : (
-                <Moon className="h-4 w-4" />
+                <Sun className="h-4 w-4 text-amber-500" />
               )}
             </Button>
           </div>
@@ -88,7 +87,7 @@ const Header = () => {
               onClick={toggleTheme} 
               className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? <Sparkles className="h-4 w-4 text-foreground" /> : <Sun className="h-4 w-4 text-amber-500" />}
             </Button>
             <Button
               variant="ghost"
