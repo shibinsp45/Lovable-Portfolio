@@ -27,6 +27,14 @@ const Hero = () => {
 
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden">
+      {/* Lovable-style gradient background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(320,80%,60%)] via-[hsl(280,70%,55%)] to-[hsl(220,80%,60%)] opacity-30 dark:opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[hsl(320,80%,60%)] rounded-full blur-[120px] opacity-20" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[hsl(220,80%,60%)] rounded-full blur-[120px] opacity-20" />
+      </div>
+
       <motion.div 
         style={{ y, opacity, scale }}
         className="container mx-auto px-6 text-center flex-1 flex flex-col justify-center"
@@ -43,7 +51,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-primary">Shibin S P</span>
+            <span className="text-foreground">Shibin S P</span>
           </motion.h1>
           <motion.h2 
             className="text-4xl md:text-6xl lg:text-7xl font-medium text-primary"
@@ -79,24 +87,26 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Skills Marquee */}
+      {/* Skills Marquee - Rounded with silver border */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="w-full overflow-hidden bg-secondary/50 py-4 mt-auto backdrop-blur-sm"
+        className="w-full max-w-4xl mx-auto px-6 mb-12"
       >
-        <div className="animate-marquee flex whitespace-nowrap">
-          {[...skills, ...skills].map((skill, index) => (
-            <motion.span
-              key={index}
-              className="mx-8 text-muted-foreground text-sm md:text-base"
-              whileHover={{ scale: 1.1, color: "hsl(var(--primary))" }}
-              transition={{ duration: 0.2 }}
-            >
-              {skill}
-            </motion.span>
-          ))}
+        <div className="overflow-hidden rounded-full border border-border/60 bg-card/30 backdrop-blur-md py-4 hover:border-primary/40 transition-colors duration-300">
+          <div className="animate-marquee flex whitespace-nowrap">
+            {[...skills, ...skills].map((skill, index) => (
+              <motion.span
+                key={index}
+                className="mx-8 text-muted-foreground text-sm md:text-base font-medium cursor-default"
+                whileHover={{ scale: 1.1, color: "hsl(var(--primary))" }}
+                transition={{ duration: 0.2 }}
+              >
+                {skill}
+              </motion.span>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>
