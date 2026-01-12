@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Sparkles, Sun, ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import logo from "@/assets/logo.avif";
 
 const Header = () => {
   const [isDark, setIsDark] = useState(true);
@@ -39,9 +41,16 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo - Left */}
-          <a href="#" className="text-2xl font-serif italic text-foreground">
-            Shibin
-          </a>
+          <Link to="/" className="flex items-center gap-3 group">
+            <img 
+              src={logo} 
+              alt="Logo" 
+              className="w-10 h-10 rounded-full object-cover ring-2 ring-border/40 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110" 
+            />
+            <span className="text-2xl font-serif italic text-foreground group-hover:text-primary transition-colors duration-300">
+              Shibin
+            </span>
+          </Link>
 
           {/* Center Navigation - Desktop */}
           <div className="hidden md:flex items-center gap-1 px-4 py-2 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">

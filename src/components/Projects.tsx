@@ -1,22 +1,27 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
     title: "UI UX Designs",
     description: "Designing user-centric solutions that create meaningful digital experiences.",
     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
+    slug: "ui-ux-designs",
   },
   {
     title: "Web Development",
     description: "Bringing websites to life with responsive design and robust code.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    slug: "web-development",
   },
   {
     title: "Product Branding",
     description: "Creating Unique Brand Identities Building that stand out.",
     image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=300&fit=crop",
+    slug: "product-branding",
   },
 ];
 
@@ -84,12 +89,15 @@ const Projects = () => {
                 <p className="text-muted-foreground text-sm mb-6 flex-1">
                   {project.description}
                 </p>
-                <Button
-                  variant="secondary"
-                  className="w-full rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02]"
-                >
-                  View Projects
-                </Button>
+                <Link to={`/project/${project.slug}`}>
+                  <Button
+                    variant="secondary"
+                    className="w-full rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-[1.02] group/btn"
+                  >
+                    View Project
+                    <ArrowUpRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           ))}
