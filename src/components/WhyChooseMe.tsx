@@ -58,7 +58,7 @@ const WhyChooseMe = () => {
               Why u choose me ?
             </Button>
           </motion.div>
-          <motion.h2 className="text-3xl md:text-5xl font-serif text-muted-foreground" initial={{
+          <motion.h2 className="text-3xl md:text-5xl font-serif" initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
@@ -72,7 +72,9 @@ const WhyChooseMe = () => {
           duration: 0.8,
           delay: 0.2
         }}>
-            I'll help you to make unique
+            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
+              I'll help you to make unique
+            </span>
           </motion.h2>
           <motion.div className="flex justify-center mt-4" initial={{
           scale: 0

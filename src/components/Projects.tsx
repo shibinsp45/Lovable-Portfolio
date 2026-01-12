@@ -49,7 +49,9 @@ const Projects = () => {
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-4xl md:text-5xl font-serif text-center mb-16"
         >
-          My Projects
+          <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
+            My Projects
+          </span>
         </motion.h2>
 
         <motion.div style={{ y }} className="grid md:grid-cols-3 gap-8">
