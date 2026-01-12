@@ -83,8 +83,8 @@ const Contact = () => {
           duration: 1,
           delay: 0.3
         }}>
-            <span className="text-muted-foreground">Let's </span>
-            <span className="text-primary relative">
+            <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">Let's </span>
+            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent relative">
               Get in Touch
               <motion.span className="absolute -top-2 -right-6" initial={{
               opacity: 0,
@@ -99,7 +99,7 @@ const Contact = () => {
               delay: 0.8,
               type: "spring"
             }}>
-                <Sparkles className="w-5 h-5 text-primary" />
+                <Sparkles className="w-5 h-5 text-muted-foreground" />
               </motion.span>
             </span>
           </motion.h2>

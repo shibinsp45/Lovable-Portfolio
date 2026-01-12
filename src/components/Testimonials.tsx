@@ -59,9 +59,9 @@ const Testimonials = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="text-primary">See what others say</span>
+            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">See what others say</span>
             <br />
-            <span className="text-muted-foreground">about me</span>
+            <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">about me</span>
           </motion.h2>
 
           <motion.p 

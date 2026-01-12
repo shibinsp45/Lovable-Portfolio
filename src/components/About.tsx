@@ -43,8 +43,10 @@ const About = () => {
         once: true
       }} transition={{
         duration: 0.8
-      }} className="text-3xl md:text-4xl font-serif text-muted-foreground text-center mb-4">
-          Craft by mind Design with soul
+}} className="text-3xl md:text-4xl font-serif text-center mb-4">
+          <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
+            Craft by mind Design with soul
+          </span>
         </motion.p>
         
         <motion.div className="flex justify-center mb-16" initial={{
@@ -144,9 +146,9 @@ const About = () => {
               duration: 0.6,
               delay: 0.3
             }}>
-                <span className="text-muted-foreground">I am an Engineer turned</span>
+                <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">I am an Engineer turned</span>
                 <br />
-                <span className="text-primary">Into a UI/UX Developer</span>
+                <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">Into a UI/UX Developer</span>
               </motion.h2>
               
               <motion.p className="text-muted-foreground leading-relaxed" initial={{
