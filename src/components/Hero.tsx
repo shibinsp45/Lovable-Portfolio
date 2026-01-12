@@ -51,23 +51,29 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-foreground">Shibin S P</span>
+            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
+              Shibin S P
+            </span>
           </motion.h1>
           <motion.h2 
-            className="text-4xl md:text-6xl lg:text-7xl font-medium text-primary"
+            className="text-4xl md:text-6xl lg:text-7xl font-medium"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            UX Designer
+            <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">
+              UX Designer
+            </span>
           </motion.h2>
           <motion.p 
-            className="text-3xl md:text-5xl lg:text-6xl font-medium text-primary"
+            className="text-3xl md:text-5xl lg:text-6xl font-medium"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Crafting Soulful Experiences
+            <span className="bg-gradient-to-b from-muted-foreground/80 via-muted-foreground/50 to-muted-foreground/20 bg-clip-text text-transparent">
+              Crafting Soulful Experiences
+            </span>
           </motion.p>
         </motion.div>
 
