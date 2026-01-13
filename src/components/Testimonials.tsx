@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Quote } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 
@@ -10,7 +10,12 @@ const testimonials = [
     role: "HOD at PRC",
   },
   {
-    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates effectively with teams to deliver exceptional designs.",
+    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
+    name: "Adarsh Sharma",
+    role: "CEO Nuren AI",
+  },
+  {
+    quote: "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
   },
@@ -18,121 +23,133 @@ const testimonials = [
 
 const Testimonials = () => {
   const containerRef = useRef(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+  const testimonialsY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="py-24 bg-background overflow-hidden relative" ref={containerRef}>
-      {/* Glassmorphism background elements */}
+      {/* Subtle background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
       </div>
+      
       <div className="container mx-auto px-6">
-        {/* Centered Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-16"
-        >
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left Column - Header */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="lg:sticky lg:top-32"
           >
-            <Button variant="secondary" className="rounded-full px-6 mb-6">
-              Testimonials
-            </Button>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Button variant="secondary" className="rounded-full px-6 mb-8">
+                Testimonials
+              </Button>
+            </motion.div>
+
+            <motion.p 
+              className="text-muted-foreground text-lg leading-relaxed mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              I have helped many people to make a designs for their product.
+            </motion.p>
+            
+            <motion.p 
+              className="text-muted-foreground text-lg mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Wanna be the next?
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <Button 
+                variant="secondary" 
+                className="rounded-full px-6 gap-2 group"
+                onClick={scrollToContact}
+              >
+                Contact
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Button>
+            </motion.div>
           </motion.div>
 
-          <motion.h2 
-            className="text-3xl md:text-4xl font-serif"
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          {/* Right Column - Scrolling Testimonials */}
+          <motion.div 
+            ref={scrollContainerRef}
+            style={{ y: testimonialsY }}
+            className="space-y-6"
           >
-            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">See what others say</span>
-            <br />
-            <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">about me</span>
-          </motion.h2>
-
-          <motion.p 
-            className="text-muted-foreground mt-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            I have helped many people to make designs for their product.
-            <br />
-            Wanna be the next?
-          </motion.p>
-        </motion.div>
-
-        {/* Testimonials Grid */}
-        <motion.div style={{ y }} className="grid md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 60, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.02,
-                transition: { duration: 0.3 } 
-              }}
-              className="bg-card/50 backdrop-blur-xl rounded-3xl p-6 border border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 relative group"
-            >
-              {/* Quote icon */}
+            {testimonials.map((testimonial, index) => (
               <motion.div
-                className="absolute -top-3 -left-3 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center"
-                initial={{ scale: 0, rotate: -180 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.2, type: "spring" }}
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.15,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover={{ 
+                  y: -4,
+                  transition: { duration: 0.3 } 
+                }}
+                className="bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-border/50 transition-all duration-300"
               >
-                <Quote className="w-4 h-4 text-primary" />
-              </motion.div>
-
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6 group-hover:text-foreground/80 transition-colors duration-300">
-                {testimonial.quote}
-              </p>
-              <div className="flex items-center gap-4">
-                <motion.div 
-                  className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300"
-                  whileHover={{ scale: 1.1, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">
-                    {testimonial.name.charAt(0)}
-                  </span>
-                </motion.div>
-                <div>
-                  <div className="font-medium text-card-foreground">
-                    {testimonial.name}
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6 italic">
+                  {testimonial.quote}
+                </p>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center">
+                    <span className="text-sm font-medium text-muted-foreground">
+                      {testimonial.name.charAt(0)}
+                    </span>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonial.role}
+                  <div>
+                    <div className="font-medium text-foreground text-sm">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonial.role}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
