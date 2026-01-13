@@ -46,32 +46,32 @@ const Hero = () => {
           className="space-y-6"
         >
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-extralight tracking-[0.2em] uppercase"
+            className="text-5xl md:text-7xl lg:text-8xl font-light tracking-wide"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="bg-gradient-to-b from-foreground/90 via-muted-foreground/70 to-muted-foreground/40 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-b from-[hsl(220,80%,50%)] via-[hsl(220,70%,40%)] to-[hsl(220,60%,25%)] bg-clip-text text-transparent">
               Shibin S P
             </span>
           </motion.h1>
           <motion.h2 
-            className="text-4xl md:text-6xl lg:text-7xl font-display font-extralight tracking-[0.15em] uppercase"
+            className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wide"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="bg-gradient-to-b from-muted-foreground/80 via-muted-foreground/50 to-muted-foreground/30 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-b from-[hsl(220,75%,45%)] via-[hsl(220,65%,35%)] to-[hsl(220,55%,20%)] bg-clip-text text-transparent">
               UX Designer
             </span>
           </motion.h2>
           <motion.p 
-            className="text-2xl md:text-4xl lg:text-5xl font-display font-light tracking-[0.1em]"
+            className="text-3xl md:text-5xl lg:text-6xl font-light italic tracking-wide"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <span className="bg-gradient-to-b from-muted-foreground/60 via-muted-foreground/40 to-muted-foreground/20 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-b from-[hsl(220,70%,40%)] via-[hsl(220,60%,30%)] to-[hsl(220,50%,18%)] bg-clip-text text-transparent">
               Crafting Soulful Experiences
             </span>
           </motion.p>
