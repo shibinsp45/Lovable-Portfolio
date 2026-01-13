@@ -116,6 +116,7 @@ export default {
   				'sans-serif'
   			],
   			serif: [
+  				'Cormorant Garamond',
   				'Lora',
   				'ui-serif',
   				'Georgia',

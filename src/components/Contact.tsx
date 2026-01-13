@@ -69,38 +69,31 @@ const Contact = () => {
             </Button>
           </motion.div>
 
-          <motion.h2 className="text-4xl md:text-6xl font-serif" initial={{
-          opacity: 0,
-          y: 40,
-          filter: "blur(15px)"
-        }} whileInView={{
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)"
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 1,
-          delay: 0.3
-        }}>
-            <span className="bg-gradient-to-b from-muted-foreground/90 via-muted-foreground/60 to-muted-foreground/30 bg-clip-text text-transparent">Let's </span>
-            <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent relative">
-              Get in Touch
-              <motion.span className="absolute -top-2 -right-6" initial={{
+          <motion.h2 
+            className="text-4xl md:text-6xl font-serif font-light tracking-wide" 
+            initial={{
               opacity: 0,
-              scale: 0
-            }} whileInView={{
+              y: 40,
+              filter: "blur(15px)"
+            }} 
+            whileInView={{
               opacity: 1,
-              scale: 1
-            }} viewport={{
+              y: 0,
+              filter: "blur(0px)"
+            }} 
+            viewport={{
               once: true
-            }} transition={{
-              duration: 0.5,
-              delay: 0.8,
-              type: "spring"
-            }}>
-                <Sparkles className="w-5 h-5 text-muted-foreground" />
-              </motion.span>
+            }} 
+            transition={{
+              duration: 1,
+              delay: 0.3
+            }}
+          >
+            <span className="italic bg-gradient-to-r from-foreground/80 via-muted-foreground/60 to-muted-foreground/40 bg-clip-text text-transparent">
+              Let's Get in
+            </span>
+            <span className="ml-3 bg-gradient-to-b from-muted-foreground/50 via-muted-foreground/30 to-muted-foreground/20 bg-clip-text text-transparent">
+              Touch
             </span>
           </motion.h2>
 
