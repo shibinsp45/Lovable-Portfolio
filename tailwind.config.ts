@@ -125,6 +125,12 @@ export default {
   				'Times',
   				'serif'
   			],
+  			display: [
+  				'Josefin Sans',
+  				'ui-sans-serif',
+  				'system-ui',
+  				'sans-serif'
+  			],
   			mono: [
   				'Space Mono',
   				'ui-monospace',
