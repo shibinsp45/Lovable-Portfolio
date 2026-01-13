@@ -1,7 +1,7 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const testimonials = [
   {
@@ -21,16 +21,17 @@ const testimonials = [
   },
 ];
 
-const Testimonials = () => {
-  const containerRef = useRef(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+// Generate random avatar URL using DiceBear API
+const getRandomAvatar = (seed: string) => {
+  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9`;
+};
 
-  const testimonialsY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+const Testimonials = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Double the testimonials for seamless loop
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -104,51 +105,77 @@ const Testimonials = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Scrolling Testimonials */}
-          <motion.div 
-            ref={scrollContainerRef}
-            style={{ y: testimonialsY }}
-            className="space-y-6"
+          {/* Right Column - Animated Carousel */}
+          <div 
+            className="relative h-[500px] overflow-hidden"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: index * 0.15,
-                  ease: [0.25, 0.46, 0.45, 0.94]
-                }}
-                whileHover={{ 
-                  y: -4,
-                  transition: { duration: 0.3 } 
-                }}
-                className="bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-border/50 transition-all duration-300"
-              >
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 italic">
-                  {testimonial.quote}
-                </p>
-                
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center">
-                    <span className="text-sm font-medium text-muted-foreground">
-                      {testimonial.name.charAt(0)}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="font-medium text-foreground text-sm">
-                      {testimonial.name}
+            {/* Gradient masks for seamless effect */}
+            <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+            
+            {/* Scrolling container */}
+            <motion.div
+              className="space-y-6"
+              animate={{
+                y: isHovered ? 0 : [0, -50 * testimonials.length * 4],
+              }}
+              transition={{
+                y: {
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatType: "loop",
+                },
+              }}
+            >
+              {duplicatedTestimonials.map((testimonial, index) => (
+                <motion.div
+                  key={`${testimonial.name}-${index}`}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: (index % testimonials.length) * 0.15,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    transition: { duration: 0.3 } 
+                  }}
+                  className="bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-border/50 transition-all duration-300 cursor-pointer"
+                >
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 italic">
+                    {testimonial.quote}
+                  </p>
+                  
+                  <div className="flex items-center gap-3">
+                    <motion.div 
+                      className="w-10 h-10 rounded-full overflow-hidden bg-secondary/50"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <img 
+                        src={getRandomAvatar(testimonial.name)} 
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                    <div>
+                      <div className="font-medium text-foreground text-sm">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {testimonial.role}
+                      </div>
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      {testimonial.role}
-                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
