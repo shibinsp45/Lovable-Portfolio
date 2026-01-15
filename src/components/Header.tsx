@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Sparkles, Sun, ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.avif";
+import logo from "@/assets/logo.png";
 const Header = () => {
   const [isDark, setIsDark] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,7 +36,7 @@ const Header = () => {
         <nav className="flex items-center justify-between">
           {/* Logo - Left */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logo} alt="Logo" className="w-10 h-10 object-cover ring-2 ring-border/40 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110 border-0 border-none border-black/0 rounded-none shadow-none opacity-0" />
+            <img src={logo} alt="Logo" className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110" />
             
           </Link>
 
