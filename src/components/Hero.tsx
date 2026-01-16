@@ -27,25 +27,62 @@ const Hero = () => {
 
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden bg-background">
-      {/* Dark background with glowing gradient orbs */}
+      {/* Dark background with animated glowing gradient orbs */}
       <div className="absolute inset-0 -z-10">
         {/* Base dark background */}
         <div className="absolute inset-0 bg-background" />
         
         {/* Large soft purple/violet orb - top right */}
-        <div className="absolute -top-20 right-0 w-[600px] h-[600px] bg-[hsl(270,60%,40%)] rounded-full blur-[200px] opacity-30" />
+        <motion.div 
+          className="absolute -top-20 right-0 w-[600px] h-[600px] bg-[hsl(270,60%,40%)] rounded-full blur-[200px] opacity-30"
+          animate={{ 
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.4, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
         
         {/* Teal/cyan orb - top center */}
-        <div className="absolute top-10 left-1/3 w-[500px] h-[400px] bg-[hsl(180,50%,35%)] rounded-full blur-[180px] opacity-25" />
+        <motion.div 
+          className="absolute top-10 left-1/3 w-[500px] h-[400px] bg-[hsl(180,50%,35%)] rounded-full blur-[180px] opacity-25"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.25, 0.35, 0.25],
+            x: [0, 30, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
         
         {/* Purple/magenta orb - bottom left */}
-        <div className="absolute bottom-20 -left-20 w-[550px] h-[550px] bg-[hsl(280,55%,35%)] rounded-full blur-[200px] opacity-25" />
+        <motion.div 
+          className="absolute bottom-20 -left-20 w-[550px] h-[550px] bg-[hsl(280,55%,35%)] rounded-full blur-[200px] opacity-25"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.25, 0.35, 0.25],
+            y: [0, -20, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
         
         {/* Blue accent orb - center right */}
-        <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-[hsl(220,60%,40%)] rounded-full blur-[180px] opacity-20" />
+        <motion.div 
+          className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-[hsl(220,60%,40%)] rounded-full blur-[180px] opacity-20"
+          animate={{ 
+            scale: [1, 1.25, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
         
         {/* Subtle inner glow ring effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[hsl(270,40%,30%)] opacity-20 blur-sm" />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[hsl(270,40%,30%)] opacity-20 blur-sm"
+          animate={{ 
+            scale: [1, 1.05, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
         
         {/* Subtle stars/particles effect */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_random,_hsl(0,0%,100%)_1px,_transparent_1px)] bg-[length:100px_100px] opacity-5" />
