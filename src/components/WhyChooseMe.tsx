@@ -58,7 +58,7 @@ const WhyChooseMe = () => {
               Why u choose me ?
             </Button>
           </motion.div>
-          <motion.h2 className="text-3xl md:text-5xl font-serif" initial={{
+          <motion.h2 className="text-3xl md:text-5xl" style={{ fontFamily: "'Poppins', sans-serif" }} initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
