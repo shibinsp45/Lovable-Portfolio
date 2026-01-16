@@ -90,7 +90,7 @@ const Contact = () => {
               delay: 0.3
             }}
           >
-            <span className="italic bg-gradient-to-r from-foreground/80 via-muted-foreground/60 to-muted-foreground/40 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-foreground/80 via-muted-foreground/60 to-muted-foreground/40 bg-clip-text text-transparent">
               Let's Get in
             </span>
             <span className="ml-3 bg-gradient-to-b from-muted-foreground/50 via-muted-foreground/30 to-muted-foreground/20 bg-clip-text text-transparent">
