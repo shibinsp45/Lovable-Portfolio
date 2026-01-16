@@ -70,7 +70,8 @@ const Contact = () => {
           </motion.div>
 
           <motion.h2 
-            className="text-4xl md:text-6xl font-serif font-light tracking-wide" 
+            className="text-4xl md:text-6xl font-light tracking-wide" 
+            style={{ fontFamily: "'Poppins', sans-serif" }}
             initial={{
               opacity: 0,
               y: 40,
