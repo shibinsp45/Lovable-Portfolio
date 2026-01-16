@@ -52,7 +52,7 @@ const Career = () => {
               Career
             </Button>
           </motion.div>
-          <motion.h2 className="text-3xl md:text-5xl text-muted-foreground" style={{ fontFamily: "'Poppins', sans-serif" }} initial={{
+          <motion.h2 className="text-3xl md:text-5xl font-bold text-muted-foreground" style={{ fontFamily: "'Poppins', sans-serif" }} initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
