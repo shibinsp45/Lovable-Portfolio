@@ -26,13 +26,29 @@ const Hero = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <section ref={ref} className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden">
-      {/* Lovable-style gradient background */}
+    <section ref={ref} className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden bg-background">
+      {/* Dark background with glowing gradient orbs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(320,80%,60%)] via-[hsl(280,70%,55%)] to-[hsl(220,80%,60%)] opacity-30 dark:opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[hsl(320,80%,60%)] rounded-full blur-[120px] opacity-20" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[hsl(220,80%,60%)] rounded-full blur-[120px] opacity-20" />
+        {/* Base dark background */}
+        <div className="absolute inset-0 bg-background" />
+        
+        {/* Large soft purple/violet orb - top right */}
+        <div className="absolute -top-20 right-0 w-[600px] h-[600px] bg-[hsl(270,60%,40%)] rounded-full blur-[200px] opacity-30" />
+        
+        {/* Teal/cyan orb - top center */}
+        <div className="absolute top-10 left-1/3 w-[500px] h-[400px] bg-[hsl(180,50%,35%)] rounded-full blur-[180px] opacity-25" />
+        
+        {/* Purple/magenta orb - bottom left */}
+        <div className="absolute bottom-20 -left-20 w-[550px] h-[550px] bg-[hsl(280,55%,35%)] rounded-full blur-[200px] opacity-25" />
+        
+        {/* Blue accent orb - center right */}
+        <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-[hsl(220,60%,40%)] rounded-full blur-[180px] opacity-20" />
+        
+        {/* Subtle inner glow ring effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[hsl(270,40%,30%)] opacity-20 blur-sm" />
+        
+        {/* Subtle stars/particles effect */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_random,_hsl(0,0%,100%)_1px,_transparent_1px)] bg-[length:100px_100px] opacity-5" />
       </div>
 
       <motion.div 
