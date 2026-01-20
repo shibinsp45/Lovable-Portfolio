@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import logoDark from "@/assets/logo-dark.png";
 
 const footerLinks = {
   pages: [
@@ -28,9 +29,7 @@ const Footer = () => {
         >
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-serif italic text-foreground">
-              Shibin
-            </h3>
+            <img src={logoDark} alt="Shibin" className="h-16 w-auto object-contain" />
             <p className="text-muted-foreground text-sm">
               UX Designer who crafting
               <br />
