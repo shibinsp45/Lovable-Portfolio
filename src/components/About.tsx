@@ -43,7 +43,7 @@ const About = () => {
         once: true
       }} transition={{
         duration: 0.8
-      }} className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      }} className="text-3xl md:text-4xl text-center mb-4" style={{ fontFamily: "'Poppins', sans-serif" }}>
           <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
             Craft by mind Design with soul
           </span>
