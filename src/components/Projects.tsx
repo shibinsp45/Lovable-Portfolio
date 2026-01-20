@@ -6,6 +6,24 @@ import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
+    title: "UI UX Designs",
+    description: "Designing user-centric solutions that create meaningful digital experiences.",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
+    slug: "ui-ux-designs",
+  },
+  {
+    title: "Web Development",
+    description: "Bringing websites to life with responsive design and robust code.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    slug: "web-development",
+  },
+  {
+    title: "Product Branding",
+    description: "Creating Unique Brand Identities Building that stand out.",
+    image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=300&fit=crop",
+    slug: "product-branding",
+  },
+  {
     title: "Mobile App Design",
     description: "Creating intuitive mobile experiences that users love to engage with.",
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
