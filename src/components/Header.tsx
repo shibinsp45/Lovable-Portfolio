@@ -33,11 +33,11 @@ const Header = () => {
     href: "#contact"
   }];
   return <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/60 backdrop-blur-xl border-b border-border/30" : ""}`}>
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 py-2">
         <nav className="flex items-center justify-between">
           {/* Logo - Left */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={isDark ? logoDark : logoLight} alt="Logo" className="h-20 w-auto object-contain transition-all duration-300 group-hover:scale-110" />
+            <img src={isDark ? logoDark : logoLight} alt="Logo" className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-110" />
             
           </Link>
 
