@@ -99,37 +99,28 @@ const Hero = () => {
           className="space-y-6"
         >
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight"
-            style={{ textShadow: "0 0 40px hsl(220, 80%, 50%), 0 0 80px hsl(220, 70%, 40%), 0 0 120px hsl(220, 60%, 30%)" }}
+            className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-[hsl(220,70%,45%)]">
-              Shibin S P
-            </span>
+            Shibin S P
           </motion.h1>
           <motion.h2 
-            className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight"
-            style={{ textShadow: "0 0 40px hsl(220, 80%, 50%), 0 0 80px hsl(220, 70%, 40%), 0 0 120px hsl(220, 60%, 30%)" }}
+            className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="text-[hsl(220,70%,45%)]">
-              UX Designer
-            </span>
+            UX Designer
           </motion.h2>
           <motion.p 
-            className="text-3xl md:text-5xl lg:text-6xl font-sans font-normal tracking-tight"
-            style={{ textShadow: "0 0 40px hsl(220, 80%, 50%), 0 0 80px hsl(220, 70%, 40%), 0 0 120px hsl(220, 60%, 30%)" }}
+            className="text-3xl md:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <span className="text-[hsl(220,70%,45%)]">
-              Crafting Soulful Experiences
-            </span>
+            Crafting Soulful Experiences
           </motion.p>
         </motion.div>
 
