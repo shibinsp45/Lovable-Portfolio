@@ -38,55 +38,70 @@ const ModulesCarousel = () => {
 
       {/* Free-drag Module Pills */}
       <div className="relative h-[300px] md:h-[350px] flex items-center justify-center">
-        {modules.map((module, index) => (
-          <motion.div
-            key={module.name}
-            className="absolute cursor-grab active:cursor-grabbing"
-            initial={{ 
-              opacity: 0, 
-              scale: 0,
-              x: 0,
-              y: 0,
-            }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              x: module.initialX,
-              y: module.initialY,
-            }}
-            transition={{ 
-              duration: 0.6, 
-              delay: index * 0.1,
-              type: "spring",
-              stiffness: 100,
-            }}
-            drag
-            dragMomentum={false}
-            dragElastic={0.1}
-            whileDrag={{ 
-              scale: 1.1, 
-              zIndex: 50,
-              boxShadow: "0 0 40px hsl(220, 60%, 50%, 0.4)",
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onDragStart={() => setDraggedIndex(index)}
-            onDragEnd={() => setDraggedIndex(null)}
-            style={{ zIndex: draggedIndex === index ? 50 : 10 - index }}
-          >
-            <div
-              className="px-6 md:px-8 py-3 md:py-4 rounded-full bg-[hsl(220,60%,60%)]/20 backdrop-blur-md border border-[hsl(220,60%,50%)]/30 
-                        hover:bg-[hsl(220,60%,50%)]/30 hover:border-[hsl(220,60%,50%)]/50 
-                        transition-all duration-300
-                        shadow-[0_0_20px_hsl(220,60%,50%,0.1)] hover:shadow-[0_0_30px_hsl(220,60%,50%,0.2)]
-                        select-none"
+        {modules.map((module, index) => {
+          const isBeingDragged = draggedIndex === index;
+          
+          return (
+            <motion.div
+              key={module.name}
+              className="absolute cursor-grab active:cursor-grabbing"
+              initial={{ 
+                opacity: 0, 
+                scale: 0,
+                x: 0,
+                y: 0,
+              }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                x: module.initialX,
+                y: isBeingDragged ? module.initialY : module.initialY + Math.sin((index * 0.8)) * 8,
+              }}
+              transition={isBeingDragged ? {
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+              } : { 
+                duration: 0.6, 
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+                y: {
+                  duration: 2 + index * 0.3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                }
+              }}
+              drag
+              dragMomentum={false}
+              dragElastic={0.1}
+              dragSnapToOrigin={true}
+              whileDrag={{ 
+                scale: 1.1, 
+                zIndex: 50,
+                boxShadow: "0 0 40px hsl(220, 60%, 50%, 0.4)",
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onDragStart={() => setDraggedIndex(index)}
+              onDragEnd={() => setDraggedIndex(null)}
+              style={{ zIndex: isBeingDragged ? 50 : 10 - index }}
             >
-              <span className="text-[hsl(220,70%,60%)] font-medium text-sm md:text-base whitespace-nowrap">
-                {module.name}
-              </span>
-            </div>
-          </motion.div>
-        ))}
+              <div
+                className="px-6 md:px-8 py-3 md:py-4 rounded-full bg-[hsl(220,60%,60%)]/20 backdrop-blur-md border border-[hsl(220,60%,50%)]/30 
+                          hover:bg-[hsl(220,60%,50%)]/30 hover:border-[hsl(220,60%,50%)]/50 
+                          transition-all duration-300
+                          shadow-[0_0_20px_hsl(220,60%,50%,0.1)] hover:shadow-[0_0_30px_hsl(220,60%,50%,0.2)]
+                          select-none"
+              >
+                <span className="text-[hsl(220,70%,60%)] font-medium text-sm md:text-base whitespace-nowrap">
+                  {module.name}
+                </span>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Drag Hint */}
