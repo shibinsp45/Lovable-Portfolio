@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 
 const skills = [
   "Web Development",
@@ -14,6 +14,29 @@ const skills = [
   "Prompt Engineering",
 ];
 
+// Generate random stars
+const generateStars = (count: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2 + 0.5,
+    opacity: Math.random() * 0.8 + 0.2,
+    twinkle: Math.random() * 3 + 2,
+  }));
+};
+
+// Generate shooting stars
+const generateShootingStars = (count: number) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    startX: Math.random() * 100,
+    startY: Math.random() * 40,
+    delay: Math.random() * 8,
+    duration: Math.random() * 1.5 + 0.8,
+  }));
+};
+
 const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -25,67 +48,109 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
+  const stars = useMemo(() => generateStars(150), []);
+  const shootingStars = useMemo(() => generateShootingStars(5), []);
+
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden bg-background">
-      {/* Dark background with animated glowing gradient orbs */}
+      {/* Galaxy background with planet horizon */}
       <div className="absolute inset-0 -z-10">
-        {/* Base dark background */}
-        <div className="absolute inset-0 bg-background" />
+        {/* Deep space background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(240,20%,3%)] via-[hsl(240,15%,5%)] to-[hsl(240,10%,8%)]" />
         
-        {/* Large soft purple/violet orb - top right */}
+        {/* Stars layer */}
+        {stars.map((star) => (
+          <motion.div
+            key={star.id}
+            className="absolute rounded-full bg-foreground"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+            }}
+            animate={{
+              opacity: [star.opacity, star.opacity * 0.3, star.opacity],
+            }}
+            transition={{
+              duration: star.twinkle,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Shooting stars */}
+        {shootingStars.map((star) => (
+          <motion.div
+            key={`shooting-${star.id}`}
+            className="absolute w-[2px] h-[2px] bg-foreground rounded-full"
+            style={{
+              left: `${star.startX}%`,
+              top: `${star.startY}%`,
+              boxShadow: "0 0 6px 2px hsl(var(--foreground) / 0.6), -40px 0 20px 1px hsl(var(--foreground) / 0.3)",
+            }}
+            initial={{ x: 0, y: 0, opacity: 0 }}
+            animate={{
+              x: [0, 200],
+              y: [0, 200],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: star.duration,
+              delay: star.delay,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 10 + 5,
+              ease: "easeOut",
+            }}
+          />
+        ))}
+
+        {/* Planet/Horizon curve at bottom */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[85%]">
+          <div 
+            className="w-[200vw] h-[200vw] rounded-full bg-[hsl(240,15%,4%)]"
+            style={{
+              boxShadow: `
+                0 -80px 150px 30px hsl(var(--primary) / 0.15),
+                0 -40px 80px 20px hsl(var(--primary) / 0.2),
+                0 -20px 40px 10px hsl(220,70%,50% / 0.3),
+                inset 0 -20px 60px 0 hsl(220,70%,30% / 0.5)
+              `,
+            }}
+          />
+        </div>
+
+        {/* Horizon glow effect */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-[300px]"
+          style={{
+            background: `
+              radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--primary) / 0.2) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 30% at 50% 100%, hsl(220,70%,50% / 0.3) 0%, transparent 50%),
+              linear-gradient(to top, hsl(220,70%,45% / 0.1) 0%, transparent 30%)
+            `,
+          }}
+        />
+
+        {/* Subtle nebula colors blending with theme */}
         <motion.div 
-          className="absolute -top-20 right-0 w-[600px] h-[600px] bg-[hsl(270,60%,40%)] rounded-full blur-[200px] opacity-30"
+          className="absolute top-0 right-0 w-[600px] h-[600px] bg-[hsl(var(--primary))] rounded-full blur-[250px] opacity-10"
           animate={{ 
             scale: [1, 1.15, 1],
-            opacity: [0.3, 0.4, 0.3],
+            opacity: [0.1, 0.15, 0.1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         
-        {/* Teal/cyan orb - top center */}
         <motion.div 
-          className="absolute top-10 left-1/3 w-[500px] h-[400px] bg-[hsl(180,50%,35%)] rounded-full blur-[180px] opacity-25"
+          className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-[hsl(280,50%,40%)] rounded-full blur-[200px] opacity-8"
           animate={{ 
             scale: [1, 1.2, 1],
-            opacity: [0.25, 0.35, 0.25],
-            x: [0, 30, 0],
+            opacity: [0.08, 0.12, 0.08],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
-        
-        {/* Purple/magenta orb - bottom left */}
-        <motion.div 
-          className="absolute bottom-20 -left-20 w-[550px] h-[550px] bg-[hsl(280,55%,35%)] rounded-full blur-[200px] opacity-25"
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.25, 0.35, 0.25],
-            y: [0, -20, 0],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        
-        {/* Blue accent orb - center right */}
-        <motion.div 
-          className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-[hsl(220,60%,40%)] rounded-full blur-[180px] opacity-20"
-          animate={{ 
-            scale: [1, 1.25, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-        />
-        
-        {/* Subtle inner glow ring effect */}
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[hsl(270,40%,30%)] opacity-20 blur-sm"
-          animate={{ 
-            scale: [1, 1.05, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-        
-        {/* Subtle stars/particles effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_random,_hsl(0,0%,100%)_1px,_transparent_1px)] bg-[length:100px_100px] opacity-5" />
       </div>
 
       <motion.div 
