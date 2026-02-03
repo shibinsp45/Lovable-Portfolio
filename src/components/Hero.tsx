@@ -216,9 +216,7 @@ const Hero = () => {
       duration: 0.8,
       delay: 1
     }} className="w-full mb-0">
-        <div className="overflow-hidden border-y border-border/40 bg-card/20 backdrop-blur-xl py-5 hover:bg-card/30 transition-all duration-500">
-          
-        </div>
+        
       </motion.div>
     </section>;
 };
