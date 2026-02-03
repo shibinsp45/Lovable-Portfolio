@@ -25,47 +25,46 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid md:grid-cols-3 gap-12"
+          className="grid grid-cols-2 gap-8 md:gap-16"
         >
-          {/* Brand */}
+          {/* Left Column - Brand */}
           <div className="space-y-4">
-            <img src={logoDark} alt="Shibin" className="h-16 w-auto object-contain" />
-            <p className="text-muted-foreground text-sm">
+            <img src={logoDark} alt="Shibin" className="h-12 md:h-16 w-auto object-contain" />
+            <p className="text-muted-foreground text-xs md:text-sm">
               UX Designer who crafting
               <br />
               clean & modern designs with soul
             </p>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-xs md:text-sm">
               shibinsp45@gmail.com
             </p>
           </div>
 
-          {/* Pages */}
-          <div>
-            <ul className="space-y-3">
+          {/* Right Column - Links */}
+          <div className="space-y-6 md:space-y-8">
+            {/* Pages */}
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-xs md:text-sm"
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
 
-          {/* Social */}
-          <div>
-            <ul className="space-y-3">
+            {/* Social */}
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.social.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-xs md:text-sm"
                   >
                     {link.name}
                   </a>
@@ -74,12 +73,6 @@ const Footer = () => {
             </ul>
           </div>
         </motion.div>
-
-        <div className="mt-16 pt-8 border-t border-border text-center">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Shibin S P. All rights reserved.
-          </p>
-        </div>
       </div>
     </footer>
   );
