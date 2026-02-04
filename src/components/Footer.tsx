@@ -25,9 +25,9 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 gap-8 md:gap-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
         >
-          {/* Left Column - Brand */}
+          {/* Column 1 - Brand */}
           <div className="space-y-4">
             <img src={logoDark} alt="Shibin" className="h-12 md:h-16 w-auto object-contain" />
             <p className="text-muted-foreground text-xs md:text-sm">
@@ -40,9 +40,9 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Right Column - Links */}
-          <div className="space-y-6 md:space-y-8">
-            {/* Pages */}
+          {/* Column 2 - Pages */}
+          <div>
+            <h4 className="text-foreground font-medium text-sm mb-4">Pages</h4>
             <ul className="space-y-2 md:space-y-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.name}>
@@ -55,8 +55,11 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+          </div>
 
-            {/* Social */}
+          {/* Column 3 - Social */}
+          <div>
+            <h4 className="text-foreground font-medium text-sm mb-4">Social</h4>
             <ul className="space-y-2 md:space-y-3">
               {footerLinks.social.map((link) => (
                 <li key={link.name}>
