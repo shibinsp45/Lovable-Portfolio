@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/60 backdrop-blur-xl border-b border-border/30" : ""}`}>
-      <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
+      <div className="container mx-auto px-6 md:px-6 py-4 md:py-4">
         <nav className="flex items-center justify-center relative">
           {/* Logo - Left (absolute) */}
           <Link to="/" className="absolute left-0 flex items-center gap-3 group">
@@ -78,7 +78,7 @@ const Header = () => {
               {isDark ? (
                 <Sparkles className="h-4 w-4 text-foreground" />
               ) : (
-                <Sun className="h-4 w-4 text-amber-500" />
+                <Sun className="h-4 w-4 text-foreground" />
               )}
             </Button>
           </div>
