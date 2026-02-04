@@ -69,7 +69,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && <div className="mt-4 p-4 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-xl md:hidden">
+        {isMobileMenuOpen && <div className="mt-4 p-4 rounded-2xl border bg-card/50 backdrop-blur-xl md:hidden px-[20px] py-[17px] mx-[2px] my-[44px] border-secondary">
             <div className="flex flex-col gap-2">
               {navLinks.map(link => <a key={link.name} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200">
                   {link.name}
