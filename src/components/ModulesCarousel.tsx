@@ -11,8 +11,8 @@ const DraggableModule = ({ module, delay }: { module: string; delay: number }) =
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  const springX = useSpring(x, { stiffness: 50, damping: 15 });
-  const springY = useSpring(y, { stiffness: 50, damping: 15 });
+  const springX = useSpring(x, { stiffness: 30, damping: 12 });
+  const springY = useSpring(y, { stiffness: 30, damping: 12 });
 
   const handleDragEnd = () => {
     x.set(0);
