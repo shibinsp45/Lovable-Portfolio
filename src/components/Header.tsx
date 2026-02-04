@@ -35,14 +35,14 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/60 backdrop-blur-xl border-b border-border/30" : ""}`}>
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
         <nav className="flex items-center justify-center relative">
           {/* Logo - Left (absolute) */}
           <Link to="/" className="absolute left-0 flex items-center gap-3 group">
             <img
               src={isDark ? logoDark : logoLight}
               alt="Logo"
-              className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
+              className="h-12 md:h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
             />
           </Link>
 
@@ -84,29 +84,29 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="absolute right-0 flex md:hidden items-center gap-2">
+          <div className="absolute right-0 flex md:hidden items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
+              className="h-11 w-11 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
             >
               {isDark ? (
-                <Sparkles className="h-4 w-4 text-foreground" />
+                <Sparkles className="h-5 w-5 text-foreground" />
               ) : (
-                <Sun className="h-4 w-4 text-amber-500" />
+                <Sun className="h-5 w-5 text-primary" />
               )}
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
+              className="h-11 w-11 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
             >
               {isMobileMenuOpen ? (
-                <X className="h-4 w-4" />
+                <X className="h-5 w-5" />
               ) : (
-                <Menu className="h-4 w-4" />
+                <Menu className="h-5 w-5" />
               )}
             </Button>
           </div>
