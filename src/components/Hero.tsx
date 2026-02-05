@@ -141,7 +141,7 @@ const Hero = () => {
         duration: 1,
         ease: [0.25, 0.46, 0.45, 0.94]
       }} className="space-y-6">
-          <motion.h1 className="text-5xl md:text-7xl lg:text-8xl font-quicksand font-light italic tracking-tight text-foreground" initial={{
+          <motion.h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]" initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
@@ -155,7 +155,7 @@ const Hero = () => {
         }}>
             Shibin S P
           </motion.h1>
-          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-quicksand font-light italic tracking-tight text-foreground" initial={{
+          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]" initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
@@ -169,7 +169,7 @@ const Hero = () => {
         }}>
             UX Designer
           </motion.h2>
-          <motion.p className="text-3xl md:text-5xl lg:text-6xl font-quicksand font-light italic tracking-tight text-foreground" initial={{
+          <motion.p className="text-3xl md:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]" initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
