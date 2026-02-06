@@ -66,6 +66,8 @@ const Projects = () => {
 
   return (
     <section id="portfolio" className="relative min-h-screen overflow-hidden">
+      {/* Top Gradient Fade */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-20" />
       {/* Dynamic Background */}
       <AnimatePresence mode="wait">
         <motion.div
