@@ -79,102 +79,59 @@ const Projects = () => {
       </AnimatePresence>
 
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 w-full items-start">
-          
-          {/* Left: Project Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="order-2 lg:order-1"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -30, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              >
-                <Link to={`/project/${activeProject.slug}`}>
-                  <div 
-                    className={`${activeProject.cardBg} rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] cursor-pointer group max-w-lg mx-auto lg:mx-0`}
-                  >
-                    {/* Project Icon/Logo */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                        <span className="text-2xl font-bold text-white">
-                          {activeProject.title.charAt(0)}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Project Title */}
-                    <h3 className="text-3xl sm:text-4xl font-bold text-white text-center mb-4">
-                      {activeProject.title}
-                    </h3>
-
-                    {/* Project Description */}
-                    <p className="text-white/90 text-center text-lg leading-relaxed">
-                      {activeProject.description}
-                    </p>
-
-                    {/* View Arrow */}
-                    <div className="flex justify-center mt-6">
-                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                        <ArrowUpRight className="w-6 h-6 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Right: Project List */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-1 lg:order-2 flex flex-col items-end gap-2 sm:gap-3"
-          >
-            {projects.map((project, index) => (
-              <motion.button
-                key={project.slug}
-                onClick={() => setActiveIndex(index)}
-                className={`text-right group flex items-center gap-3 transition-all duration-300 ${
-                  index === activeIndex 
-                    ? "opacity-100" 
-                    : "opacity-50 hover:opacity-80"
-                }`}
-                whileHover={{ x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                {index === activeIndex && (
-                  <motion.div
-                    layoutId="activeArrow"
-                    className="flex items-center"
-                  >
-                    <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                  </motion.div>
-                )}
-                <span 
-                  className={`font-light italic text-white transition-all duration-300 ${
-                    index === activeIndex 
-                      ? "text-3xl sm:text-4xl lg:text-5xl xl:text-6xl" 
-                      : "text-2xl sm:text-3xl lg:text-4xl xl:text-5xl"
-                  }`}
-                  style={{ fontFamily: "'Quicksand', sans-serif" }}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 min-h-screen flex flex-col items-center justify-center">
+        {/* Centered Project Types List */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center gap-3 sm:gap-4"
+        >
+          {projects.map((project, index) => (
+            <motion.button
+              key={project.slug}
+              onClick={() => setActiveIndex(index)}
+              className={`group flex items-center gap-3 transition-all duration-300 ${
+                index === activeIndex 
+                  ? "opacity-100 scale-105" 
+                  : "opacity-40 hover:opacity-70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              {index === activeIndex && (
+                <motion.div
+                  layoutId="activeArrow"
+                  className="flex items-center"
                 >
-                  {project.title}
-                </span>
-              </motion.button>
-            ))}
-          </motion.div>
-        </div>
+                  <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                </motion.div>
+              )}
+              <span 
+                className={`font-light italic text-white transition-all duration-300 ${
+                  index === activeIndex 
+                    ? "text-3xl sm:text-4xl lg:text-5xl xl:text-6xl" 
+                    : "text-2xl sm:text-3xl lg:text-4xl xl:text-5xl"
+                }`}
+                style={{ fontFamily: "'Quicksand', sans-serif" }}
+              >
+                {project.title}
+              </span>
+              {index === activeIndex && (
+                <Link to={`/project/${activeProject.slug}`}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="ml-2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                  >
+                    <ArrowUpRight className="w-5 h-5 text-white" />
+                  </motion.div>
+                </Link>
+              )}
+            </motion.button>
+          ))}
+        </motion.div>
       </div>
 
       {/* Bottom Gradient Fade */}
