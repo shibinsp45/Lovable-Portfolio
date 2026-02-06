@@ -82,9 +82,9 @@ const ModulesCarousel = () => {
   return (
     <section className="relative py-8 md:py-16 bg-background">
       {/* Top Gradient Fade */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
       {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center gap-4 md:gap-6">
           {modules.map((row, rowIndex) => (
