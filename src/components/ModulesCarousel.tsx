@@ -1,15 +1,27 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useState } from "react";
 
 const modules = [
-  // Row 1
   ["Design Systems", "Product Design", "User Research", "User Experience Design"],
-  // Row 2
   ["Interaction Design", "Design Thinking", "Visual Design", "Prototyping"],
+];
+
+const randomColors = [
+  "from-rose-500 to-pink-600",
+  "from-cyan-500 to-teal-600",
+  "from-violet-500 to-purple-600",
+  "from-amber-500 to-orange-600",
+  "from-blue-500 to-indigo-600",
+  "from-emerald-500 to-green-600",
+  "from-fuchsia-500 to-pink-600",
+  "from-red-500 to-rose-600",
 ];
 
 const DraggableModule = ({ module, delay }: { module: string; delay: number }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const [active, setActive] = useState(false);
+  const [colorClass, setColorClass] = useState("");
   
   const springX = useSpring(x, { stiffness: 30, damping: 12 });
   const springY = useSpring(y, { stiffness: 30, damping: 12 });
@@ -17,6 +29,16 @@ const DraggableModule = ({ module, delay }: { module: string; delay: number }) =
   const handleDragEnd = () => {
     x.set(0);
     y.set(0);
+  };
+
+  const handleClick = () => {
+    if (active) {
+      setActive(false);
+    } else {
+      const randomColor = randomColors[Math.floor(Math.random() * randomColors.length)];
+      setColorClass(randomColor);
+      setActive(true);
+    }
   };
 
   return (
@@ -33,16 +55,22 @@ const DraggableModule = ({ module, delay }: { module: string; delay: number }) =
         y.set(info.offset.y);
       }}
       onDragEnd={handleDragEnd}
+      onClick={handleClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       whileDrag={{ scale: 1.1, zIndex: 50 }}
       className="cursor-grab active:cursor-grabbing"
     >
       <div
-        className="px-4 md:px-6 py-2 md:py-2.5 rounded-full bg-transparent border border-border/60 
-                  transition-all duration-300 hover:border-primary/40"
+        className={`px-4 md:px-6 py-2 md:py-2.5 rounded-full border transition-all duration-300 ${
+          active
+            ? `bg-gradient-to-r ${colorClass} border-transparent shadow-lg`
+            : "bg-transparent border-border/60 hover:border-primary/40"
+        }`}
       >
-        <span className="text-muted-foreground font-normal text-xs md:text-sm whitespace-nowrap">
+        <span className={`font-normal text-xs md:text-sm whitespace-nowrap transition-colors duration-300 ${
+          active ? "text-white" : "text-muted-foreground"
+        }`}>
           {module}
         </span>
       </div>
