@@ -1,49 +1,72 @@
 
-
-# Plan: Update Hero Section Font Style
+# Redesign Projects Section: Bold Heading + Horizontal Layout with Project Cards
 
 ## Overview
-Update the Hero section typography to match the reference image style - a rounded sans-serif font with light weight and italic styling.
+Redesign the Projects section to feature a bold section heading, horizontal alignment of project type titles, and display project cards in a 3-column grid below.
 
-## What I'll Change
+## Changes
 
-### 1. Add a Rounded Sans-Serif Font
-The reference image shows a rounded, soft sans-serif font. I'll add **"Quicksand"** font from Google Fonts, which has that clean, rounded aesthetic similar to the reference.
+### 1. Bold Section Heading
+Add a large, bold "Projects" or "My Work" heading at the top of the section using the Quicksand font, matching the existing style.
 
-### 2. Update Hero Text Styling
-Apply these changes to the Hero section headings:
-- **Font family**: Change to Quicksand (rounded sans-serif)
-- **Font weight**: Change to light (300) for that thin appearance
-- **Font style**: Add italic styling
-- **Color**: Change from blue to white/foreground color
+### 2. Horizontal Project Type Navigation
+Change the vertical centered list of project titles into a horizontal row of clickable category labels. The active label will be bold/highlighted while inactive ones are dimmed -- similar to tabs.
+
+### 3. Project Cards Grid (3 per row)
+Below the horizontal navigation, display project cards in a responsive 3-column grid. Each card will show:
+- Project image
+- Project title
+- Short description
+- Category badge
+- Link to project detail page
+
+The dynamic background gradient will still change based on the active/selected category.
+
+### 4. Responsive Behavior
+- Desktop: 3 cards per row
+- Tablet: 2 cards per row
+- Mobile: 1 card per row
 
 ## Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/index.css` | Add Quicksand font import |
-| `tailwind.config.ts` | Add Quicksand to font family configuration |
-| `src/components/Hero.tsx` | Update h1, h2, and p elements with new font styling |
+| `src/components/Projects.tsx` | Complete layout restructure -- bold heading, horizontal tabs, 3-column card grid |
 
 ## Technical Details
 
-**CSS Import (index.css):**
-```css
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+**Layout Structure:**
+```text
++------------------------------------------+
+|            PROJECTS  (bold heading)       |
+|                                          |
+|  UI UX  |  Web Dev  |  Branding  | ...   |  <-- horizontal tabs
+|                                          |
+|  +--------+  +--------+  +--------+     |
+|  | Card 1 |  | Card 2 |  | Card 3 |     |  <-- 3-col grid
+|  +--------+  +--------+  +--------+     |
+|  +--------+  +--------+  +--------+     |
+|  | Card 4 |  | Card 5 |  | Card 6 |     |
+|  +--------+  +--------+  +--------+     |
++------------------------------------------+
 ```
 
-**Tailwind Config:**
-```typescript
-fontFamily: {
-  quicksand: ['Quicksand', 'sans-serif'],
-  // ... existing fonts
-}
-```
+**Card Design:**
+- Rounded corners with glassmorphism (`bg-card/30 backdrop-blur-xl`)
+- Project image at top
+- Title and description below
+- Hover effect: scale up slightly with shadow
+- Arrow link icon to project detail page
 
-**Hero Component Text Classes:**
-```
-font-quicksand font-light italic text-foreground
-```
+**Heading Style:**
+- Font: Quicksand, bold weight (700)
+- Large size: `text-5xl md:text-7xl`
+- White color for contrast against dynamic background
 
-This will give the Hero section that elegant, rounded, thin italic look matching your reference image.
+**Horizontal Tabs:**
+- Quicksand font, italic, light weight
+- Active tab: full opacity, underline or bold indicator
+- Inactive tabs: dimmed opacity with hover effect
+- Clicking "All" shows all 6 projects; clicking a specific type filters to that category
 
+The gradient fades at top and bottom will be preserved.
