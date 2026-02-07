@@ -10,7 +10,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=500&fit=crop",
     slug: "ui-ux-designs",
     category: "Design",
-    bgGradient: "from-rose-500/80 via-pink-600/70 to-fuchsia-700/80",
   },
   {
     title: "Web Development",
@@ -18,7 +17,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=500&fit=crop",
     slug: "web-development",
     category: "Development",
-    bgGradient: "from-cyan-500/80 via-teal-600/70 to-emerald-700/80",
   },
   {
     title: "Product Branding",
@@ -26,7 +24,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&h=500&fit=crop",
     slug: "product-branding",
     category: "Design",
-    bgGradient: "from-violet-500/80 via-purple-600/70 to-indigo-700/80",
   },
   {
     title: "Mobile App Design",
@@ -34,7 +31,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=500&fit=crop",
     slug: "mobile-app-design",
     category: "Design",
-    bgGradient: "from-amber-500/80 via-orange-600/70 to-red-700/80",
   },
   {
     title: "Generative AI",
@@ -42,7 +38,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=500&fit=crop",
     slug: "generative-ai",
     category: "AI",
-    bgGradient: "from-blue-500/80 via-indigo-600/70 to-purple-700/80",
   },
   {
     title: "Psychology Articles",
@@ -50,7 +45,6 @@ const projects = [
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=500&fit=crop",
     slug: "psychology-articles",
     category: "Writing",
-    bgGradient: "from-emerald-500/80 via-green-600/70 to-teal-700/80",
   },
 ];
 
@@ -64,35 +58,20 @@ const Projects = () => {
     [activeCategory]
   );
 
-  // Use the first filtered project's gradient, or a default
-  const activeBgGradient = filteredProjects[0]?.bgGradient ?? projects[0].bgGradient;
-
   return (
-    <section id="portfolio" className="relative min-h-screen overflow-hidden">
+    <section id="portfolio" className="relative min-h-screen overflow-hidden bg-background">
       {/* Top Gradient Fade */}
       <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
 
-      {/* Dynamic Background */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className={`absolute inset-0 bg-gradient-to-br ${activeBgGradient}`}
-        />
-      </AnimatePresence>
-
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        {/* Bold Heading */}
+        {/* Bold Heading - light italic like hero */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-7xl font-bold text-white text-center mb-12"
+          className="text-5xl md:text-7xl font-light italic text-muted-foreground text-center mb-12"
           style={{ fontFamily: "'Quicksand', sans-serif" }}
         >
           Projects
@@ -112,8 +91,8 @@ const Projects = () => {
               onClick={() => setActiveCategory(cat)}
               className={`relative text-lg sm:text-xl italic transition-all duration-300 pb-1 ${
                 activeCategory === cat
-                  ? "text-white opacity-100 font-semibold"
-                  : "text-white/50 hover:text-white/80 font-light"
+                  ? "text-foreground opacity-100 font-semibold"
+                  : "text-muted-foreground/50 hover:text-muted-foreground font-light"
               }`}
               style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
@@ -121,7 +100,7 @@ const Projects = () => {
               {activeCategory === cat && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-full"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -146,7 +125,7 @@ const Projects = () => {
               >
                 <Link
                   to={`/project/${project.slug}`}
-                  className="group block rounded-2xl overflow-hidden bg-card/30 backdrop-blur-xl border border-white/10 hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
+                  className="group block rounded-2xl overflow-hidden bg-card/30 backdrop-blur-xl border border-border/20 hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
                 >
                   {/* Image */}
                   <div className="aspect-[4/3] overflow-hidden">
@@ -159,19 +138,19 @@ const Projects = () => {
 
                   {/* Info */}
                   <div className="p-5">
-                    <span className="inline-block text-xs font-medium tracking-wider uppercase text-white/60 bg-white/10 rounded-full px-3 py-1 mb-3">
+                    <span className="inline-block text-xs font-medium tracking-wider uppercase text-muted-foreground bg-muted/30 rounded-full px-3 py-1 mb-3">
                       {project.category}
                     </span>
                     <h3
-                      className="text-xl font-semibold text-white mb-2"
+                      className="text-xl font-light italic text-foreground mb-2"
                       style={{ fontFamily: "'Quicksand', sans-serif" }}
                     >
                       {project.title}
                     </h3>
-                    <p className="text-sm text-white/70 leading-relaxed mb-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       {project.description}
                     </p>
-                    <div className="flex items-center gap-2 text-white/80 group-hover:text-white transition-colors text-sm font-medium">
+                    <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground transition-colors text-sm font-medium">
                       View Project
                       <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </div>
