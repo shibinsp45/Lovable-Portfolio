@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
@@ -11,7 +11,6 @@ const projects = [
     slug: "ui-ux-designs",
     category: "Design",
     bgGradient: "from-rose-500/80 via-pink-600/70 to-fuchsia-700/80",
-    cardBg: "bg-rose-500",
   },
   {
     title: "Web Development",
@@ -20,7 +19,6 @@ const projects = [
     slug: "web-development",
     category: "Development",
     bgGradient: "from-cyan-500/80 via-teal-600/70 to-emerald-700/80",
-    cardBg: "bg-teal-500",
   },
   {
     title: "Product Branding",
@@ -29,7 +27,6 @@ const projects = [
     slug: "product-branding",
     category: "Design",
     bgGradient: "from-violet-500/80 via-purple-600/70 to-indigo-700/80",
-    cardBg: "bg-violet-500",
   },
   {
     title: "Mobile App Design",
@@ -38,7 +35,6 @@ const projects = [
     slug: "mobile-app-design",
     category: "Design",
     bgGradient: "from-amber-500/80 via-orange-600/70 to-red-700/80",
-    cardBg: "bg-orange-500",
   },
   {
     title: "Generative AI",
@@ -47,7 +43,6 @@ const projects = [
     slug: "generative-ai",
     category: "AI",
     bgGradient: "from-blue-500/80 via-indigo-600/70 to-purple-700/80",
-    cardBg: "bg-blue-500",
   },
   {
     title: "Psychology Articles",
@@ -56,83 +51,135 @@ const projects = [
     slug: "psychology-articles",
     category: "Writing",
     bgGradient: "from-emerald-500/80 via-green-600/70 to-teal-700/80",
-    cardBg: "bg-emerald-500",
   },
 ];
 
+const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+
 const Projects = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeProject = projects[activeIndex];
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProjects = useMemo(
+    () => activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory),
+    [activeCategory]
+  );
+
+  // Use the first filtered project's gradient, or a default
+  const activeBgGradient = filteredProjects[0]?.bgGradient ?? projects[0].bgGradient;
 
   return (
     <section id="portfolio" className="relative min-h-screen overflow-hidden">
       {/* Top Gradient Fade */}
       <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
+
       {/* Dynamic Background */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={activeIndex}
+          key={activeCategory}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className={`absolute inset-0 bg-gradient-to-br ${activeProject.bgGradient}`}
+          className={`absolute inset-0 bg-gradient-to-br ${activeBgGradient}`}
         />
       </AnimatePresence>
 
-      {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 min-h-screen flex flex-col items-center justify-center">
-        {/* Centered Project Types List */}
-        <motion.div
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+        {/* Bold Heading */}
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center gap-3 sm:gap-4"
+          className="text-5xl md:text-7xl font-bold text-white text-center mb-12"
+          style={{ fontFamily: "'Quicksand', sans-serif" }}
         >
-          {projects.map((project, index) => (
-            <motion.button
-              key={project.slug}
-              onClick={() => setActiveIndex(index)}
-              className={`group flex items-center gap-3 transition-all duration-300 ${
-                index === activeIndex 
-                  ? "opacity-100 scale-105" 
-                  : "opacity-40 hover:opacity-70"
+          Projects
+        </motion.h2>
+
+        {/* Horizontal Category Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-16"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`relative text-lg sm:text-xl italic transition-all duration-300 pb-1 ${
+                activeCategory === cat
+                  ? "text-white opacity-100 font-semibold"
+                  : "text-white/50 hover:text-white/80 font-light"
               }`}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+              style={{ fontFamily: "'Quicksand', sans-serif" }}
             >
-              {index === activeIndex && (
+              {cat}
+              {activeCategory === cat && (
                 <motion.div
-                  layoutId="activeArrow"
-                  className="flex items-center"
-                >
-                  <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                </motion.div>
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
               )}
-              <span 
-                className={`font-light italic text-white transition-all duration-300 ${
-                  index === activeIndex 
-                    ? "text-3xl sm:text-4xl lg:text-5xl xl:text-6xl" 
-                    : "text-2xl sm:text-3xl lg:text-4xl xl:text-5xl"
-                }`}
-                style={{ fontFamily: "'Quicksand', sans-serif" }}
-              >
-                {project.title}
-              </span>
-              {index === activeIndex && (
-                <Link to={`/project/${activeProject.slug}`}>
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="ml-2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
-                  >
-                    <ArrowUpRight className="w-5 h-5 text-white" />
-                  </motion.div>
-                </Link>
-              )}
-            </motion.button>
+            </button>
           ))}
+        </motion.div>
+
+        {/* Project Cards Grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Link
+                  to={`/project/${project.slug}`}
+                  className="group block rounded-2xl overflow-hidden bg-card/30 backdrop-blur-xl border border-white/10 hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
+                >
+                  {/* Image */}
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-5">
+                    <span className="inline-block text-xs font-medium tracking-wider uppercase text-white/60 bg-white/10 rounded-full px-3 py-1 mb-3">
+                      {project.category}
+                    </span>
+                    <h3
+                      className="text-xl font-semibold text-white mb-2"
+                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-white/70 leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-white/80 group-hover:text-white transition-colors text-sm font-medium">
+                      View Project
+                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
 
