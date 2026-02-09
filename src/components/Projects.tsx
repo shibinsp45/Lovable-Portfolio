@@ -74,12 +74,12 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-medium tracking-[0.3em] uppercase text-muted-foreground mb-4 block" style={{ fontFamily: "'Poppins', sans-serif" }}>
+          <span className="text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-4 block" style={{ fontFamily: "'Quicksand', sans-serif" }}>
             Selected Work
           </span>
           <h2
-            className="text-5xl md:text-7xl font-bold tracking-tight text-foreground"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
+            className="text-5xl md:text-7xl font-light tracking-tight text-muted-foreground"
+            style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
             Projects
           </h2>
