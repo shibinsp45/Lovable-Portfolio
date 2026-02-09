@@ -66,16 +66,24 @@ const Projects = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         {/* Bold Heading - light italic like hero */}
-        <motion.h2
+        {/* Section Header */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-7xl font-light italic text-muted-foreground text-center mb-12"
-          style={{ fontFamily: "'Quicksand', sans-serif" }}
+          className="text-center mb-16"
         >
-          Projects
-        </motion.h2>
+          <span className="text-sm font-medium tracking-[0.3em] uppercase text-muted-foreground mb-4 block" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            Selected Work
+          </span>
+          <h2
+            className="text-5xl md:text-7xl font-bold tracking-tight text-foreground"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            Projects
+          </h2>
+        </motion.div>
 
         {/* Horizontal Category Tabs */}
         <motion.div
@@ -83,27 +91,20 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-16"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-16"
         >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`relative text-lg sm:text-xl italic transition-all duration-300 pb-1 ${
+              className={`relative px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
                 activeCategory === cat
-                  ? "text-foreground opacity-100 font-semibold"
-                  : "text-muted-foreground/50 hover:text-muted-foreground font-light"
+                  ? "bg-foreground text-background shadow-lg"
+                  : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
-              style={{ fontFamily: "'Quicksand', sans-serif" }}
+              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
               {cat}
-              {activeCategory === cat && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-full"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
             </button>
           ))}
         </motion.div>
@@ -142,8 +143,8 @@ const Projects = () => {
                       {project.category}
                     </span>
                     <h3
-                      className="text-xl font-light italic text-foreground mb-2"
-                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                      className="text-lg font-semibold text-foreground mb-2 tracking-tight"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
                     >
                       {project.title}
                     </h3>
