@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 const stats = [{
-  value: "1.5+",
+  value: "2.5+",
   label: "Years of experience"
 }, {
   value: "5+",
