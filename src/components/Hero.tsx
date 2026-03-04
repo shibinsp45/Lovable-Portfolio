@@ -181,7 +181,7 @@ const Hero = () => {
           duration: 0.8,
           delay: 0.6
         }}>
-            Crafting Soulful Experiences
+            Craft by mind<br />Design with Soul
           </motion.p>
         </motion.div>
 
