@@ -169,7 +169,7 @@ const Hero = () => {
         }}>
             UX Designer
           </motion.h2>
-          <motion.p className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-[hsl(220,70%,45%)]" style={{ fontFamily: "'Quicksand', sans-serif" }} initial={{
+          <motion.p className="text-3xl md:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]" initial={{
           opacity: 0,
           y: 30,
           filter: "blur(10px)"
@@ -181,9 +181,7 @@ const Hero = () => {
           duration: 0.8,
           delay: 0.6
         }}>
-            Craft by mind
-            <br />
-            Design with Soul
+            Crafting Soulful Experiences
           </motion.p>
         </motion.div>
 
