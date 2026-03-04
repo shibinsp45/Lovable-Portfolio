@@ -170,21 +170,19 @@ const Hero = () => {
             UX Designer
           </motion.h2>
           <motion.p className="text-3xl md:text-5xl lg:text-6xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]" initial={{
-           opacity: 0,
-           y: 30,
-           filter: "blur(10px)"
-         }} animate={{
-           opacity: 1,
-           y: 0,
-           filter: "blur(0px)"
-         }} transition={{
-           duration: 0.8,
-           delay: 0.6
-         }}>
-             Craft by mind
-             <br />
-             Design with Soul
-           </motion.p>
+          opacity: 0,
+          y: 30,
+          filter: "blur(10px)"
+        }} animate={{
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)"
+        }} transition={{
+          duration: 0.8,
+          delay: 0.6
+        }}>
+            Crafting Soulful Experiences
+          </motion.p>
         </motion.div>
 
         <motion.div initial={{
