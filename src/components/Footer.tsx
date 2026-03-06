@@ -18,35 +18,39 @@ const footerLinks = {
 
 const Footer = () => {
   return (
-    <footer className="py-16 bg-background border-t border-border">
-      <div className="container mx-auto px-6">
+    <footer className="py-16 md:py-20 bg-background border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col gap-10"
+          className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12"
         >
-          {/* Row 1 - Brand */}
+          {/* Brand */}
           <div className="space-y-4">
-            <img src={logoDark} alt="Shibin" className="h-12 md:h-16 w-auto object-contain" />
-            <p className="text-muted-foreground text-xs md:text-sm max-w-xs">
+            <img
+              src={logoDark}
+              alt="Shibin"
+              className="h-12 md:h-14 w-auto object-contain"
+            />
+            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
               UX Designer who crafting clean & modern designs with soul
             </p>
-            <p className="text-muted-foreground text-xs md:text-sm">
+            <p className="text-muted-foreground text-sm">
               shibinsp45@gmail.com
             </p>
           </div>
 
-          {/* Row 2 - Pages */}
+          {/* Pages */}
           <div>
             <h4 className="text-foreground font-medium text-sm mb-4">Pages</h4>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            <ul className="flex flex-col gap-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-xs md:text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
                   >
                     {link.name}
                   </a>
@@ -55,17 +59,17 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Row 3 - Social */}
+          {/* Social */}
           <div>
             <h4 className="text-foreground font-medium text-sm mb-4">Social</h4>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            <ul className="flex flex-col gap-3">
               {footerLinks.social.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-xs md:text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
                   >
                     {link.name}
                   </a>
