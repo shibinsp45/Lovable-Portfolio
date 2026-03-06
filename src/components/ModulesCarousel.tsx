@@ -30,7 +30,6 @@ const DraggableModule = ({
 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const springX = useSpring(x, { stiffness: 30, damping: 12 });
   const springY = useSpring(y, { stiffness: 30, damping: 12 });
 
@@ -80,11 +79,10 @@ const DraggableModule = ({
 
 const ModulesCarousel = () => {
   const [activeModule, setActiveModule] = useState<string | null>(null);
-
   const activeGradient = activeModule ? moduleGradients[activeModule] : null;
 
   return (
-    <section className="relative py-8 md:py-16 overflow-hidden">
+    <section className="relative py-10 md:py-16 overflow-hidden">
       {/* Dynamic Background */}
       <AnimatePresence mode="wait">
         {activeGradient ? (
@@ -107,12 +105,11 @@ const ModulesCarousel = () => {
         )}
       </AnimatePresence>
 
-      {/* Top Gradient Fade */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
-      {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
+      {/* Gradient Fades */}
+      <div className="absolute top-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-[5] container mx-auto px-4 md:px-6">
+      <div className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 md:gap-6">
           {modules.map((row, rowIndex) => (
             <div

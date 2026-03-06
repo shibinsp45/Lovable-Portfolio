@@ -76,16 +76,19 @@ const Projects = () => {
       <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <span className="text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-4 block" style={{ fontFamily: "'Quicksand', sans-serif" }}>
+          <span
+            className="text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-4 block"
+            style={{ fontFamily: "'Quicksand', sans-serif" }}
+          >
             Selected Work
           </span>
           <h2
@@ -102,7 +105,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-20"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-16 md:mb-20"
         >
           {categories.map((cat) => (
             <button
@@ -135,14 +138,17 @@ const Projects = () => {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <Link
-                    to={`/project/${project.slug}`}
-                    className="group block"
-                  >
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${!isEven ? "lg:direction-rtl" : ""}`}>
+                  <Link to={`/project/${project.slug}`} className="group block">
+                    <div
+                      className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
+                        !isEven ? "lg:direction-rtl" : ""
+                      }`}
+                    >
                       {/* Image Side */}
                       <motion.div
-                        className={`relative rounded-3xl overflow-hidden bg-card/20 backdrop-blur-xl border border-border/10 ${!isEven ? "lg:order-2" : ""}`}
+                        className={`relative rounded-3xl overflow-hidden bg-card/20 backdrop-blur-xl border border-border/10 ${
+                          !isEven ? "lg:order-2" : ""
+                        }`}
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.4 }}
                       >
@@ -153,13 +159,15 @@ const Projects = () => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                           />
                         </div>
-                        {/* Overlay on hover */}
                         <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-500" />
                       </motion.div>
 
                       {/* Info Side */}
-                      <div className={`space-y-6 ${!isEven ? "lg:order-1 lg:text-right" : ""}`}>
-                        {/* Project Number */}
+                      <div
+                        className={`space-y-5 ${
+                          !isEven ? "lg:order-1 lg:text-right" : ""
+                        }`}
+                      >
                         <span
                           className="text-7xl md:text-8xl font-extralight text-muted-foreground/15 block leading-none"
                           style={{ fontFamily: "'Quicksand', sans-serif" }}
@@ -167,8 +175,11 @@ const Projects = () => {
                           {String(index + 1).padStart(2, "0")}
                         </span>
 
-                        {/* Meta */}
-                        <div className={`flex items-center gap-4 text-xs tracking-[0.2em] uppercase text-muted-foreground ${!isEven ? "lg:justify-end" : ""}`}>
+                        <div
+                          className={`flex items-center gap-4 text-xs tracking-[0.2em] uppercase text-muted-foreground ${
+                            !isEven ? "lg:justify-end" : ""
+                          }`}
+                        >
                           <span>{project.category}</span>
                           <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
                           <span>{project.year}</span>
@@ -176,7 +187,6 @@ const Projects = () => {
                           <span>{project.role}</span>
                         </div>
 
-                        {/* Title */}
                         <h3
                           className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground"
                           style={{ fontFamily: "'Quicksand', sans-serif" }}
@@ -184,24 +194,36 @@ const Projects = () => {
                           {project.title}
                         </h3>
 
-                        {/* Description */}
                         <p
                           className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md"
-                          style={{ fontFamily: "'Poppins', sans-serif", ...(isEven ? {} : { marginLeft: "auto" }) }}
+                          style={{
+                            fontFamily: "'Poppins', sans-serif",
+                            ...(isEven ? {} : { marginLeft: "auto" }),
+                          }}
                         >
                           {project.description}
                         </p>
 
-                        {/* CTA */}
-                        <div className={`flex items-center gap-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 ${!isEven ? "lg:justify-end" : ""}`}>
-                          <span className="tracking-wide" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                        <div
+                          className={`flex items-center gap-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 ${
+                            !isEven ? "lg:justify-end" : ""
+                          }`}
+                        >
+                          <span
+                            className="tracking-wide"
+                            style={{ fontFamily: "'Poppins', sans-serif" }}
+                          >
                             View Case Study
                           </span>
                           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                         </div>
 
-                        {/* Divider line */}
-                        <div className={`h-px bg-border/30 group-hover:bg-border/60 transition-colors duration-500 ${!isEven ? "lg:ml-auto" : ""}`} style={{ width: "100%", maxWidth: "120px" }} />
+                        <div
+                          className={`h-px bg-border/30 group-hover:bg-border/60 transition-colors duration-500 ${
+                            !isEven ? "lg:ml-auto" : ""
+                          }`}
+                          style={{ width: "100%", maxWidth: "120px" }}
+                        />
                       </div>
                     </div>
                   </Link>
