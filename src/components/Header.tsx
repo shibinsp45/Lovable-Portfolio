@@ -42,10 +42,10 @@ const Header = () => {
 
           {/* Center Navigation - Desktop */}
           <div className="hidden md:flex items-center gap-1 px-2 py-2 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
-            {navLinks.map(link => <a key={link.name} href={link.href} className="text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200">
+            {navLinks.map(link => <a key={link.name} href={link.href} className="font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200">
                 {link.name}
               </a>)}
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm px-5 py-2 text-foreground font-medium hover:text-primary hover:bg-secondary/50 rounded-full transition-all duration-200">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 font-sans text-sm px-5 py-2 text-foreground font-medium hover:text-primary hover:bg-secondary/50 rounded-full transition-all duration-200">
               LinkedIn
             </a>
           </div>
