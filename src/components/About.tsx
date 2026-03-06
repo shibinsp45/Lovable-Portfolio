@@ -44,9 +44,9 @@ const About = () => {
       }} transition={{
         duration: 0.8
       }} className="text-3xl md:text-4xl font-light text-center mb-4" style={{ fontFamily: "'Quicksand', sans-serif" }}>
-          <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
-            Craft by mind Design with soul
-          </span>
+          <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">Craft by mind
+ Design with soul
+        </span>
         </motion.p>
         
         <motion.div className="flex justify-center mb-16" initial={{
