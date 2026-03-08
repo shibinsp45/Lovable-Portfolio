@@ -240,12 +240,18 @@ const SoulChatbot = () => {
               <div className="w-8 h-8 rounded-full overflow-hidden">
                 <img src={soulIcon} alt="Soul" className="w-full h-full object-cover" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
                   Soul
                 </h4>
                 <p className="text-[10px] text-muted-foreground">Ask anything about Shibin</p>
               </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="w-8 h-8 rounded-full bg-secondary/50 hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             {/* Messages */}
