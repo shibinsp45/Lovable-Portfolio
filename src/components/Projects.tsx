@@ -418,7 +418,7 @@ const illustrations = [
     label: "Code",
     glow: "bg-blue-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="10" y="15" width="100" height="80" rx="8" stroke="currentColor" strokeWidth="0.8" />
         <line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="0.5" />
         <circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.25" />
