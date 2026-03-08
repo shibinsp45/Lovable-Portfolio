@@ -142,7 +142,7 @@ const Header = () => {
           >
             <X className="h-5 w-5" />
           </Button>
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-start gap-6 px-8">
             {navLinks.map((link) =>
               link.external ? (
                 <a
