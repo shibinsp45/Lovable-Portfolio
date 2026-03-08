@@ -173,7 +173,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   };
 
   const cardHeight = 300;
-  const peekGap = 40; // how much each card peeks below
+  const peekX = 12; // horizontal offset per card
+  const peekY = 14; // vertical offset per card
 
   return (
     <motion.div
@@ -194,11 +195,10 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       {/* Stack Container */}
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
-        style={{ height: `${cardHeight + (Math.min(projects.length - 1, 3)) * peekGap}px` }}
+        style={{ height: `${cardHeight + (Math.min(projects.length - 1, 3)) * peekY + 10}px` }}
       >
         {projects.map((project, index) => {
           const position = index - activeIndex;
-          // Show cards behind (peeking below) and allow swiped-away cards to animate out
           if (position < -1 || position > 3) return null;
 
           const isHovered = hoveredIndex === index && position === 0;
@@ -210,10 +210,11 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               key={project.slug}
               className="absolute left-0 right-0 top-0"
               animate={{
-                y: isSwiped ? -cardHeight - 40 : position * peekGap,
-                scale: isSwiped ? 0.9 : 1 - position * 0.035,
+                x: isSwiped ? 0 : position * peekX,
+                y: isSwiped ? -cardHeight - 40 : position * peekY,
+                scale: isSwiped ? 0.95 : 1,
                 zIndex: isSwiped ? 0 : projects.length - position,
-                opacity: isSwiped ? 0 : 1 - position * 0.12,
+                opacity: isSwiped ? 0 : 1 - position * 0.1,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
               drag={isFront ? "y" : false}
