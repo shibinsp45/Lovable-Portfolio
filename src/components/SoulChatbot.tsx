@@ -218,7 +218,7 @@ const SoulChatbot = () => {
               </motion.div>
             ) : (
               <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
-                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full" />
+                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full dark:invert" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -238,7 +238,7 @@ const SoulChatbot = () => {
             {/* Header */}
             <div className="px-4 py-3 border-b border-border/30 bg-primary/5 flex items-center gap-3">
               <div className="w-8 h-8 rounded-full overflow-hidden">
-                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover" />
+                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
               </div>
               <div className="flex-1">
                 <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
