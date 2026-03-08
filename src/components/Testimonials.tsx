@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import adarshImg from "@/assets/adarsh.png";
 
 const testimonials = [
   {
@@ -15,6 +16,7 @@ const testimonials = [
       "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
     name: "Adarsh Sharma",
     role: "CEO Nuren AI",
+    avatar: adarshImg,
   },
   {
     quote:
@@ -129,7 +131,7 @@ const Testimonials = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-secondary/50 flex-shrink-0">
                       <img
-                        src={getRandomAvatar(testimonial.name)}
+                        src={testimonial.avatar || getRandomAvatar(testimonial.name)}
                         alt={testimonial.name}
                         className="w-full h-full object-cover"
                       />
