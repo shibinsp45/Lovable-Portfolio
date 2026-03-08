@@ -1,7 +1,7 @@
 import { motion, PanInfo } from "framer-motion";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Eye } from "lucide-react";
+import { ArrowUpRight, Eye, ChevronUp, ChevronDown } from "lucide-react";
 
 const projectGroups = [
   {
@@ -368,9 +368,9 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
         <div className="flex items-center gap-3 mt-4">
           <button
             onClick={() => { setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length); setTappedIndex(null); }}
-            className="text-xs text-muted-foreground/50 hover:text-foreground transition-colors"
+            className="text-muted-foreground/50 hover:text-foreground transition-colors"
           >
-            ←
+            <ChevronUp className="w-4 h-4" />
           </button>
           <span
             className="text-sm text-muted-foreground tracking-wider"
@@ -380,9 +380,9 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
           </span>
           <button
             onClick={() => { setActiveIndex((prev) => (prev + 1) % projects.length); setTappedIndex(null); }}
-            className="text-xs text-muted-foreground/50 hover:text-foreground transition-colors"
+            className="text-muted-foreground/50 hover:text-foreground transition-colors"
           >
-            →
+            <ChevronDown className="w-4 h-4" />
           </button>
         </div>
       )}
