@@ -356,7 +356,7 @@ const SoulChatbot = () => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-primary/40 bg-primary/25 text-foreground hover:bg-primary/35 hover:border-primary/50 shadow-sm shadow-primary/10 transition-all duration-200"
+                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-border/50 bg-card/30 text-foreground hover:bg-card/50 hover:border-border/70 shadow-sm shadow-border/10 transition-all duration-200"
                       >
                         <chip.icon className="w-3 h-3" />
                         {chip.label}
