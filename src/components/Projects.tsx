@@ -167,19 +167,37 @@ const cardTints = [
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
   const handleSwipe = (_: any, info: PanInfo) => {
     const swipeThreshold = 50;
-    if (info.offset.y < -swipeThreshold && activeIndex < projects.length - 1) {
-      setActiveIndex((prev) => prev + 1);
-    } else if (info.offset.y > swipeThreshold && activeIndex > 0) {
-      setActiveIndex((prev) => prev - 1);
+    if (info.offset.y < -swipeThreshold) {
+      // Infinite scroll: wrap around
+      setActiveIndex((prev) => (prev + 1) % projects.length);
+    } else if (info.offset.y > swipeThreshold) {
+      setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    }
+  };
+
+  const handleCardTap = (index: number, position: number) => {
+    if (position > 0) {
+      setActiveIndex(index);
+      setFlippedIndex(null);
+    } else if (position === 0) {
+      setFlippedIndex(flippedIndex === index ? null : index);
     }
   };
 
   const cardHeight = 320;
-  const titleBarHeight = 44; // height of each title tab peeking
+  const titleBarHeight = 44;
+
+  // Get wrapped position for infinite scrolling
+  const getPosition = (index: number) => {
+    let pos = index - activeIndex;
+    if (pos < -Math.floor(projects.length / 2)) pos += projects.length;
+    if (pos > Math.floor(projects.length / 2)) pos -= projects.length;
+    return pos;
+  };
 
   return (
     <motion.div
@@ -189,7 +207,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       transition={{ duration: 0.6 }}
       className="flex flex-col items-center"
     >
-      {/* Caption */}
       <h3
         className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-8"
         style={{ fontFamily: "'Quicksand', sans-serif" }}
@@ -197,21 +214,21 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
         {caption}
       </h3>
 
-      {/* Stack Container */}
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
         style={{
           height: `${cardHeight + 16}px`,
           marginTop: `${Math.min(projects.length - 1, 3) * titleBarHeight}px`,
+          perspective: "1200px",
         }}
       >
         {projects.map((project, index) => {
-          const position = index - activeIndex;
+          const position = getPosition(index);
           if (position < -1 || position > 3) return null;
 
-          const isHovered = hoveredIndex === index && position === 0;
           const isFront = position === 0;
           const isSwiped = position < 0;
+          const isFlipped = flippedIndex === index && isFront;
           const tint = cardTints[index % cardTints.length];
 
           return (
@@ -222,27 +239,26 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 y: isSwiped ? -cardHeight - 60 : position * -titleBarHeight,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
+                rotateY: isFlipped ? 180 : 0,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              drag={isFront ? "y" : false}
+              drag={isFront && !isFlipped ? "y" : false}
               dragConstraints={{ top: 0, bottom: 0 }}
               dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => {
-                if (position > 0) setActiveIndex(index);
-              }}
+              onClick={() => handleCardTap(index, position)}
               style={{
-                transformOrigin: "center top",
+                transformOrigin: "center center",
                 height: `${cardHeight}px`,
-                cursor: position > 0 ? "pointer" : "grab",
+                cursor: "pointer",
+                transformStyle: "preserve-3d",
               }}
             >
+              {/* Front face */}
               <div
-                className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col bg-gradient-to-b ${tint}`}
+                className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col bg-gradient-to-b ${tint}`}
+                style={{ backfaceVisibility: "hidden" }}
               >
-                {/* Title bar — always visible, acts as the peeking tab */}
                 <div className="px-4 sm:px-5 py-3 flex items-center justify-between border-b border-border/10 flex-shrink-0">
                   <h4
                     className="text-base sm:text-lg font-light tracking-tight text-foreground truncate"
@@ -258,7 +274,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   </div>
                 </div>
 
-                {/* Image — only meaningful on front card */}
                 <div className="relative flex-1 overflow-hidden">
                   <img
                     src={project.image}
@@ -267,9 +282,16 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     draggable={false}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+                  {/* Tap hint on front card */}
+                  {isFront && !isFlipped && (
+                    <div className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      Tap to flip
+                    </div>
+                  )}
                 </div>
 
-                {/* Description & role at bottom */}
                 <div className="px-4 sm:px-5 py-3">
                   <div
                     className="flex items-center gap-2 text-[10px] tracking-[0.12em] uppercase text-muted-foreground mb-1"
@@ -284,18 +306,29 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     {project.description}
                   </p>
                 </div>
+              </div>
 
-                {/* Hover overlay — View Project */}
-                <motion.div
-                  className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
-                  initial={false}
-                  animate={{ opacity: isHovered ? 1 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  style={{ pointerEvents: isHovered ? "auto" : "none" }}
-                >
+              {/* Back face — View Project */}
+              <div
+                className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col items-center justify-center bg-gradient-to-b ${tint}`}
+                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+              >
+                <div className="text-center px-6">
+                  <h4
+                    className="text-2xl font-light tracking-tight text-foreground mb-2"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    {project.title}
+                  </h4>
+                  <p
+                    className="text-sm text-muted-foreground mb-6 leading-relaxed"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {project.description}
+                  </p>
                   <Link
                     to={`/project/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -303,7 +336,13 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     View Project
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
-                </motion.div>
+                  <p
+                    className="text-[10px] tracking-wider uppercase text-muted-foreground/60 mt-4"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    Tap to flip back
+                  </p>
+                </div>
               </div>
             </motion.div>
           );
