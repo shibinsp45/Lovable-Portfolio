@@ -247,7 +247,7 @@ const SoulChatbot = () => {
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <motion.button
-          onClick={() => { setIsOpen(!isOpen); setShowBubble(false); setBubbleDismissed(true); }}
+          onClick={() => { const next = !isOpen; setIsOpen(next); setShowBubble(false); setBubbleDismissed(true); next ? playOpen() : playClose(); }}
           className="h-14 w-14 rounded-full shadow-lg shadow-primary/25 overflow-hidden relative group border border-border/20"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
