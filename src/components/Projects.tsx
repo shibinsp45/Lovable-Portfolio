@@ -310,11 +310,15 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   {isFront && (
                     <Link
                       to={`/project/${project.slug}`}
-                      className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 text-[9px] sm:text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-2.5 sm:px-3 py-1 rounded-full"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                      className="absolute inset-0 flex items-center justify-center"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Tap to view
+                      <span
+                        className="text-[10px] sm:text-xs tracking-wider uppercase text-foreground/80 bg-background/30 backdrop-blur-sm px-4 py-2 rounded-full"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        Tap to view
+                      </span>
                     </Link>
                   )}
                 </div>
