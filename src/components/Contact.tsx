@@ -61,7 +61,7 @@ const Contact = () => {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-6xl font-light tracking-wide"
+            className="text-3xl sm:text-4xl md:text-6xl font-light tracking-wide"
             style={{ fontFamily: "'Quicksand', sans-serif" }}
             initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}

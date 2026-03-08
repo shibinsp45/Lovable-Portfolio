@@ -104,7 +104,7 @@ const Testimonials = () => {
           </motion.div>
 
           {/* Right side - Scrolling testimonials */}
-          <div className="relative h-[500px] overflow-hidden">
+          <div className="relative h-[350px] sm:h-[400px] md:h-[500px] overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 

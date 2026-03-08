@@ -1,7 +1,7 @@
 import { motion, PanInfo } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Eye, ChevronUp } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
 
 const projectGroups = [
   {
@@ -164,7 +164,6 @@ interface CardStackProps {
   caption: string;
 }
 
-// Different glassmorphism color tints for each card
 const cardTints = [
   "from-blue-500/20 via-blue-400/10 to-transparent border-blue-400/20",
   "from-purple-500/20 via-purple-400/10 to-transparent border-purple-400/20",
@@ -179,14 +178,14 @@ const cardTints = [
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [tappedIndex, setTappedIndex] = useState<number | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  const pauseAutoCycle = useCallback(() => {
-    // No-op: auto-rotation disabled
+  useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
 
   const handleSwipe = (_: any, info: PanInfo) => {
-    pauseAutoCycle();
     const swipeThreshold = 50;
     if (info.offset.y < -swipeThreshold) {
       setActiveIndex((prev) => (prev + 1) % projects.length);
@@ -198,14 +197,18 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   const handleCardTap = (index: number, position: number) => {
     if (position > 0) {
       setActiveIndex(index);
+      setTappedIndex(null);
+    } else if (isTouchDevice) {
+      // Toggle overlay on tap for touch devices
+      setTappedIndex((prev) => (prev === index ? null : index));
     }
   };
 
-  const cardHeight = 320;
-  const titleBarHeight = 44;
+  const cardHeight = 280;
+  const smCardHeight = 320;
+  const titleBarHeight = 40;
   const maxVisible = 3;
 
-  // Get wrapped position for infinite scrolling
   const getPosition = (index: number) => {
     let pos = index - activeIndex;
     if (pos < -Math.floor(projects.length / 2)) pos += projects.length;
@@ -213,8 +216,9 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
     return pos;
   };
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % projects.length);
+  const showOverlay = (index: number) => {
+    if (isTouchDevice) return tappedIndex === index;
+    return hoveredIndex === index;
   };
 
   return (
@@ -226,16 +230,16 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       className="flex flex-col items-center"
     >
       <h3
-        className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-8"
+        className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-foreground mb-6 sm:mb-8"
         style={{ fontFamily: "'Quicksand', sans-serif" }}
       >
         {caption}
       </h3>
 
       <div
-        className="relative w-full max-w-[380px] sm:max-w-[420px]"
+        className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px]"
         style={{
-          height: `${cardHeight + 16}px`,
+          height: `${smCardHeight + 16}px`,
           marginTop: `${Math.min(projects.length - 1, maxVisible - 1) * titleBarHeight}px`,
           perspective: "1200px",
         }}
@@ -253,7 +257,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               key={project.slug}
               className="absolute left-0 right-0 top-0"
               animate={{
-                y: isSwiped ? -cardHeight - 60 : position * -titleBarHeight,
+                y: isSwiped ? -smCardHeight - 60 : position * -titleBarHeight,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
               }}
@@ -263,28 +267,28 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
               onClick={() => handleCardTap(index, position)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => !isTouchDevice && setHoveredIndex(index)}
+              onMouseLeave={() => !isTouchDevice && setHoveredIndex(null)}
               style={{
                 transformOrigin: "center center",
-                height: `${cardHeight}px`,
+                height: `${smCardHeight}px`,
                 cursor: "pointer",
+                touchAction: isFront ? "pan-x" : "auto",
               }}
             >
-              {/* Front face */}
               <div
                 className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col bg-gradient-to-b ${tint}`}
               >
-                <div className="px-4 sm:px-5 py-3 flex items-center justify-between border-b border-border/10 flex-shrink-0">
+                <div className="px-3 sm:px-4 md:px-5 py-2.5 sm:py-3 flex items-center justify-between border-b border-border/10 flex-shrink-0">
                   <h4
-                    className="text-base sm:text-lg font-light tracking-tight text-foreground truncate"
+                    className="text-sm sm:text-base md:text-lg font-light tracking-tight text-foreground truncate"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     {project.title}
                   </h4>
                   {isFront && projects.length > 1 && (
                     <div
-                      className="text-[9px] tracking-[0.12em] text-muted-foreground/60 flex-shrink-0 ml-3"
+                      className="text-[8px] sm:text-[9px] tracking-[0.12em] text-muted-foreground/60 flex-shrink-0 ml-2 sm:ml-3"
                       style={{ fontFamily: "'Poppins', sans-serif" }}
                     >
                       {activeIndex + 1}/{projects.length}
@@ -303,7 +307,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   {isFront && (
                     <Link
                       to={`/project/${project.slug}`}
-                      className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
+                      className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 text-[9px] sm:text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-2.5 sm:px-3 py-1 rounded-full"
                       style={{ fontFamily: "'Poppins', sans-serif" }}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -312,40 +316,40 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   )}
                 </div>
 
-                <div className="px-4 sm:px-5 py-3">
+                <div className="px-3 sm:px-4 md:px-5 py-2.5 sm:py-3">
                   <div
-                    className="flex items-center gap-2 text-[10px] tracking-[0.12em] uppercase text-muted-foreground mb-1"
+                    className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-[0.12em] uppercase text-muted-foreground mb-1"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
                     <span>{project.role}</span>
                   </div>
                   <p
-                    className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
+                    className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
                     {project.description}
                   </p>
                 </div>
 
-                {/* Hover overlay — View Project */}
+                {/* Overlay — View Project (hover on desktop, tap on mobile) */}
                 {isFront && (
                   <motion.div
                     className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
                     initial={false}
-                    animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
+                    animate={{ opacity: showOverlay(index) ? 1 : 0 }}
                     transition={{ duration: 0.2 }}
-                    style={{ pointerEvents: hoveredIndex === index ? "auto" : "none" }}
+                    style={{ pointerEvents: showOverlay(index) ? "auto" : "none" }}
                   >
                     <div className="flex flex-col items-center gap-3">
                       <Link
                         to={`/project/${project.slug}`}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
+                        className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-foreground text-background text-xs sm:text-sm font-medium hover:scale-105 active:scale-95 transition-transform duration-200"
                         style={{ fontFamily: "'Poppins', sans-serif" }}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Eye className="w-4 h-4" />
+                        <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         View Project
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                       </Link>
                     </div>
                   </motion.div>
@@ -355,6 +359,26 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
           );
         })}
       </div>
+
+      {/* Navigation dots for mobile */}
+      {projects.length > 1 && (
+        <div className="flex items-center gap-1.5 mt-4">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setActiveIndex(index);
+                setTappedIndex(null);
+              }}
+              className={`rounded-full transition-all duration-300 ${
+                index === activeIndex
+                  ? "w-6 h-2 bg-primary"
+                  : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 };
@@ -364,29 +388,29 @@ const Projects = () => {
     <section id="portfolio" className="relative bg-background">
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-12 sm:mb-16 md:mb-24"
         >
           <span
-            className="text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-4 block"
+            className="text-xs sm:text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-3 sm:mb-4 block"
             style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
             Selected Work
           </span>
           <h2
-            className="text-5xl md:text-7xl font-light tracking-tight text-muted-foreground"
+            className="text-3xl sm:text-5xl md:text-7xl font-light tracking-tight text-muted-foreground"
             style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
             Projects
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 md:gap-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-16 sm:gap-14 md:gap-20 lg:gap-14">
           {projectGroups.map((group) => (
             <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
           ))}
