@@ -299,8 +299,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
 const Projects = () => {
   return (
-    <section id="portfolio" className="relative min-h-screen overflow-hidden bg-background">
-      <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
+    <section id="portfolio" className="relative bg-background">
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <motion.div
