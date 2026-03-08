@@ -237,7 +237,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       </h3>
 
       <div
-        className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px]"
+        className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[460px] xl:max-w-[480px]"
         style={{
           height: `${smCardHeight + 16}px`,
           marginTop: `${Math.min(projects.length - 1, maxVisible - 1) * titleBarHeight}px`,
