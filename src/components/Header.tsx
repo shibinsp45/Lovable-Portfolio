@@ -140,9 +140,19 @@ const Header = () => {
               <X className="h-5 w-5" />
             </Button>
             <div className="flex flex-col items-center gap-6">
-              {navLinks
-                .filter((link) => link.name !== "Resume")
-                .map((link) => (
+              {navLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-2 font-sans text-2xl font-light text-foreground hover:text-primary transition-all duration-200"
+                  >
+                    {link.name} <ArrowUpRight className="w-5 h-5" />
+                  </a>
+                ) : (
                   <a
                     key={link.name}
                     href={link.href}
@@ -151,16 +161,8 @@ const Header = () => {
                   >
                     {link.name}
                   </a>
-                ))}
-              <a
-                href="https://linkedin.com/in/shibinsp45"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 font-sans text-2xl font-light text-foreground hover:text-primary transition-all duration-200"
-              >
-                LinkedIn <ArrowUpRight className="w-5 h-5" />
-              </a>
+                )
+              )}
             </div>
           </div>
         )}
