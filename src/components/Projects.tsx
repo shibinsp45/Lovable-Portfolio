@@ -254,9 +254,27 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
           const isFront = position === 0;
           const isSwiped = position < 0;
-          const tint = project.tint;
 
           return (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              position={position}
+              isFront={isFront}
+              isSwiped={isSwiped}
+              projects={projects}
+              activeIndex={activeIndex}
+              smCardHeight={smCardHeight}
+              titleBarHeight={titleBarHeight}
+              handleSwipe={handleSwipe}
+              handleCardTap={handleCardTap}
+              showOverlay={showOverlay(index)}
+              isTouchDevice={isTouchDevice}
+              hoveredIndex={hoveredIndex}
+              setHoveredIndex={setHoveredIndex}
+            />
+          );
             <motion.div
               key={project.slug}
               className="absolute left-0 right-0 top-0"
