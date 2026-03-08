@@ -260,23 +260,25 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               key={project.slug}
               className="absolute left-0 right-0 top-0"
               animate={{
-                y: isSwiped ? -smCardHeight - 60 : position * -titleBarHeight,
+                x: isSwiped ? -400 : 0,
+                y: isSwiped ? 0 : position * -titleBarHeight,
+                rotateZ: isSwiped ? -8 : 0,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              drag={isFront ? "y" : false}
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={0.15}
+              drag={isFront ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.18}
               onDragEnd={isFront ? handleSwipe : undefined}
               onClick={() => handleCardTap(index, position)}
               onMouseEnter={() => !isTouchDevice && setHoveredIndex(index)}
               onMouseLeave={() => !isTouchDevice && setHoveredIndex(null)}
               style={{
-                transformOrigin: "center center",
+                transformOrigin: "center bottom",
                 height: `${smCardHeight}px`,
-                cursor: "pointer",
-                touchAction: isFront ? "pan-x" : "auto",
+                cursor: isFront ? "grab" : "pointer",
+                touchAction: isFront ? "pan-y" : "auto",
               }}
             >
               <div
