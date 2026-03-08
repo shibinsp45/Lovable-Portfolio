@@ -91,7 +91,7 @@ const WhyChooseMe = () => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               whileHover={{ y: -15, transition: { duration: 0.3 } }}
-              className="bg-card/50 backdrop-blur-xl rounded-3xl p-8 border border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 group flex flex-col"
+              className="bg-card/30 backdrop-blur-2xl rounded-3xl p-8 border border-border/20 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 group flex flex-col relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary/5 before:via-transparent before:to-transparent before:rounded-3xl before:pointer-events-none"
             >
               <motion.div
                 className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors duration-300"
