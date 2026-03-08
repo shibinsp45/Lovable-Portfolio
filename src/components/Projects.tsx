@@ -410,16 +410,42 @@ const Projects = () => {
         </motion.div>
 
         <div className="flex flex-col gap-16 sm:gap-20 max-w-7xl mx-auto">
-          {projectGroups.map((group, index) => (
-            <div
-              key={group.caption}
-              className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
-            >
-              <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[560px] xl:max-w-[580px]">
-                <CardStack caption={group.caption} projects={group.projects} />
+          {projectGroups.map((group, index) => {
+            const isLeft = index % 2 === 0;
+            const illustration = illustrations[index % illustrations.length];
+            return (
+              <div
+                key={group.caption}
+                className={`relative flex ${isLeft ? "justify-start" : "justify-end"}`}
+              >
+                {/* Decorative illustration on the opposite side */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className={`absolute top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 ${
+                    isLeft ? "right-8 xl:right-16" : "left-8 xl:left-16"
+                  }`}
+                >
+                  <div className="relative">
+                    {illustration.svg}
+                    <div className={`absolute inset-0 ${illustration.glow} blur-3xl opacity-20 rounded-full`} />
+                  </div>
+                  <span
+                    className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/40 font-light"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {illustration.label}
+                  </span>
+                </motion.div>
+
+                <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[560px] xl:max-w-[580px]">
+                  <CardStack caption={group.caption} projects={group.projects} />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
