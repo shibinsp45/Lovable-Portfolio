@@ -107,8 +107,8 @@ const Contact = () => {
               >
                 <a href="mailto:shibinsp45@gmail.com" className="flex items-center gap-2">
                   <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  Email me
-                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  <span className="hidden md:inline">Email me</span>
+                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </Button>
             </motion.div>
@@ -122,8 +122,8 @@ const Contact = () => {
               >
                 <a href="https://wa.me/918606129072" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  WhatsApp
-                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  <span className="hidden md:inline">WhatsApp</span>
+                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </Button>
             </motion.div>
@@ -137,8 +137,8 @@ const Contact = () => {
               >
                 <a href="https://linkedin.com/in/shibinsp45" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  LinkedIn
-                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  <span className="hidden md:inline">LinkedIn</span>
+                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </Button>
             </motion.div>
