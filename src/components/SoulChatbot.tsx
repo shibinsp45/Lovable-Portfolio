@@ -287,7 +287,7 @@ const SoulChatbot = () => {
             className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/20 bg-background/70 backdrop-blur-3xl shadow-2xl shadow-black/20 overflow-hidden"
           >
             {/* Header */}
-            <div className="px-5 py-4 flex items-center gap-3 border-b border-border/20">
+            <div className="px-5 py-4 flex items-center gap-3 border-b border-border/15 bg-card/20 backdrop-blur-xl">
               <div className="relative">
                 <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/20">
                   <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
