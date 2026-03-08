@@ -6,15 +6,15 @@ const modules = [
   ["Interaction Design", "Design Thinking", "Visual Design", "Prototyping"],
 ];
 
-const moduleGradients: Record<string, string> = {
-  "Design Systems": "from-rose-500/80 via-pink-600/70 to-fuchsia-700/80",
-  "Product Design": "from-cyan-500/80 via-teal-600/70 to-emerald-700/80",
-  "User Research": "from-violet-500/80 via-purple-600/70 to-indigo-700/80",
-  "User Experience Design": "from-amber-500/80 via-orange-600/70 to-red-700/80",
-  "Interaction Design": "from-blue-500/80 via-indigo-600/70 to-purple-700/80",
-  "Design Thinking": "from-emerald-500/80 via-green-600/70 to-teal-700/80",
-  "Visual Design": "from-fuchsia-500/80 via-pink-600/70 to-rose-700/80",
-  "Prototyping": "from-red-500/80 via-rose-600/70 to-pink-700/80",
+const moduleGlows: Record<string, { border: string; glow: string; bg: string }> = {
+  "Design Systems": { border: "border-rose-400/40", glow: "shadow-rose-500/20", bg: "from-rose-500/15 to-pink-500/10" },
+  "Product Design": { border: "border-cyan-400/40", glow: "shadow-cyan-500/20", bg: "from-cyan-500/15 to-teal-500/10" },
+  "User Research": { border: "border-violet-400/40", glow: "shadow-violet-500/20", bg: "from-violet-500/15 to-purple-500/10" },
+  "User Experience Design": { border: "border-amber-400/40", glow: "shadow-amber-500/20", bg: "from-amber-500/15 to-orange-500/10" },
+  "Interaction Design": { border: "border-blue-400/40", glow: "shadow-blue-500/20", bg: "from-blue-500/15 to-indigo-500/10" },
+  "Design Thinking": { border: "border-emerald-400/40", glow: "shadow-emerald-500/20", bg: "from-emerald-500/15 to-green-500/10" },
+  "Visual Design": { border: "border-fuchsia-400/40", glow: "shadow-fuchsia-500/20", bg: "from-fuchsia-500/15 to-pink-500/10" },
+  "Prototyping": { border: "border-red-400/40", glow: "shadow-red-500/20", bg: "from-red-500/15 to-rose-500/10" },
 };
 
 const DraggableModule = ({
@@ -32,6 +32,9 @@ const DraggableModule = ({
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 30, damping: 12 });
   const springY = useSpring(y, { stiffness: 30, damping: 12 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const glowStyle = moduleGlows[module];
 
   const handleDragEnd = () => {
     x.set(0);
@@ -41,8 +44,8 @@ const DraggableModule = ({
   return (
     <motion.div
       style={{ x: springX, y: springY }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay }}
       drag
       dragMomentum={false}
@@ -53,21 +56,29 @@ const DraggableModule = ({
       }}
       onDragEnd={handleDragEnd}
       onClick={onSelect}
-      whileHover={{ scale: 1.05 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      whileHover={{ scale: 1.08, y: -3 }}
       whileTap={{ scale: 0.95 }}
-      whileDrag={{ scale: 1.1, zIndex: 50 }}
+      whileDrag={{ scale: 1.12, zIndex: 50 }}
       className="cursor-grab active:cursor-grabbing"
     >
       <div
-        className={`px-4 md:px-6 py-2 md:py-2.5 rounded-full border transition-all duration-300 ${
+        className={`relative px-5 md:px-7 py-2.5 md:py-3 rounded-full border backdrop-blur-2xl transition-all duration-500 overflow-hidden ${
           isActive
-            ? "bg-white/20 border-white/40 shadow-lg"
-            : "bg-transparent border-border/60 hover:border-primary/40"
+            ? `${glowStyle.border} shadow-lg ${glowStyle.glow} bg-gradient-to-r ${glowStyle.bg}`
+            : isHovered
+              ? "border-border/50 bg-card/40 shadow-md shadow-primary/5"
+              : "border-border/30 bg-card/20"
         }`}
       >
+        {/* Inner glass reflection */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-foreground/[0.06] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-foreground/[0.03] to-foreground/[0.08] pointer-events-none" />
+        
         <span
-          className={`font-normal text-xs md:text-sm whitespace-nowrap transition-colors duration-300 ${
-            isActive ? "text-white font-medium" : "text-muted-foreground"
+          className={`relative z-10 font-normal text-xs md:text-sm whitespace-nowrap transition-colors duration-300 ${
+            isActive ? "text-foreground font-medium" : "text-muted-foreground"
           }`}
         >
           {module}
@@ -79,38 +90,20 @@ const DraggableModule = ({
 
 const ModulesCarousel = () => {
   const [activeModule, setActiveModule] = useState<string | null>(null);
-  const activeGradient = activeModule ? moduleGradients[activeModule] : null;
 
   return (
     <section className="relative py-10 md:py-16 overflow-hidden">
-      {/* Dynamic Background */}
-      <AnimatePresence mode="wait">
-        {activeGradient ? (
-          <motion.div
-            key={activeModule}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className={`absolute inset-0 bg-gradient-to-br ${activeGradient}`}
-          />
-        ) : (
-          <motion.div
-            key="default"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-background"
-          />
-        )}
-      </AnimatePresence>
+      {/* Subtle ambient glow behind chips */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-[120px]" />
+      </div>
 
       {/* Gradient Fades */}
       <div className="absolute top-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
 
       <div className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-4 md:gap-6">
+        <div className="flex flex-col items-center gap-4 md:gap-5">
           {modules.map((row, rowIndex) => (
             <div
               key={rowIndex}
