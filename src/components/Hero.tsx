@@ -142,7 +142,7 @@ const Hero = () => {
           className="space-y-4 md:space-y-6"
         >
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
