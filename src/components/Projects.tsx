@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
 
 const projects = [
   {
@@ -64,11 +64,23 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const filteredProjects = useMemo(
-    () => activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory),
-    [activeCategory]
-  );
+  const filteredProjects = useMemo(() => {
+    const result = activeCategory === "All" ? projects : projects.filter((p) => p.category === activeCategory);
+    return result;
+  }, [activeCategory]);
+
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    setActiveIndex(0);
+  };
+
+  const handleCardClick = (index: number) => {
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+    }
+  };
 
   return (
     <section id="portfolio" className="relative min-h-screen overflow-hidden bg-background">
@@ -110,7 +122,7 @@ const Projects = () => {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => handleCategoryChange(cat)}
               className={`relative px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
                 activeCategory === cat
                   ? "bg-foreground text-background shadow-lg"
@@ -123,114 +135,129 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Case Study Cards */}
-        <div className="space-y-24 md:space-y-32">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div
-                  key={project.slug}
-                  layout
-                  initial={{ opacity: 0, y: 60 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -30, scale: 0.95 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Link to={`/project/${project.slug}`} className="group block">
-                    <div
-                      className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
-                        !isEven ? "lg:direction-rtl" : ""
-                      }`}
-                    >
-                      {/* Image Side */}
-                      <motion.div
-                        className={`relative rounded-3xl overflow-hidden bg-card/20 backdrop-blur-xl border border-border/10 ${
-                          !isEven ? "lg:order-2" : ""
-                        }`}
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <div className="aspect-[16/10] overflow-hidden">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                          />
-                        </div>
-                        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-500" />
-                      </motion.div>
+        {/* Stacked Cards */}
+        <div className="flex justify-center">
+          <div className="relative w-full max-w-[420px] sm:max-w-[480px] md:max-w-[520px]" style={{ height: "580px" }}>
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => {
+                const position = index - activeIndex;
+                // Only show cards that are at or behind the active card (up to 4 deep)
+                if (position < 0 || position > 4) return null;
 
-                      {/* Info Side */}
-                      <div
-                        className={`space-y-5 ${
-                          !isEven ? "lg:order-1 lg:text-right" : ""
-                        }`}
-                      >
-                        <span
-                          className="text-7xl md:text-8xl font-extralight text-muted-foreground/15 block leading-none"
-                          style={{ fontFamily: "'Quicksand', sans-serif" }}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-
-                        <div
-                          className={`flex items-center gap-4 text-xs tracking-[0.2em] uppercase text-muted-foreground ${
-                            !isEven ? "lg:justify-end" : ""
-                          }`}
-                        >
-                          <span>{project.category}</span>
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-                          <span>{project.year}</span>
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-                          <span>{project.role}</span>
-                        </div>
-
-                        <h3
-                          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground"
-                          style={{ fontFamily: "'Quicksand', sans-serif" }}
-                        >
-                          {project.title}
-                        </h3>
-
-                        <p
-                          className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md"
-                          style={{
-                            fontFamily: "'Poppins', sans-serif",
-                            ...(isEven ? {} : { marginLeft: "auto" }),
-                          }}
-                        >
-                          {project.description}
-                        </p>
-
-                        <div
-                          className={`flex items-center gap-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 ${
-                            !isEven ? "lg:justify-end" : ""
-                          }`}
-                        >
+                return (
+                  <motion.div
+                    key={project.slug}
+                    layout
+                    className="absolute inset-0 cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.9, y: 80 }}
+                    animate={{
+                      scale: 1 - position * 0.05,
+                      y: position * 32,
+                      zIndex: filteredProjects.length - position,
+                      opacity: 1 - position * 0.2,
+                      rotateZ: position * -1.5,
+                    }}
+                    exit={{ opacity: 0, scale: 0.9, y: -60 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                    onClick={() => handleCardClick(index)}
+                    style={{ transformOrigin: "center bottom" }}
+                  >
+                    <div className="h-full rounded-3xl overflow-hidden bg-card/30 backdrop-blur-xl border border-border/20 shadow-xl flex flex-col">
+                      {/* Project Image */}
+                      <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
+                        {/* Category Badge */}
+                        <div className="absolute top-4 left-4">
                           <span
-                            className="tracking-wide"
+                            className="px-3 py-1 rounded-full text-xs font-medium bg-foreground/80 text-background backdrop-blur-sm"
                             style={{ fontFamily: "'Poppins', sans-serif" }}
                           >
-                            View Case Study
+                            {project.category}
                           </span>
-                          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
+                        <div className="space-y-2">
+                          {/* Meta */}
+                          <div
+                            className="flex items-center gap-3 text-xs tracking-[0.15em] uppercase text-muted-foreground"
+                            style={{ fontFamily: "'Poppins', sans-serif" }}
+                          >
+                            <span>{project.year}</span>
+                            <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+                            <span>{project.role}</span>
+                          </div>
+
+                          {/* Title */}
+                          <h3
+                            className="text-xl sm:text-2xl font-light tracking-tight text-foreground"
+                            style={{ fontFamily: "'Quicksand', sans-serif" }}
+                          >
+                            {project.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p
+                            className="text-sm text-muted-foreground leading-relaxed line-clamp-2"
+                            style={{ fontFamily: "'Poppins', sans-serif" }}
+                          >
+                            {project.description}
+                          </p>
                         </div>
 
-                        <div
-                          className={`h-px bg-border/30 group-hover:bg-border/60 transition-colors duration-500 ${
-                            !isEven ? "lg:ml-auto" : ""
-                          }`}
-                          style={{ width: "100%", maxWidth: "120px" }}
-                        />
+                        {/* Tap to Preview CTA */}
+                        {position === 0 && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            <Link
+                              to={`/project/${project.slug}`}
+                              className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground/10 border border-border/30 text-sm font-medium text-foreground hover:bg-foreground/20 transition-all duration-300 backdrop-blur-sm"
+                              style={{ fontFamily: "'Poppins', sans-serif" }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Eye className="w-4 h-4" />
+                              Tap to Preview
+                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            </Link>
+                          </motion.div>
+                        )}
                       </div>
                     </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Dot Navigation */}
+        <div className="flex justify-center gap-2 mt-16">
+          {filteredProjects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`rounded-full transition-all duration-300 ${
+                index === activeIndex
+                  ? "w-8 h-2.5 bg-foreground"
+                  : "w-2.5 h-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+              }`}
+              aria-label={`Go to project ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
 
