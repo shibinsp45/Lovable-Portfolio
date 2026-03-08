@@ -532,7 +532,7 @@ const Projects = () => {
             return (
               <div
                 key={group.caption}
-                className={`relative flex ${isLeft ? "justify-start" : "justify-end"}`}
+                className={`relative flex justify-center ${isLeft ? "lg:justify-start" : "lg:justify-end"}`}
               >
                 {/* Decorative illustration on the opposite side */}
                 <motion.div
