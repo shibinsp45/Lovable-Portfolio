@@ -41,6 +41,7 @@ serve(async (req) => {
             ...messages,
           ],
           stream: true,
+          max_tokens: 150,
         }),
       }
     );
