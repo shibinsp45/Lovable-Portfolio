@@ -175,9 +175,7 @@ const cardTints = [
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pauseAutoCycle = useCallback(() => {
@@ -195,12 +193,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   };
 
   const handleCardTap = (index: number, position: number) => {
-    pauseAutoCycle();
     if (position > 0) {
       setActiveIndex(index);
-      setFlippedIndex(null);
-    } else if (position === 0) {
-      setFlippedIndex(flippedIndex === index ? null : index);
     }
   };
 
@@ -244,7 +238,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
           const isFront = position === 0;
           const isSwiped = position < 0;
-          const isFlipped = flippedIndex === index && isFront;
+          const isFlipped = false;
           const tint = cardTints[index % cardTints.length];
 
           return (
@@ -302,11 +296,14 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                   {/* Tap hint on front card */}
                   {isFront && !isFlipped && (
-                    <div className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
+                    <Link
+                      to={`/project/${project.slug}`}
+                      className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
                       style={{ fontFamily: "'Poppins', sans-serif" }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      Tap to flip
-                    </div>
+                      Tap to view
+                    </Link>
                   )}
                 </div>
 
@@ -345,53 +342,11 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                         View Project
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
-                      <span
-                        className="text-[10px] tracking-wider uppercase text-muted-foreground"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        or tap to flip
-                      </span>
                     </div>
                   </motion.div>
                 )}
               </div>
 
-              {/* Back face — View Project */}
-              <div
-                className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col items-center justify-center bg-gradient-to-b ${tint}`}
-                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-              >
-                <div className="text-center px-6">
-                  <h4
-                    className="text-2xl font-light tracking-tight text-foreground mb-2"
-                    style={{ fontFamily: "'Quicksand', sans-serif" }}
-                  >
-                    {project.title}
-                  </h4>
-                  <p
-                    className="text-sm text-muted-foreground mb-6 leading-relaxed"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.description}
-                  </p>
-                  <Link
-                    to={`/project/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Eye className="w-4 h-4" />
-                    View Project
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <p
-                    className="text-[10px] tracking-wider uppercase text-muted-foreground/60 mt-4"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    Tap to flip back
-                  </p>
-                </div>
-              </div>
             </motion.div>
           );
         })}
