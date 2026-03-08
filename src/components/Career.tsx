@@ -8,7 +8,7 @@ const experiences = [
     period: "2025 - Now",
     description:
       "Helping humans with UI/UX design and development, AI-driven social insights, and mentoring designers!",
-    scrollColor: "#4ade80",
+    scrollColor: "#22c55e",
   },
   {
     title: "UI/UX Designer - Kreative Sparkz",
