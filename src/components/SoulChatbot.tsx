@@ -255,7 +255,7 @@ const SoulChatbot = () => {
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
-                className="absolute inset-0 bg-secondary/80 backdrop-blur-sm flex items-center justify-center border border-border/40 rounded-full"
+                className="absolute inset-0 bg-card/40 backdrop-blur-2xl flex items-center justify-center border border-border/30 rounded-full"
               >
                 <X className="h-5 w-5 text-foreground" />
               </motion.div>
