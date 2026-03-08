@@ -77,7 +77,7 @@ const Testimonials = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Button variant="secondary" className="rounded-full px-6">
-                Testimonials
+                Recommendations
               </Button>
             </motion.div>
 
