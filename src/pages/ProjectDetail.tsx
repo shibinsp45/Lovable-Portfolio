@@ -300,6 +300,7 @@ const projectsData = {
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = projectsData[slug as keyof typeof projectsData];
+  const imageColor = useImageColor(project?.image);
 
   if (!project) {
     return (
@@ -323,10 +324,16 @@ const ProjectDetail = () => {
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        {/* Glassmorphism background */}
+        {/* Dynamic color background from project image */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-[hsl(320,80%,60%)]/15 rounded-full blur-[120px]" />
+          <div
+            className="absolute top-20 left-1/4 w-96 h-96 rounded-full blur-[120px]"
+            style={{ background: imageColor ? `rgba(${imageColor}, 0.2)` : "hsl(var(--primary) / 0.2)" }}
+          />
+          <div
+            className="absolute bottom-20 right-1/4 w-96 h-96 rounded-full blur-[120px]"
+            style={{ background: imageColor ? `rgba(${imageColor}, 0.12)` : "hsl(320 80% 60% / 0.15)" }}
+          />
         </div>
 
         <div className="container mx-auto px-6">
