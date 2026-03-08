@@ -14,6 +14,7 @@ const projectGroups = [
         slug: "invoice-generator",
         year: "2025",
         role: "UI/UX Designer",
+        tint: "from-blue-600/25 via-blue-500/10 to-transparent border-blue-500/25",
       },
       {
         title: "Tools - Service App",
@@ -22,6 +23,7 @@ const projectGroups = [
         slug: "tools-app",
         year: "2025",
         role: "UI/UX Designer",
+        tint: "from-orange-500/25 via-orange-400/10 to-transparent border-orange-400/25",
       },
       {
         title: "Fudit - Food Delivery",
@@ -30,6 +32,7 @@ const projectGroups = [
         slug: "fudit-app",
         year: "2024",
         role: "UI/UX Designer",
+        tint: "from-red-500/25 via-red-400/10 to-transparent border-red-400/25",
       },
       {
         title: "GetFit - Fitness Tracker",
@@ -38,6 +41,7 @@ const projectGroups = [
         slug: "fitness-app",
         year: "2024",
         role: "UI/UX Designer",
+        tint: "from-lime-500/25 via-lime-400/10 to-transparent border-lime-400/25",
       },
       {
         title: "GroPlan - Grocery App",
@@ -46,6 +50,7 @@ const projectGroups = [
         slug: "grocery-app",
         year: "2025",
         role: "UI/UX Designer",
+        tint: "from-emerald-500/25 via-emerald-400/10 to-transparent border-emerald-400/25",
       },
       {
         title: "ProMedic - Medicine Vending",
@@ -54,6 +59,7 @@ const projectGroups = [
         slug: "medicine-vending",
         year: "2024",
         role: "UI/UX Designer",
+        tint: "from-sky-500/25 via-sky-400/10 to-transparent border-sky-400/25",
       },
     ],
   },
@@ -67,6 +73,7 @@ const projectGroups = [
         slug: "event-mgmt",
         year: "2024",
         role: "Web Designer",
+        tint: "from-violet-500/25 via-violet-400/10 to-transparent border-violet-400/25",
       },
       {
         title: "ElitePath Dashboard",
@@ -75,6 +82,7 @@ const projectGroups = [
         slug: "elitepath",
         year: "2024",
         role: "UI/UX Designer",
+        tint: "from-indigo-500/25 via-indigo-400/10 to-transparent border-indigo-400/25",
       },
       {
         title: "Beat Landing Page",
@@ -83,6 +91,7 @@ const projectGroups = [
         slug: "beat-landing",
         year: "2024",
         role: "Web Developer",
+        tint: "from-yellow-500/25 via-yellow-400/10 to-transparent border-yellow-400/25",
       },
       {
         title: "TeaTym Product Website",
@@ -91,6 +100,7 @@ const projectGroups = [
         slug: "teatym",
         year: "2024",
         role: "Web Developer",
+        tint: "from-amber-600/25 via-amber-500/10 to-transparent border-amber-500/25",
       },
     ],
   },
@@ -104,6 +114,7 @@ const projectGroups = [
         slug: "happy-cart",
         year: "2024",
         role: "Brand Designer",
+        tint: "from-pink-500/25 via-pink-400/10 to-transparent border-pink-400/25",
       },
       {
         title: "Smiley Wallpaper Design",
@@ -112,6 +123,7 @@ const projectGroups = [
         slug: "smiley-wallpaper",
         year: "2024",
         role: "Graphic Designer",
+        tint: "from-yellow-400/25 via-yellow-300/10 to-transparent border-yellow-300/25",
       },
     ],
   },
@@ -125,6 +137,7 @@ const projectGroups = [
         slug: "perfume-branding",
         year: "2025",
         role: "AI Designer",
+        tint: "from-rose-400/25 via-rose-300/10 to-transparent border-rose-300/25",
       },
     ],
   },
@@ -138,6 +151,7 @@ const projectGroups = [
         slug: "uiux-shapes-world",
         year: "2025",
         role: "Writer",
+        tint: "from-cyan-500/25 via-cyan-400/10 to-transparent border-cyan-400/25",
       },
       {
         title: "How Your Brain Shapes UX",
@@ -146,6 +160,7 @@ const projectGroups = [
         slug: "brain-shapes-ux",
         year: "2025",
         role: "Writer",
+        tint: "from-purple-500/25 via-purple-400/10 to-transparent border-purple-400/25",
       },
       {
         title: "Human-Computer Interaction",
@@ -154,26 +169,15 @@ const projectGroups = [
         slug: "human-computer-interaction",
         year: "2025",
         role: "Writer & Researcher",
+        tint: "from-teal-500/25 via-teal-400/10 to-transparent border-teal-400/25",
       },
     ],
   },
 ];
-
 interface CardStackProps {
   projects: typeof projectGroups[0]["projects"];
   caption: string;
 }
-
-const cardTints = [
-  "from-blue-500/20 via-blue-400/10 to-transparent border-blue-400/20",
-  "from-purple-500/20 via-purple-400/10 to-transparent border-purple-400/20",
-  "from-emerald-500/20 via-emerald-400/10 to-transparent border-emerald-400/20",
-  "from-rose-500/20 via-rose-400/10 to-transparent border-rose-400/20",
-  "from-amber-500/20 via-amber-400/10 to-transparent border-amber-400/20",
-  "from-cyan-500/20 via-cyan-400/10 to-transparent border-cyan-400/20",
-  "from-pink-500/20 via-pink-400/10 to-transparent border-pink-400/20",
-  "from-teal-500/20 via-teal-400/10 to-transparent border-teal-400/20",
-];
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -249,7 +253,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
           const isFront = position === 0;
           const isSwiped = position < 0;
-          const tint = cardTints[index % cardTints.length];
+          const tint = project.tint;
 
           return (
             <motion.div
