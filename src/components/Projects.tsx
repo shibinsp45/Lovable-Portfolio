@@ -253,7 +253,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
           const isFront = position === 0;
           const isSwiped = position < 0;
-          const tint = cardTints[index % cardTints.length];
+          const tint = project.tint;
 
           return (
             <motion.div
