@@ -305,7 +305,7 @@ const SoulChatbot = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-lg bg-secondary/40 hover:bg-secondary/70 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
+                className="w-8 h-8 rounded-lg bg-card/40 backdrop-blur-xl border border-border/20 hover:bg-card/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
               >
                 <X className="w-4 h-4" />
               </button>
