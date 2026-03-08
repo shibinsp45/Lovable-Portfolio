@@ -4,7 +4,7 @@ import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
 import { useChatSounds } from "@/hooks/use-chat-sounds";
-import { MessageSquare, Linkedin, Instagram, FileText } from "lucide-react";
+import { MessageSquare, Linkedin, Instagram, FileText, Mail } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -12,6 +12,7 @@ const contactChips = [
   { label: "WhatsApp", icon: MessageSquare, url: "https://wa.me/918606129072" },
   { label: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/shibinsp45/" },
   { label: "Instagram", icon: Instagram, url: "https://www.instagram.com/shibin_sp45/" },
+  { label: "Email", icon: Mail, url: "mailto:shibinsp45@gmail.com" },
   { label: "Resume", icon: FileText, url: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF" },
 ];
 
@@ -396,16 +397,16 @@ const SoulChatbot = () => {
                         <ReactMarkdown
                           components={{
                             a: ({ href, children }) => {
-                              const chip = contactChips.find((c) => href?.includes(c.url) || c.url.includes(href || ""));
                               const isWhatsApp = href?.includes("wa.me");
                               const isLinkedIn = href?.includes("linkedin.com");
                               const isInstagram = href?.includes("instagram.com");
                               const isDrive = href?.includes("drive.google.com");
-                              const matched = chip || isWhatsApp || isLinkedIn || isInstagram || isDrive;
+                              const isEmail = href?.startsWith("mailto:");
+                              const matched = isWhatsApp || isLinkedIn || isInstagram || isDrive || isEmail;
                               
                               if (matched) {
-                                const Icon = chip?.icon || (isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : FileText);
-                                const label = chip?.label || (isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : "Resume");
+                                const Icon = isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : isEmail ? Mail : FileText;
+                                const label = isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : isEmail ? "Email" : "Resume";
                                 return (
                                   <a
                                     href={href}
