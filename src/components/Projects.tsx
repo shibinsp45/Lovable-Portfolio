@@ -161,16 +161,19 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleSwipe = (_: any, info: PanInfo) => {
-    const swipeThreshold = 40;
-    if (info.offset.x < -swipeThreshold && activeIndex < projects.length - 1) {
+    const swipeThreshold = 50;
+    // Swipe up to go next
+    if (info.offset.y < -swipeThreshold && activeIndex < projects.length - 1) {
       setActiveIndex((prev) => prev + 1);
-    } else if (info.offset.x > swipeThreshold && activeIndex > 0) {
+    }
+    // Swipe down to go back
+    else if (info.offset.y > swipeThreshold && activeIndex > 0) {
       setActiveIndex((prev) => prev - 1);
     }
   };
 
-  const stackOffset = 10; // horizontal offset per card
-  const stackScale = 0.04; // scale reduction per card
+  const cardHeight = 300;
+  const peekGap = 40; // how much each card peeks below
 
   return (
     <motion.div
@@ -191,37 +194,45 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       {/* Stack Container */}
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
-        style={{ height: "340px" }}
+        style={{ height: `${cardHeight + (Math.min(projects.length - 1, 3)) * peekGap}px` }}
       >
         {projects.map((project, index) => {
           const position = index - activeIndex;
-          if (position < 0 || position > 3) return null;
+          // Show cards behind (peeking below) and allow swiped-away cards to animate out
+          if (position < -1 || position > 3) return null;
 
-          const isHovered = hoveredIndex === index;
+          const isHovered = hoveredIndex === index && position === 0;
           const isFront = position === 0;
+          const isSwiped = position < 0;
 
           return (
             <motion.div
               key={project.slug}
-              className="absolute inset-0 touch-pan-y"
+              className="absolute left-0 right-0 top-0"
               animate={{
-                x: position * stackOffset,
-                y: position * 8,
-                scale: 1 - position * stackScale,
-                zIndex: projects.length - position,
-                opacity: 1 - position * 0.15,
+                y: isSwiped ? -cardHeight - 40 : position * peekGap,
+                scale: isSwiped ? 0.9 : 1 - position * 0.035,
+                zIndex: isSwiped ? 0 : projects.length - position,
+                opacity: isSwiped ? 0 : 1 - position * 0.12,
               }}
-              transition={{ type: "spring", stiffness: 350, damping: 32 }}
-              drag={isFront ? "x" : false}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              drag={isFront ? "y" : false}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              style={{ transformOrigin: "center center" }}
+              onClick={() => {
+                if (position > 0) setActiveIndex(index);
+              }}
+              style={{
+                transformOrigin: "center top",
+                height: `${cardHeight}px`,
+                cursor: position > 0 ? "pointer" : "grab",
+              }}
             >
               <div className="relative h-full rounded-2xl overflow-hidden border border-border/20 shadow-lg bg-card/30 backdrop-blur-xl flex flex-col">
-                {/* Image - top portion */}
+                {/* Image */}
                 <div className="relative h-[55%] overflow-hidden flex-shrink-0">
                   <img
                     src={project.image}
@@ -232,7 +243,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80" />
                 </div>
 
-                {/* Content - bottom portion */}
+                {/* Content */}
                 <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
                   <div>
                     <div
@@ -282,7 +293,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
           );
         })}
       </div>
-
     </motion.div>
   );
 };
