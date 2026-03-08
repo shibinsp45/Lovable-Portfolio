@@ -236,7 +236,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       </h3>
 
       <div
-        className="relative w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[480px] xl:max-w-[500px]"
+        className="relative w-full"
         style={{
           height: `${smCardHeight + 16}px`,
           marginTop: `${Math.min(projects.length - 1, maxVisible - 1) * titleBarHeight}px`,
@@ -409,9 +409,16 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 lg:gap-10 xl:gap-8 max-w-7xl mx-auto">
-          {projectGroups.map((group) => (
-            <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
+        <div className="flex flex-col gap-16 sm:gap-20 max-w-7xl mx-auto">
+          {projectGroups.map((group, index) => (
+            <div
+              key={group.caption}
+              className={`flex ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
+            >
+              <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[560px] xl:max-w-[580px]">
+                <CardStack caption={group.caption} projects={group.projects} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
