@@ -498,10 +498,25 @@ const Projects = () => {
                     isLeft ? "right-8 xl:right-16" : "left-8 xl:left-16"
                   }`}
                 >
-                  <div className="relative">
+                  <motion.div
+                    className="relative"
+                    animate={{
+                      y: [0, -8, 0],
+                      rotate: [0, 2, -2, 0],
+                    }}
+                    transition={{
+                      duration: 5 + index,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
                     {illustration.svg}
-                    <div className={`absolute inset-0 ${illustration.glow} blur-3xl opacity-20 rounded-full`} />
-                  </div>
+                    <motion.div
+                      className={`absolute inset-0 ${illustration.glow} blur-3xl rounded-full`}
+                      animate={{ opacity: [0.15, 0.25, 0.15] }}
+                      transition={{ duration: 3 + index, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </motion.div>
                   <span
                     className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/40 font-light"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
