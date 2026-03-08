@@ -238,7 +238,7 @@ const SoulChatbot = () => {
             {/* Header */}
             <div className="px-4 py-3 border-b border-border/30 bg-primary/5 flex items-center gap-3">
               <div className="w-8 h-8 rounded-full overflow-hidden">
-                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover" />
+                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
               </div>
               <div className="flex-1">
                 <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
