@@ -231,7 +231,17 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 cursor: position > 0 ? "pointer" : "grab",
               }}
             >
-              <div className="relative h-full rounded-2xl overflow-hidden border border-border/20 shadow-lg bg-card/30 backdrop-blur-xl flex flex-col">
+              <div
+                className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col ${
+                  position === 0
+                    ? "border-border/20 shadow-lg bg-card/30"
+                    : position === 1
+                    ? "border-primary/15 shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.25)] bg-card/25"
+                    : position === 2
+                    ? "border-primary/10 shadow-[0_12px_40px_-10px_hsl(var(--primary)/0.2)] bg-card/20"
+                    : "border-primary/5 shadow-[0_16px_50px_-12px_hsl(var(--primary)/0.15)] bg-card/15"
+                }`}
+              >
                 {/* Image */}
                 <div className="relative h-[55%] overflow-hidden flex-shrink-0">
                   <img
