@@ -1,5 +1,5 @@
 import { motion, PanInfo } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye } from "lucide-react";
 
