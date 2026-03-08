@@ -156,25 +156,30 @@ interface CardStackProps {
   caption: string;
 }
 
+// Different glassmorphism color tints for each card
+const cardTints = [
+  "from-blue-500/20 via-blue-400/10 to-transparent border-blue-400/20",
+  "from-purple-500/20 via-purple-400/10 to-transparent border-purple-400/20",
+  "from-emerald-500/20 via-emerald-400/10 to-transparent border-emerald-400/20",
+  "from-rose-500/20 via-rose-400/10 to-transparent border-rose-400/20",
+  "from-amber-500/20 via-amber-400/10 to-transparent border-amber-400/20",
+];
+
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleSwipe = (_: any, info: PanInfo) => {
     const swipeThreshold = 50;
-    // Swipe up to go next
     if (info.offset.y < -swipeThreshold && activeIndex < projects.length - 1) {
       setActiveIndex((prev) => prev + 1);
-    }
-    // Swipe down to go back
-    else if (info.offset.y > swipeThreshold && activeIndex > 0) {
+    } else if (info.offset.y > swipeThreshold && activeIndex > 0) {
       setActiveIndex((prev) => prev - 1);
     }
   };
 
-  const cardHeight = 300;
-  const peekX = 3;
-  const peekY = -34; // stack upward so titles peek above
+  const cardHeight = 320;
+  const titleBarHeight = 44; // height of each title tab peeking
 
   return (
     <motion.div
@@ -196,8 +201,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
         style={{
-          height: `${cardHeight + 20}px`,
-          marginTop: `${Math.min(projects.length - 1, 3) * 34}px`,
+          height: `${cardHeight + 16}px`,
+          marginTop: `${Math.min(projects.length - 1, 3) * titleBarHeight}px`,
         }}
       >
         {projects.map((project, index) => {
@@ -207,15 +212,14 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
           const isHovered = hoveredIndex === index && position === 0;
           const isFront = position === 0;
           const isSwiped = position < 0;
+          const tint = cardTints[index % cardTints.length];
 
           return (
             <motion.div
               key={project.slug}
               className="absolute left-0 right-0 top-0"
               animate={{
-                x: isSwiped ? 0 : position * peekX,
-                y: isSwiped ? -cardHeight - 40 : position * peekY,
-                scale: isSwiped ? 0.95 : 1,
+                y: isSwiped ? -cardHeight - 60 : position * -titleBarHeight,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
               }}
@@ -236,35 +240,25 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               }}
             >
               <div
-                className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col ${
-                  position === 0
-                    ? "border-border/20 shadow-lg bg-card/30"
-                    : position === 1
-                    ? "border-primary/15 shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.25)] bg-card/25"
-                    : position === 2
-                    ? "border-primary/10 shadow-[0_12px_40px_-10px_hsl(var(--primary)/0.2)] bg-card/20"
-                    : "border-primary/5 shadow-[0_16px_50px_-12px_hsl(var(--primary)/0.15)] bg-card/15"
-                }`}
+                className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col bg-gradient-to-b ${tint}`}
               >
-                {/* Title at top */}
-                <div className="p-4 sm:p-5 pb-2">
+                {/* Title bar — always visible, acts as the peeking tab */}
+                <div className="px-4 sm:px-5 py-3 flex items-center justify-between border-b border-border/10 flex-shrink-0">
                   <h4
-                    className="text-lg sm:text-xl font-light tracking-tight text-foreground"
+                    className="text-base sm:text-lg font-light tracking-tight text-foreground truncate"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     {project.title}
                   </h4>
                   <div
-                    className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mt-1"
+                    className="text-[9px] tracking-[0.12em] uppercase text-muted-foreground flex-shrink-0 ml-3"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
-                    <span>{project.year}</span>
-                    <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                    <span>{project.role}</span>
+                    {project.year}
                   </div>
                 </div>
 
-                {/* Image - middle */}
+                {/* Image — only meaningful on front card */}
                 <div className="relative flex-1 overflow-hidden">
                   <img
                     src={project.image}
@@ -272,11 +266,17 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     className="w-full h-full object-cover"
                     draggable={false}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                 </div>
 
-                {/* Description at bottom */}
-                <div className="p-4 sm:p-5 pt-3">
+                {/* Description & role at bottom */}
+                <div className="px-4 sm:px-5 py-3">
+                  <div
+                    className="flex items-center gap-2 text-[10px] tracking-[0.12em] uppercase text-muted-foreground mb-1"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    <span>{project.role}</span>
+                  </div>
                   <p
                     className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
@@ -287,7 +287,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
                 {/* Hover overlay — View Project */}
                 <motion.div
-                  className="absolute inset-0 bg-background/75 backdrop-blur-sm flex items-center justify-center rounded-2xl"
+                  className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
                   initial={false}
                   animate={{ opacity: isHovered ? 1 : 0 }}
                   transition={{ duration: 0.2 }}
