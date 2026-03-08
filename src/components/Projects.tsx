@@ -382,6 +382,76 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   );
 };
 
+const illustrations = [
+  {
+    label: "Design",
+    glow: "bg-primary/30",
+    svg: (
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
+        <circle cx="60" cy="60" r="50" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 6" />
+        <circle cx="60" cy="60" r="30" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M60 10 L60 110" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 4" />
+        <path d="M10 60 L110 60" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 4" />
+        <circle cx="60" cy="60" r="4" fill="currentColor" opacity="0.3" />
+        <rect x="38" y="38" width="44" height="44" rx="8" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
+      </svg>
+    ),
+  },
+  {
+    label: "Develop",
+    glow: "bg-blue-500/30",
+    svg: (
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
+        <path d="M20 40 L50 60 L20 80" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M60 80 L100 80" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" />
+        <rect x="10" y="15" width="100" height="90" rx="12" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+        <circle cx="25" cy="28" r="3" fill="currentColor" opacity="0.2" />
+        <circle cx="35" cy="28" r="3" fill="currentColor" opacity="0.2" />
+        <circle cx="45" cy="28" r="3" fill="currentColor" opacity="0.2" />
+      </svg>
+    ),
+  },
+  {
+    label: "Brand",
+    glow: "bg-purple-500/30",
+    svg: (
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
+        <path d="M60 15 L75 50 L110 55 L85 80 L90 115 L60 98 L30 115 L35 80 L10 55 L45 50 Z" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 4" />
+        <circle cx="60" cy="60" r="20" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="60" cy="60" r="6" fill="currentColor" opacity="0.15" />
+      </svg>
+    ),
+  },
+  {
+    label: "Create",
+    glow: "bg-amber-500/30",
+    svg: (
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
+        <rect x="20" y="20" width="80" height="80" rx="16" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4" />
+        <path d="M45 50 Q60 25 75 50 Q90 75 75 90 Q60 105 45 90 Q30 75 45 50 Z" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="60" cy="45" r="8" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+        <line x1="60" y1="55" x2="60" y2="85" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 3" />
+      </svg>
+    ),
+  },
+  {
+    label: "Write",
+    glow: "bg-emerald-500/30",
+    svg: (
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
+        <rect x="25" y="15" width="70" height="90" rx="6" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 4" />
+        <line x1="40" y1="35" x2="80" y2="35" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="40" y1="48" x2="75" y2="48" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="40" y1="61" x2="70" y2="61" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="40" y1="74" x2="65" y2="74" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="34" cy="35" r="2" fill="currentColor" opacity="0.3" />
+        <circle cx="34" cy="48" r="2" fill="currentColor" opacity="0.3" />
+        <circle cx="34" cy="61" r="2" fill="currentColor" opacity="0.3" />
+      </svg>
+    ),
+  },
+];
+
 const Projects = () => {
   return (
     <section id="portfolio" className="relative bg-background">
