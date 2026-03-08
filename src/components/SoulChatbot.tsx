@@ -393,7 +393,37 @@ const SoulChatbot = () => {
                   >
                     {msg.role === "assistant" ? (
                       <div className="prose prose-sm dark:prose-invert max-w-none [&_p]:m-0 [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:m-0 [&_ol]:m-0 [&_li]:text-[13px]">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        <ReactMarkdown
+                          components={{
+                            a: ({ href, children }) => {
+                              const chip = contactChips.find((c) => href?.includes(c.url) || c.url.includes(href || ""));
+                              const isWhatsApp = href?.includes("wa.me");
+                              const isLinkedIn = href?.includes("linkedin.com");
+                              const isInstagram = href?.includes("instagram.com");
+                              const isDrive = href?.includes("drive.google.com");
+                              const matched = chip || isWhatsApp || isLinkedIn || isInstagram || isDrive;
+                              
+                              if (matched) {
+                                const Icon = chip?.icon || (isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : FileText);
+                                const label = chip?.label || (isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : "Resume");
+                                return (
+                                  <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 no-underline transition-all duration-200 mx-0.5"
+                                  >
+                                    <Icon className="w-3 h-3" />
+                                    {label}
+                                  </a>
+                                );
+                              }
+                              return <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary underline">{children}</a>;
+                            },
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
                       </div>
                     ) : (
                       msg.content
