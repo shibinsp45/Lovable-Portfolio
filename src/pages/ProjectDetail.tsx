@@ -4,6 +4,7 @@ import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useImageColor } from "@/hooks/use-image-color";
 
 const projectsData = {
   "ui-ux-designs": {
@@ -299,6 +300,7 @@ const projectsData = {
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = projectsData[slug as keyof typeof projectsData];
+  const imageColor = useImageColor(project?.image);
 
   if (!project) {
     return (
@@ -322,10 +324,16 @@ const ProjectDetail = () => {
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        {/* Glassmorphism background */}
+        {/* Dynamic color background from project image */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-[hsl(320,80%,60%)]/15 rounded-full blur-[120px]" />
+          <div
+            className="absolute top-20 left-1/4 w-96 h-96 rounded-full blur-[120px]"
+            style={{ background: imageColor ? `rgba(${imageColor}, 0.2)` : "hsl(var(--primary) / 0.2)" }}
+          />
+          <div
+            className="absolute bottom-20 right-1/4 w-96 h-96 rounded-full blur-[120px]"
+            style={{ background: imageColor ? `rgba(${imageColor}, 0.12)` : "hsl(320 80% 60% / 0.15)" }}
+          />
         </div>
 
         <div className="container mx-auto px-6">
@@ -349,7 +357,12 @@ const ProjectDetail = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <motion.span 
-                className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm mb-6 border border-primary/20"
+                className="inline-block px-4 py-2 rounded-full text-sm mb-6"
+                style={{
+                  background: imageColor ? `rgba(${imageColor}, 0.12)` : "hsl(var(--primary) / 0.1)",
+                  color: imageColor ? `rgb(${imageColor})` : "hsl(var(--primary))",
+                  border: `1px solid ${imageColor ? `rgba(${imageColor}, 0.25)` : "hsl(var(--primary) / 0.2)"}`,
+                }}
                 whileHover={{ scale: 1.05 }}
               >
                 {project.category}
@@ -394,7 +407,8 @@ const ProjectDetail = () => {
               </motion.div>
               {/* Floating decoration */}
               <motion.div 
-                className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10"
+                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-2xl -z-10"
+                style={{ background: imageColor ? `rgba(${imageColor}, 0.2)` : "hsl(var(--primary) / 0.2)" }}
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 4, repeat: Infinity }}
               />
