@@ -30,8 +30,9 @@ const Header = () => {
   const navLinks = [
     { name: "Portfolio", href: "#portfolio" },
     { name: "About", href: "#about" },
-    { name: "Resume", href: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF", external: true },
+    { name: "Journey", href: "#journey" },
     { name: "Connect", href: "#contact" },
+    { name: "LinkedIn", href: "https://linkedin.com/in/shibinsp45", external: true },
   ];
 
   return (
@@ -65,7 +66,7 @@ const Header = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200"
+                  className="flex items-center gap-1 font-sans text-sm px-5 py-2 text-foreground font-medium hover:text-primary hover:bg-secondary/50 rounded-full transition-all duration-200"
                 >
                   {link.name}
                   <ArrowUpRight className="w-3 h-3" />
@@ -80,14 +81,6 @@ const Header = () => {
                 </a>
               )
             )}
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 font-sans text-sm px-5 py-2 text-foreground font-medium hover:text-primary hover:bg-secondary/50 rounded-full transition-all duration-200"
-            >
-              LinkedIn
-            </a>
           </div>
 
           {/* Theme Toggle - Right (absolute) */}
