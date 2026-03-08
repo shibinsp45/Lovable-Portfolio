@@ -135,40 +135,38 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Fullscreen */}
         {isMobileMenuOpen && (
-          <div className="mt-4 p-4 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-xl md:hidden">
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) =>
-                link.external ? (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-1.5 font-sans text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
-                  >
-                    {link.name} <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                ) : (
+          <div className="fixed inset-0 top-0 left-0 w-full h-full bg-background/95 backdrop-blur-xl md:hidden z-[60] flex flex-col items-center justify-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-6 right-6 h-10 w-10 rounded-full border border-border/40 bg-card/30"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+            <div className="flex flex-col items-center gap-6">
+              {navLinks
+                .filter((link) => link.name !== "Resume")
+                .map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-sans text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
+                    className="font-sans text-2xl font-light text-muted-foreground hover:text-foreground transition-all duration-200"
                   >
                     {link.name}
                   </a>
-                )
-              )}
+                ))}
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/shibinsp45"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 font-sans text-foreground hover:text-primary hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-2 font-sans text-2xl font-light text-foreground hover:text-primary transition-all duration-200"
               >
-                LinkedIn <ArrowUpRight className="w-4 h-4" />
+                LinkedIn <ArrowUpRight className="w-5 h-5" />
               </a>
             </div>
           </div>
