@@ -454,7 +454,7 @@ const SoulChatbot = () => {
                       onClick={() => sendMessage(q)}
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
-                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/20 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-200"
+                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/30 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-border/50 hover:shadow-sm hover:shadow-border/5 transition-all duration-200"
                     >
                       {q}
                     </motion.button>
