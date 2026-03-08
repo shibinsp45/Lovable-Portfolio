@@ -3,6 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import adarshImg from "@/assets/adarsh.png";
+import libinImg from "@/assets/libin.png";
+import jestinImg from "@/assets/jestin.png";
 
 const testimonials = [
   {
