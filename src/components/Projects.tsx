@@ -8,30 +8,6 @@ const projectGroups = [
     caption: "UI UX Design",
     projects: [
       {
-        title: "UI UX Designs",
-        description: "Designing user-centric solutions that create meaningful digital experiences.",
-        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=800&fit=crop",
-        slug: "ui-ux-designs",
-        year: "2024",
-        role: "Lead Designer",
-      },
-      {
-        title: "Mobile App Design",
-        description: "Creating intuitive mobile experiences that users love to engage with.",
-        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=800&fit=crop",
-        slug: "mobile-app-design",
-        year: "2024",
-        role: "Product Designer",
-      },
-      {
-        title: "Dashboard UI",
-        description: "Clean analytics dashboards with data-driven design patterns.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
-        slug: "dashboard-ui",
-        year: "2024",
-        role: "UI Designer",
-      },
-      {
         title: "Invoice Generator App",
         description: "A mobile invoice app case study – create bills faster, manage your shop better.",
         image: "/projects/invoice-generator.jpg",
