@@ -190,10 +190,10 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   }, []);
 
   const handleSwipe = (_: any, info: PanInfo) => {
-    const swipeThreshold = 50;
-    if (info.offset.y < -swipeThreshold) {
+    const swipeThreshold = 40;
+    if (info.offset.x < -swipeThreshold) {
       setActiveIndex((prev) => (prev + 1) % projects.length);
-    } else if (info.offset.y > swipeThreshold) {
+    } else if (info.offset.x > swipeThreshold) {
       setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
     }
   };
