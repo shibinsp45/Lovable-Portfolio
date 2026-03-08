@@ -295,11 +295,14 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                   {/* Tap hint on front card */}
                   {isFront && !isFlipped && (
-                    <div className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
+                    <Link
+                      to={`/project/${project.slug}`}
+                      className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
                       style={{ fontFamily: "'Poppins', sans-serif" }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      Tap to flip
-                    </div>
+                      Tap to view
+                    </Link>
                   )}
                 </div>
 
