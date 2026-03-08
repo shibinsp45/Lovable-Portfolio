@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
+import { useChatSounds } from "@/hooks/use-chat-sounds";
 
 type Message = { role: "user" | "assistant"; content: string };
 
