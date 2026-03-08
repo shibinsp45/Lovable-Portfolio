@@ -277,13 +277,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     {project.title}
-                  </h4>
-                  <div
-                    className="text-[9px] tracking-[0.12em] uppercase text-muted-foreground flex-shrink-0 ml-3"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.year}
-                  </div>
+                
                 </div>
 
                 <div className="relative flex-1 overflow-hidden">
