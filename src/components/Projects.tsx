@@ -242,41 +242,43 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     : "border-primary/5 shadow-[0_16px_50px_-12px_hsl(var(--primary)/0.15)] bg-card/15"
                 }`}
               >
-                {/* Image */}
-                <div className="relative h-[55%] overflow-hidden flex-shrink-0">
+                {/* Title at top */}
+                <div className="p-4 sm:p-5 pb-2">
+                  <h4
+                    className="text-lg sm:text-xl font-light tracking-tight text-foreground"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    {project.title}
+                  </h4>
+                  <div
+                    className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mt-1"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    <span>{project.year}</span>
+                    <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                    <span>{project.role}</span>
+                  </div>
+                </div>
+
+                {/* Image - middle */}
+                <div className="relative flex-1 overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover"
                     draggable={false}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
-                  <div>
-                    <div
-                      className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1.5"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      <span>{project.year}</span>
-                      <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                      <span>{project.role}</span>
-                    </div>
-                    <h4
-                      className="text-lg sm:text-xl font-light tracking-tight text-foreground mb-1"
-                      style={{ fontFamily: "'Quicksand', sans-serif" }}
-                    >
-                      {project.title}
-                    </h4>
-                    <p
-                      className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      {project.description}
-                    </p>
-                  </div>
+                {/* Description at bottom */}
+                <div className="p-4 sm:p-5 pt-3">
+                  <p
+                    className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {project.description}
+                  </p>
                 </div>
 
                 {/* Hover overlay — View Project */}
