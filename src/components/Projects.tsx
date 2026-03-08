@@ -171,6 +171,9 @@ const cardTints = [
   "from-emerald-500/20 via-emerald-400/10 to-transparent border-emerald-400/20",
   "from-rose-500/20 via-rose-400/10 to-transparent border-rose-400/20",
   "from-amber-500/20 via-amber-400/10 to-transparent border-amber-400/20",
+  "from-cyan-500/20 via-cyan-400/10 to-transparent border-cyan-400/20",
+  "from-pink-500/20 via-pink-400/10 to-transparent border-pink-400/20",
+  "from-teal-500/20 via-teal-400/10 to-transparent border-teal-400/20",
 ];
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
