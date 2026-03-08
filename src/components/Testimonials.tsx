@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import adarshImg from "@/assets/adarsh.png";
 
 const testimonials = [
   {
