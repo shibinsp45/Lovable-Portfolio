@@ -283,21 +283,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
         })}
       </div>
 
-      {/* Dot navigation */}
-      <div className="flex justify-center gap-2 mt-4">
-        {projects.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setActiveIndex(index)}
-            className={`rounded-full transition-all duration-300 ${
-              index === activeIndex
-                ? "w-6 h-1.5 bg-foreground"
-                : "w-1.5 h-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
-            }`}
-            aria-label={`Go to project ${index + 1}`}
-          />
-        ))}
-      </div>
     </motion.div>
   );
 };
