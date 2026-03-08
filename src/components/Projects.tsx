@@ -111,6 +111,14 @@ const projectGroups = [
     caption: "Generative AI",
     projects: [
       {
+        title: "Perfume Branding Collections",
+        description: "AI-generated perfume branding with elegant bottle designs and luxury aesthetics.",
+        image: "/projects/perfume-branding.png",
+        slug: "perfume-branding",
+        year: "2025",
+        role: "AI Designer",
+      },
+      {
         title: "AI Art Explorer",
         description: "Exploring creative innovations powered by prompt generation.",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop",
@@ -188,19 +196,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Auto-cycle every 5 seconds, pause on interaction
-  useEffect(() => {
-    if (paused || flippedIndex !== null) return;
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [paused, flippedIndex, projects.length]);
-
   const pauseAutoCycle = useCallback(() => {
-    setPaused(true);
-    if (pauseTimer.current) clearTimeout(pauseTimer.current);
-    pauseTimer.current = setTimeout(() => setPaused(false), 10000); // resume after 10s idle
+    // No-op: auto-rotation disabled
   }, []);
 
   const handleSwipe = (_: any, info: PanInfo) => {
