@@ -1,5 +1,5 @@
 import { motion, PanInfo } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye } from "lucide-react";
 
@@ -169,11 +169,28 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
+  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-cycle every 5 seconds, pause on interaction
+  useEffect(() => {
+    if (paused || flippedIndex !== null) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % projects.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [paused, flippedIndex, projects.length]);
+
+  const pauseAutoCycle = useCallback(() => {
+    setPaused(true);
+    if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    pauseTimer.current = setTimeout(() => setPaused(false), 10000); // resume after 10s idle
+  }, []);
 
   const handleSwipe = (_: any, info: PanInfo) => {
+    pauseAutoCycle();
     const swipeThreshold = 50;
     if (info.offset.y < -swipeThreshold) {
-      // Infinite scroll: wrap around
       setActiveIndex((prev) => (prev + 1) % projects.length);
     } else if (info.offset.y > swipeThreshold) {
       setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
@@ -181,6 +198,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   };
 
   const handleCardTap = (index: number, position: number) => {
+    pauseAutoCycle();
     if (position > 0) {
       setActiveIndex(index);
       setFlippedIndex(null);
