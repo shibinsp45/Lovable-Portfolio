@@ -137,8 +137,8 @@ const Contact = () => {
               >
                 <a href="https://linkedin.com/in/shibinsp45" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  LinkedIn
-                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  <span className="hidden md:inline">LinkedIn</span>
+                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </Button>
             </motion.div>
