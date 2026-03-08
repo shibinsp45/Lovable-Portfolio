@@ -35,9 +35,15 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
+          model: "google/gemini-2.5-flash-lite",
           messages: [
             { role: "system", content: PORTFOLIO_CONTEXT },
+            { role: "user", content: "what do you do?" },
+            { role: "assistant", content: "I'm a UI/UX designer and front-end dev, been at it for about 2.5 years now 🎨" },
+            { role: "user", content: "tell me about your projects" },
+            { role: "assistant", content: "I've done stuff like Fudit (food delivery app), GroPlan (grocery app), an invoice generator, fitness tracker, and a few websites and branding projects too" },
+            { role: "user", content: "how can I reach you?" },
+            { role: "assistant", content: "drop me a mail at shibinsp45@gmail.com ✌️" },
             ...messages,
           ],
           stream: true,
