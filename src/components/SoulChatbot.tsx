@@ -396,16 +396,16 @@ const SoulChatbot = () => {
                         <ReactMarkdown
                           components={{
                             a: ({ href, children }) => {
-                              const chip = contactChips.find((c) => href?.includes(c.url) || c.url.includes(href || ""));
                               const isWhatsApp = href?.includes("wa.me");
                               const isLinkedIn = href?.includes("linkedin.com");
                               const isInstagram = href?.includes("instagram.com");
                               const isDrive = href?.includes("drive.google.com");
-                              const matched = chip || isWhatsApp || isLinkedIn || isInstagram || isDrive;
+                              const isEmail = href?.startsWith("mailto:");
+                              const matched = isWhatsApp || isLinkedIn || isInstagram || isDrive || isEmail;
                               
                               if (matched) {
-                                const Icon = chip?.icon || (isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : FileText);
-                                const label = chip?.label || (isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : "Resume");
+                                const Icon = isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : isEmail ? Mail : FileText;
+                                const label = isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : isEmail ? "Email" : "Resume";
                                 return (
                                   <a
                                     href={href}
