@@ -16,6 +16,7 @@ const testimonials = [
       "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
     name: "Adarsh Sharma",
     role: "CEO Nuren AI",
+    avatar: adarshImg,
   },
   {
     quote:
