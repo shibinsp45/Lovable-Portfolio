@@ -438,7 +438,7 @@ const illustrations = [
     label: "Brand",
     glow: "bg-purple-500/30",
     svg: (
-      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <path d="M30 25 L80 25 L95 60 L80 95 L30 95 L30 25 Z" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
         <circle cx="42" cy="42" r="6" stroke="currentColor" strokeWidth="0.8" />
         <circle cx="42" cy="42" r="2.5" fill="currentColor" opacity="0.3" />
