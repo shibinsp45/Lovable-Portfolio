@@ -110,8 +110,16 @@ const Career = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                 >
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                    {exp.title}
+                  <motion.h3
+                    className="text-xl font-semibold text-foreground transition-colors duration-500"
+                    initial={{ color: undefined }}
+                    whileInView={{ }}
+                    viewport={{ once: true }}
+                  >
+                    <span className={`group-[.in-view]:${exp.scrollColor}`}>
+                      {exp.title}
+                    </span>
+                  </motion.h3>
                   </h3>
                   <motion.span
                     className="text-muted-foreground text-sm inline-block mt-1"
