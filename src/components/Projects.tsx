@@ -277,7 +277,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     {project.title}
-                
+                  </h4>
                 </div>
 
                 <div className="relative flex-1 overflow-hidden">
