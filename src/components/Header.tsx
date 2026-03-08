@@ -30,6 +30,7 @@ const Header = () => {
   const navLinks = [
     { name: "Portfolio", href: "#portfolio" },
     { name: "About", href: "#about" },
+    { name: "Resume", href: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF", external: true },
     { name: "Connect", href: "#contact" },
   ];
 
