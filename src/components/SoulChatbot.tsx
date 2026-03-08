@@ -17,6 +17,25 @@ const quickQuestions = [
   "Show his resume",
 ];
 
+const followUpSuggestions: Record<string, string[]> = {
+  default: ["Your skills?", "Show resume", "Contact info"],
+  projects: ["Tell me more", "Which is your favorite?", "Any recent work?"],
+  skills: ["Your projects?", "Where did you work?", "Show resume"],
+  contact: ["WhatsApp number?", "LinkedIn?", "Instagram?"],
+  work: ["Current role?", "Your projects?", "Skills you use?"],
+  resume: ["Your projects?", "Contact info", "Tell me about yourself"],
+};
+
+function getSuggestions(lastAssistantMsg: string): string[] {
+  const lower = lastAssistantMsg.toLowerCase();
+  if (lower.includes("project") || lower.includes("fudit") || lower.includes("invoice") || lower.includes("groplan")) return followUpSuggestions.projects;
+  if (lower.includes("figma") || lower.includes("skill") || lower.includes("design system")) return followUpSuggestions.skills;
+  if (lower.includes("mail") || lower.includes("email") || lower.includes("whatsapp") || lower.includes("contact")) return followUpSuggestions.contact;
+  if (lower.includes("webcastle") || lower.includes("nuren") || lower.includes("kreative") || lower.includes("work")) return followUpSuggestions.work;
+  if (lower.includes("resume") || lower.includes("drive.google")) return followUpSuggestions.resume;
+  return followUpSuggestions.default;
+}
+
 async function streamChat({
   messages,
   onDelta,
@@ -352,6 +371,28 @@ const SoulChatbot = () => {
                   </div>
                 </motion.div>
               ))}
+
+              {/* Follow-up suggestions after last assistant message */}
+              {!isLoading && messages.length > 0 && messages[messages.length - 1]?.role === "assistant" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="flex flex-wrap gap-1.5 pl-8"
+                >
+                  {getSuggestions(messages[messages.length - 1].content).map((q) => (
+                    <motion.button
+                      key={q}
+                      onClick={() => sendMessage(q)}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/40 bg-secondary/20 text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:border-primary/30 transition-all duration-200"
+                    >
+                      {q}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                 <motion.div
