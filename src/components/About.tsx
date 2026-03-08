@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 
 const stats = [
-  { value: "2.5+", label: "Years of experience" },
+  { value: "2.8+", label: "Years of experience" },
   { value: "5+", label: "Clients" },
   { value: "10+", label: "Projects Completed" },
   { value: "100+", label: "Hours of Designing" },
