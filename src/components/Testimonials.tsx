@@ -12,6 +12,7 @@ const testimonials = [
       "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes. Whether working in a team or independently, Shibin adapts seamlessly and delivers outstanding results.",
     name: "Dr.Libin P Oommen",
     role: "HOD at PRC",
+    avatar: libinImg,
   },
   {
     quote:
