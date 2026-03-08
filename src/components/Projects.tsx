@@ -85,10 +85,6 @@ const projectGroups = [
         role: "Web Developer",
       },
     ],
-        year: "2023",
-        role: "Web Developer",
-      },
-    ],
   },
   {
     caption: "Product Branding",
