@@ -47,6 +47,14 @@ const projectGroups = [
         year: "2025",
         role: "UI/UX Designer",
       },
+      {
+        title: "ProMedic - Medicine Vending",
+        description: "Medicine vending machine case study – access medicines faster during emergencies.",
+        image: "/projects/medicine-vending.png",
+        slug: "medicine-vending",
+        year: "2024",
+        role: "UI/UX Designer",
+      },
     ],
   },
   {
