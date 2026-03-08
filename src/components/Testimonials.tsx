@@ -124,7 +124,7 @@ const Testimonials = () => {
               {duplicatedTestimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="bg-card/60 backdrop-blur-sm rounded-2xl p-6 border border-border/30"
+                  className="bg-card/30 backdrop-blur-2xl rounded-2xl p-6 border border-border/20 hover:border-primary/20 shadow-lg shadow-primary/5"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >

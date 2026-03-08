@@ -154,7 +154,7 @@ const About = () => {
                     stiffness: 100,
                   }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="text-center cursor-default"
+                  className="text-center cursor-default bg-card/40 backdrop-blur-xl rounded-2xl p-4 border border-border/30 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                 >
                   <motion.div
                     className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground"

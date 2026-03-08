@@ -18,7 +18,11 @@ const footerLinks = {
 
 const Footer = () => {
   return (
-    <footer className="py-16 md:py-20 bg-background border-t border-border">
+    <footer className="py-16 md:py-20 bg-card/20 backdrop-blur-xl border-t border-border/30 relative overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[150px]" />
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[120px]" />
+      </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
