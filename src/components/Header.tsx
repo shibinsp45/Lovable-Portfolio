@@ -30,6 +30,7 @@ const Header = () => {
   const navLinks = [
     { name: "Portfolio", href: "#portfolio" },
     { name: "About", href: "#about" },
+    { name: "Resume", href: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF", external: true },
     { name: "Connect", href: "#contact" },
   ];
 
@@ -57,15 +58,28 @@ const Header = () => {
 
           {/* Center Navigation - Desktop */}
           <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1.5 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200"
+                >
+                  {link.name}
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200"
+                >
+                  {link.name}
+                </a>
+              )
+            )}
             <a
               href="https://linkedin.com"
               target="_blank"
@@ -125,16 +139,29 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="mt-4 p-4 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-xl md:hidden">
             <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-sans text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-1.5 font-sans text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
+                  >
+                    {link.name} <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-sans text-muted-foreground hover:text-foreground hover:bg-secondary/50 px-4 py-3 rounded-xl transition-all duration-200"
+                  >
+                    {link.name}
+                  </a>
+                )
+              )}
               <a
                 href="https://linkedin.com"
                 target="_blank"
