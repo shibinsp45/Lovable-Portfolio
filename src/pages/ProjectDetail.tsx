@@ -407,7 +407,8 @@ const ProjectDetail = () => {
               </motion.div>
               {/* Floating decoration */}
               <motion.div 
-                className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10"
+                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full blur-2xl -z-10"
+                style={{ background: imageColor ? `rgba(${imageColor}, 0.2)` : "hsl(var(--primary) / 0.2)" }}
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 4, repeat: Infinity }}
               />
