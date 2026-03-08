@@ -174,6 +174,10 @@ const projectGroups = [
     ],
   },
 ];
+interface CardStackProps {
+  projects: typeof projectGroups[0]["projects"];
+  caption: string;
+}
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
