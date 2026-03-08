@@ -356,7 +356,7 @@ const SoulChatbot = () => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-primary/40 bg-primary/25 text-foreground hover:bg-primary/35 hover:border-primary/50 shadow-sm shadow-primary/10 transition-all duration-200"
+                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-border/50 bg-card/30 text-foreground hover:bg-card/50 hover:border-border/70 shadow-sm shadow-border/10 transition-all duration-200"
                       >
                         <chip.icon className="w-3 h-3" />
                         {chip.label}
@@ -370,7 +370,7 @@ const SoulChatbot = () => {
                         onClick={() => sendMessage(q)}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        className="text-xs px-4 py-2 rounded-xl border border-border/20 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-200"
+                        className="text-xs px-4 py-2 rounded-xl border border-border/30 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-border/50 hover:shadow-md hover:shadow-border/5 transition-all duration-200"
                       >
                         {q}
                       </motion.button>
@@ -419,7 +419,7 @@ const SoulChatbot = () => {
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-primary/40 bg-primary/25 text-foreground hover:bg-primary/35 hover:border-primary/50 shadow-sm shadow-primary/10 no-underline transition-all duration-200 mx-0.5"
+                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-border/50 bg-card/30 text-foreground hover:bg-card/50 hover:border-border/70 shadow-sm shadow-border/10 no-underline transition-all duration-200 mx-0.5"
                                   >
                                     <Icon className="w-3 h-3" />
                                     {label}
@@ -454,7 +454,7 @@ const SoulChatbot = () => {
                       onClick={() => sendMessage(q)}
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
-                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/20 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-200"
+                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/30 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-border/50 hover:shadow-sm hover:shadow-border/5 transition-all duration-200"
                     >
                       {q}
                     </motion.button>
@@ -484,7 +484,7 @@ const SoulChatbot = () => {
             <div className="p-3 border-t border-border/15 bg-card/10 backdrop-blur-xl">
               <form
                 onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-                className="relative flex items-end bg-card/30 backdrop-blur-2xl border border-border/20 rounded-2xl focus-within:border-primary/40 focus-within:ring-1 focus-within:ring-primary/20 focus-within:shadow-md focus-within:shadow-primary/5 transition-all duration-200"
+                className="relative flex items-end bg-card/30 backdrop-blur-2xl border border-border/20 rounded-2xl focus-within:border-border/50 focus-within:ring-1 focus-within:ring-border/30 focus-within:shadow-md focus-within:shadow-border/5 transition-all duration-200"
               >
                 <textarea
                   ref={inputRef}
