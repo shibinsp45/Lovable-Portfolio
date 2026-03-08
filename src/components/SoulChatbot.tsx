@@ -9,9 +9,8 @@ type Message = { role: "user" | "assistant"; content: string };
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soul-chat`;
 
 const quickQuestions = [
-  "Who is Shibin?",
-  "What projects has he done?",
-  "How can I contact him?",
+  "What do you do?",
+  "Tell me about your projects",
 ];
 
 async function streamChat({
@@ -205,7 +204,7 @@ const SoulChatbot = () => {
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground text-center mb-4">
-                    Hi! 👋 I'm <span className="text-primary font-medium">Soul</span>, Shibin's AI assistant. Ask me anything about his work, projects, or skills!
+                    hey 👋 I'm <span className="text-primary font-medium">Soul</span> — ask me anything about Shibin
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {quickQuestions.map((q) => (
