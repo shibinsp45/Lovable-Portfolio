@@ -400,7 +400,7 @@ const illustrations = [
     label: "UI/UX",
     glow: "bg-primary/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="1" />
         <rect x="42" y="28" width="36" height="5" rx="2" fill="currentColor" opacity="0.25" />
         <rect x="42" y="38" width="28" height="5" rx="2" fill="currentColor" opacity="0.2" />
@@ -418,7 +418,7 @@ const illustrations = [
     label: "Code",
     glow: "bg-blue-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="10" y="15" width="100" height="80" rx="8" stroke="currentColor" strokeWidth="0.8" />
         <line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="0.5" />
         <circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.25" />
@@ -438,7 +438,7 @@ const illustrations = [
     label: "Brand",
     glow: "bg-purple-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <path d="M30 25 L80 25 L95 60 L80 95 L30 95 L30 25 Z" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
         <circle cx="42" cy="42" r="6" stroke="currentColor" strokeWidth="0.8" />
         <circle cx="42" cy="42" r="2.5" fill="currentColor" opacity="0.3" />
@@ -455,7 +455,7 @@ const illustrations = [
     label: "AI",
     glow: "bg-amber-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="30" y="30" width="60" height="60" rx="14" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
         <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
         <circle cx="70" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
@@ -481,7 +481,7 @@ const illustrations = [
     label: "Blog",
     glow: "bg-emerald-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <path d="M60 30 Q45 25 20 30 L20 90 Q45 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
         <path d="M60 30 Q75 25 100 30 L100 90 Q75 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
         <line x1="60" y1="30" x2="60" y2="90" stroke="currentColor" strokeWidth="0.8" />
