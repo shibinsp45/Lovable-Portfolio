@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send } from "lucide-react";
+import soulIcon from "@/assets/soul-icon.jpg";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 
