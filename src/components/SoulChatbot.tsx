@@ -125,6 +125,7 @@ const SoulChatbot = () => {
   const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { playOpen, playClose, playSend, playReceive, playBubble } = useChatSounds();
 
   useEffect(() => {
     if (bubbleDismissed || isOpen) return;
