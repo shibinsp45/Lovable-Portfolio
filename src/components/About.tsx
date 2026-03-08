@@ -157,7 +157,7 @@ const About = () => {
                   className="text-center cursor-default"
                 >
                   <motion.div
-                    className="text-3xl md:text-4xl font-bold text-foreground"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.7 + index * 0.1 }}
