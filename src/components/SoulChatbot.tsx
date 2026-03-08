@@ -4,8 +4,16 @@ import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
 import { useChatSounds } from "@/hooks/use-chat-sounds";
+import { MessageSquare, Linkedin, Instagram, FileText } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
+
+const contactChips = [
+  { label: "WhatsApp", icon: MessageSquare, url: "https://wa.me/918606129072" },
+  { label: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/shibinsp45/" },
+  { label: "Instagram", icon: Instagram, url: "https://www.instagram.com/shibin_sp45/" },
+  { label: "Resume", icon: FileText, url: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF" },
+];
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soul-chat`;
 
@@ -330,7 +338,24 @@ const SoulChatbot = () => {
                       Shibin's AI assistant. Ask me anything about his work, skills, or projects.
                     </p>
                   </div>
+                  {/* Contact chips */}
                   <div className="flex flex-wrap gap-2 justify-center mt-1">
+                    {contactChips.map((chip) => (
+                      <motion.a
+                        key={chip.label}
+                        href={chip.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200"
+                      >
+                        <chip.icon className="w-3 h-3" />
+                        {chip.label}
+                      </motion.a>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center mt-2">
                     {quickQuestions.map((q) => (
                       <motion.button
                         key={q}
@@ -368,7 +393,37 @@ const SoulChatbot = () => {
                   >
                     {msg.role === "assistant" ? (
                       <div className="prose prose-sm dark:prose-invert max-w-none [&_p]:m-0 [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:m-0 [&_ol]:m-0 [&_li]:text-[13px]">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        <ReactMarkdown
+                          components={{
+                            a: ({ href, children }) => {
+                              const chip = contactChips.find((c) => href?.includes(c.url) || c.url.includes(href || ""));
+                              const isWhatsApp = href?.includes("wa.me");
+                              const isLinkedIn = href?.includes("linkedin.com");
+                              const isInstagram = href?.includes("instagram.com");
+                              const isDrive = href?.includes("drive.google.com");
+                              const matched = chip || isWhatsApp || isLinkedIn || isInstagram || isDrive;
+                              
+                              if (matched) {
+                                const Icon = chip?.icon || (isWhatsApp ? MessageSquare : isLinkedIn ? Linkedin : isInstagram ? Instagram : FileText);
+                                const label = chip?.label || (isWhatsApp ? "WhatsApp" : isLinkedIn ? "LinkedIn" : isInstagram ? "Instagram" : "Resume");
+                                return (
+                                  <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 no-underline transition-all duration-200 mx-0.5"
+                                  >
+                                    <Icon className="w-3 h-3" />
+                                    {label}
+                                  </a>
+                                );
+                              }
+                              return <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary underline">{children}</a>;
+                            },
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
                       </div>
                     ) : (
                       msg.content
