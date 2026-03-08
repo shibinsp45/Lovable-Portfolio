@@ -8,18 +8,21 @@ const experiences = [
     period: "2025 - Now",
     description:
       "Helping humans with UI/UX design and development, AI-driven social insights, and mentoring designers!",
+    scrollColor: "#4ade80",
   },
   {
     title: "UI/UX Designer - Kreative Sparkz",
     period: "2024 - 2024",
     description:
       "Designed user-centered UI/UX solutions, leading user research to inform design decisions. Developed interactive prototypes and wireframes, ensuring seamless user experiences. Mentored budding designers on UX best practices and integrated AI-driven enhancements to improve frontend experiences.",
+    scrollColor: "#f87171",
   },
   {
     title: "UI/UX Designer Intern – Nuren AI",
     period: "2023 - 2024",
     description:
       "Created web UI and interactions for a CRM system with a focus on user-centered design. Conducted user research and developed prototypes to improve the overall user experience. Worked closely with teams to ensure the delivery of a smooth and visually engaging interface.",
+    scrollColor: "#60a5fa",
   },
 ];
 
@@ -107,9 +110,15 @@ const Career = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                 >
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                  <motion.h3
+                    className="text-xl font-semibold transition-colors duration-500"
+                    initial={{ color: "inherit" }}
+                    whileInView={{ color: exp.scrollColor }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                  >
                     {exp.title}
-                  </h3>
+                  </motion.h3>
                   <motion.span
                     className="text-muted-foreground text-sm inline-block mt-1"
                     whileHover={{ x: 5 }}
