@@ -168,6 +168,7 @@ const cardTints = [
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleSwipe = (_: any, info: PanInfo) => {
     const swipeThreshold = 50;
@@ -247,6 +248,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
               onClick={() => handleCardTap(index, position)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 transformOrigin: "center center",
                 height: `${cardHeight}px`,
@@ -306,6 +309,36 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     {project.description}
                   </p>
                 </div>
+
+                {/* Hover overlay — View Project */}
+                {isFront && !isFlipped && (
+                  <motion.div
+                    className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
+                    initial={false}
+                    animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ pointerEvents: hoveredIndex === index ? "auto" : "none" }}
+                  >
+                    <div className="flex flex-col items-center gap-3">
+                      <Link
+                        to={`/project/${project.slug}`}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Eye className="w-4 h-4" />
+                        View Project
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </Link>
+                      <span
+                        className="text-[10px] tracking-wider uppercase text-muted-foreground"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        or tap to flip
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
               </div>
 
               {/* Back face — View Project */}
