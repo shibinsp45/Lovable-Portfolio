@@ -358,7 +358,7 @@ const SoulChatbot = () => {
                   <div
                     className={`max-w-[80%] text-[13px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-2xl rounded-br-md px-4 py-2.5"
+                        ? "bg-primary/90 backdrop-blur-xl text-primary-foreground rounded-2xl rounded-br-md px-4 py-2.5 shadow-md shadow-primary/10"
                         : "text-foreground"
                     }`}
                   >
