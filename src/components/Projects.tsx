@@ -140,6 +140,14 @@ const projectGroups = [
         role: "Writer",
       },
       {
+        title: "How Your Brain Shapes UX",
+        description: "How cognitive psychology influences user experience without you even realizing it.",
+        image: "/projects/brain-ux-blog.png",
+        slug: "brain-shapes-ux",
+        year: "2025",
+        role: "Writer",
+      },
+      {
         title: "Cognitive Bias in UX",
         description: "Blending psychology and design to craft more human-centered products.",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
