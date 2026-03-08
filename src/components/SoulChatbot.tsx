@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send } from "lucide-react";
+import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
-import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -75,7 +74,6 @@ async function streamChat({
     }
   }
 
-  // flush remaining
   if (buffer.trim()) {
     for (let raw of buffer.split("\n")) {
       if (!raw) continue;
@@ -102,9 +100,8 @@ const SoulChatbot = () => {
   const [showBubble, setShowBubble] = useState(false);
   const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Show popup bubble when user scrolls to portfolio section
   useEffect(() => {
     if (bubbleDismissed || isOpen) return;
     const handleScroll = () => {
@@ -116,7 +113,6 @@ const SoulChatbot = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [showBubble, bubbleDismissed, isOpen]);
 
-  // Auto-hide bubble after 6 seconds
   useEffect(() => {
     if (showBubble && !bubbleDismissed) {
       const timer = setTimeout(() => {
@@ -138,6 +134,14 @@ const SoulChatbot = () => {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 120) + "px";
+    }
+  }, [input]);
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return;
@@ -175,6 +179,13 @@ const SoulChatbot = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(input);
+    }
+  };
+
   return (
     <>
       {/* Popup bubble */}
@@ -184,7 +195,7 @@ const SoulChatbot = () => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50 bg-card border border-border/50 backdrop-blur-xl rounded-2xl rounded-br-md px-4 py-3 shadow-xl max-w-[200px] cursor-pointer"
+            className="fixed bottom-24 right-6 z-50 bg-card/90 border border-border/40 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl max-w-[220px] cursor-pointer"
             onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
           >
             <p className="text-sm text-foreground" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -192,7 +203,7 @@ const SoulChatbot = () => {
             </p>
             <button
               onClick={(e) => { e.stopPropagation(); setShowBubble(false); setBubbleDismissed(true); }}
-              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground text-xs"
+              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground text-[10px]"
             >
               ✕
             </button>
@@ -207,22 +218,38 @@ const SoulChatbot = () => {
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
-        <Button
+        <motion.button
           onClick={() => { setIsOpen(!isOpen); setShowBubble(false); setBubbleDismissed(true); }}
-          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0 overflow-hidden"
+          className="h-14 w-14 rounded-full shadow-lg shadow-primary/20 overflow-hidden relative group"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
-              <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-                <X className="h-6 w-6" />
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                className="absolute inset-0 bg-secondary/80 backdrop-blur-sm flex items-center justify-center border border-border/40 rounded-full"
+              >
+                <X className="h-5 w-5 text-foreground" />
               </motion.div>
             ) : (
-              <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
-                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full dark:invert" />
+              <motion.div
+                key="icon"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                className="absolute inset-0"
+              >
+                <img src={soulIcon} alt="Soul" className="h-full w-full object-cover rounded-full dark:invert" />
+                {/* Online indicator */}
+                <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-background" />
               </motion.div>
             )}
           </AnimatePresence>
-        </Button>
+        </motion.button>
       </motion.div>
 
       {/* Chat window */}
@@ -232,108 +259,144 @@ const SoulChatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-h-[70vh] flex flex-col rounded-2xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/30 bg-background/95 backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden"
           >
             {/* Header */}
-            <div className="px-4 py-3 border-b border-border/30 bg-primary/5 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
+            <div className="px-5 py-4 flex items-center gap-3 border-b border-border/20">
+              <div className="relative">
+                <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/20">
+                  <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-background" />
               </div>
-              <div className="flex-1">
-                <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-foreground tracking-tight" style={{ fontFamily: "'Quicksand', sans-serif" }}>
                   Soul
                 </h4>
-                <p className="text-[10px] text-muted-foreground">Ask anything about Shibin</p>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <p className="text-[11px] text-muted-foreground">Online now</p>
+                </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full bg-secondary/50 hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                className="w-8 h-8 rounded-lg bg-secondary/40 hover:bg-secondary/70 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[200px] max-h-[50vh]">
+            {/* Messages area */}
+            <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-5 space-y-4 scroll-smooth">
               {messages.length === 0 && (
-                <div className="space-y-3">
-                  <p className="text-sm text-muted-foreground text-center mb-4">
-                    hey 👋 I'm <span className="text-primary font-medium">Soul</span> — ask me anything about Shibin
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-col items-center justify-center h-full gap-5 py-8">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden ring-2 ring-primary/10 shadow-lg">
+                    <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
+                  </div>
+                  <div className="text-center space-y-1.5">
+                    <h3 className="text-base font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
+                      hey, I'm Soul 👋
+                    </h3>
+                    <p className="text-xs text-muted-foreground max-w-[240px]">
+                      Shibin's AI assistant. Ask me anything about his work, skills, or projects.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center mt-1">
                     {quickQuestions.map((q) => (
-                      <button
+                      <motion.button
                         key={q}
                         onClick={() => sendMessage(q)}
-                        className="text-xs px-3 py-1.5 rounded-full border border-border/50 bg-secondary/30 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="text-xs px-4 py-2 rounded-xl border border-border/40 bg-secondary/20 text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:border-primary/30 transition-all duration-200"
                       >
                         {q}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
               )}
 
               {messages.map((msg, i) => (
-                <div
+                <motion.div
                   key={i}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
+                  {msg.role === "assistant" && (
+                    <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 mt-0.5 ring-1 ring-border/30">
+                      <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
+                    </div>
+                  )}
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[80%] text-[13px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-md"
-                        : "bg-secondary/50 text-foreground rounded-bl-md"
+                        ? "bg-primary text-primary-foreground rounded-2xl rounded-br-md px-4 py-2.5"
+                        : "text-foreground"
                     }`}
                   >
                     {msg.role === "assistant" ? (
-                      <div className="prose prose-sm dark:prose-invert max-w-none [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0">
+                      <div className="prose prose-sm dark:prose-invert max-w-none [&_p]:m-0 [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:m-0 [&_ol]:m-0 [&_li]:text-[13px]">
                         <ReactMarkdown>{msg.content}</ReactMarkdown>
                       </div>
                     ) : (
                       msg.content
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
-                <div className="flex justify-start">
-                  <div className="bg-secondary/50 rounded-2xl rounded-bl-md px-4 py-3">
-                    <div className="flex gap-1">
-                      <motion.div className="w-2 h-2 bg-muted-foreground/50 rounded-full" animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} />
-                      <motion.div className="w-2 h-2 bg-muted-foreground/50 rounded-full" animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }} />
-                      <motion.div className="w-2 h-2 bg-muted-foreground/50 rounded-full" animate={{ y: [0, -6, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }} />
-                    </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex gap-2.5"
+                >
+                  <div className="w-6 h-6 rounded-lg overflow-hidden flex-shrink-0 mt-0.5 ring-1 ring-border/30">
+                    <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
                   </div>
-                </div>
+                  <div className="flex items-center gap-1 py-2">
+                    <motion.span className="w-1.5 h-1.5 bg-muted-foreground/40 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0 }} />
+                    <motion.span className="w-1.5 h-1.5 bg-muted-foreground/40 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }} />
+                    <motion.span className="w-1.5 h-1.5 bg-muted-foreground/40 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.4 }} />
+                  </div>
+                </motion.div>
               )}
             </div>
 
-            {/* Input */}
-            <div className="p-3 border-t border-border/30">
+            {/* Input area - Gemini/ChatGPT style */}
+            <div className="p-3 border-t border-border/20">
               <form
                 onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-                className="flex items-center gap-2"
+                className="relative flex items-end bg-secondary/30 border border-border/30 rounded-2xl focus-within:border-primary/40 focus-within:ring-1 focus-within:ring-primary/20 transition-all duration-200"
               >
-                <input
+                <textarea
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about projects, skills..."
+                  onKeyDown={handleKeyDown}
+                  placeholder="Message Soul..."
                   disabled={isLoading}
-                  className="flex-1 bg-secondary/30 border border-border/30 rounded-full px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors disabled:opacity-50"
+                  rows={1}
+                  className="flex-1 bg-transparent resize-none px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none disabled:opacity-50 max-h-[120px]"
+                  style={{ scrollbarWidth: "none" }}
                 />
-                <Button
+                <motion.button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  size="icon"
-                  className="h-10 w-10 rounded-full bg-primary hover:bg-primary/90 shrink-0"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="m-1.5 h-8 w-8 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground flex items-center justify-center transition-colors duration-200 shrink-0"
                 >
-                  <Send className="h-4 w-4" />
-                </Button>
+                  <ArrowDown className="h-4 w-4 rotate-[-90deg]" />
+                </motion.button>
               </form>
+              <p className="text-[10px] text-muted-foreground/40 text-center mt-2">
+                Soul can make mistakes. Verify important info.
+              </p>
             </div>
           </motion.div>
         )}
