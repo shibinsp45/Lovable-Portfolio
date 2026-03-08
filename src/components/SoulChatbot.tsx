@@ -484,7 +484,7 @@ const SoulChatbot = () => {
             <div className="p-3 border-t border-border/15 bg-card/10 backdrop-blur-xl">
               <form
                 onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-                className="relative flex items-end bg-card/30 backdrop-blur-2xl border border-border/20 rounded-2xl focus-within:border-primary/40 focus-within:ring-1 focus-within:ring-primary/20 focus-within:shadow-md focus-within:shadow-primary/5 transition-all duration-200"
+                className="relative flex items-end bg-card/30 backdrop-blur-2xl border border-border/20 rounded-2xl focus-within:border-border/50 focus-within:ring-1 focus-within:ring-border/30 focus-within:shadow-md focus-within:shadow-border/5 transition-all duration-200"
               >
                 <textarea
                   ref={inputRef}
