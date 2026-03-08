@@ -99,8 +99,33 @@ const SoulChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
+  const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Show popup bubble when user scrolls to portfolio section
+  useEffect(() => {
+    if (bubbleDismissed || isOpen) return;
+    const handleScroll = () => {
+      if (window.scrollY > 600 && !showBubble) {
+        setShowBubble(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showBubble, bubbleDismissed, isOpen]);
+
+  // Auto-hide bubble after 6 seconds
+  useEffect(() => {
+    if (showBubble && !bubbleDismissed) {
+      const timer = setTimeout(() => {
+        setShowBubble(false);
+        setBubbleDismissed(true);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [showBubble, bubbleDismissed]);
 
   useEffect(() => {
     if (scrollRef.current) {
