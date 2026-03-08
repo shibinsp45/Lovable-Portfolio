@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
+import { useChatSounds } from "@/hooks/use-chat-sounds";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -124,6 +125,7 @@ const SoulChatbot = () => {
   const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { playOpen, playClose, playSend, playReceive, playBubble } = useChatSounds();
 
   useEffect(() => {
     if (bubbleDismissed || isOpen) return;
@@ -138,6 +140,7 @@ const SoulChatbot = () => {
 
   useEffect(() => {
     if (showBubble && !bubbleDismissed) {
+      playBubble();
       const timer = setTimeout(() => {
         setShowBubble(false);
         setBubbleDismissed(true);
@@ -168,6 +171,7 @@ const SoulChatbot = () => {
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return;
+    playSend();
     const userMsg: Message = { role: "user", content: text.trim() };
     const allMessages = [...messages, userMsg];
     setMessages(allMessages);
@@ -190,7 +194,7 @@ const SoulChatbot = () => {
       await streamChat({
         messages: allMessages,
         onDelta: upsert,
-        onDone: () => setIsLoading(false),
+        onDone: () => { setIsLoading(false); playReceive(); },
         onError: (msg) => {
           setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${msg}` }]);
           setIsLoading(false);
@@ -219,7 +223,7 @@ const SoulChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
             className="fixed bottom-24 right-6 z-50 bg-card/30 border border-border/20 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl shadow-primary/10 max-w-[220px] cursor-pointer overflow-hidden"
-            onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
+            onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); playOpen(); }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.05] via-transparent to-transparent pointer-events-none rounded-2xl" />
             <p className="text-sm text-foreground relative z-10" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -243,7 +247,7 @@ const SoulChatbot = () => {
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <motion.button
-          onClick={() => { setIsOpen(!isOpen); setShowBubble(false); setBubbleDismissed(true); }}
+          onClick={() => { const next = !isOpen; setIsOpen(next); setShowBubble(false); setBubbleDismissed(true); next ? playOpen() : playClose(); }}
           className="h-14 w-14 rounded-full shadow-lg shadow-primary/25 overflow-hidden relative group border border-border/20"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
@@ -304,7 +308,7 @@ const SoulChatbot = () => {
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); playClose(); }}
                 className="w-8 h-8 rounded-lg bg-card/40 backdrop-blur-xl border border-border/20 hover:bg-card/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
               >
                 <X className="w-4 h-4" />
