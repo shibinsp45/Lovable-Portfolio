@@ -218,15 +218,16 @@ const SoulChatbot = () => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50 bg-card/90 border border-border/40 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl max-w-[220px] cursor-pointer"
+            className="fixed bottom-24 right-6 z-50 bg-card/30 border border-border/20 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl shadow-primary/10 max-w-[220px] cursor-pointer overflow-hidden"
             onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
           >
-            <p className="text-sm text-foreground" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.05] via-transparent to-transparent pointer-events-none rounded-2xl" />
+            <p className="text-sm text-foreground relative z-10" style={{ fontFamily: "'Poppins', sans-serif" }}>
               hey 👋 I'm <span className="text-primary font-semibold">Soul</span>, can I help you?
             </p>
             <button
               onClick={(e) => { e.stopPropagation(); setShowBubble(false); setBubbleDismissed(true); }}
-              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground text-[10px]"
+              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-card/60 backdrop-blur-xl border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground text-[10px]"
             >
               ✕
             </button>
@@ -243,7 +244,7 @@ const SoulChatbot = () => {
       >
         <motion.button
           onClick={() => { setIsOpen(!isOpen); setShowBubble(false); setBubbleDismissed(true); }}
-          className="h-14 w-14 rounded-full shadow-lg shadow-primary/20 overflow-hidden relative group"
+          className="h-14 w-14 rounded-full shadow-lg shadow-primary/25 overflow-hidden relative group border border-border/20"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -254,7 +255,7 @@ const SoulChatbot = () => {
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
-                className="absolute inset-0 bg-secondary/80 backdrop-blur-sm flex items-center justify-center border border-border/40 rounded-full"
+                className="absolute inset-0 bg-card/40 backdrop-blur-2xl flex items-center justify-center border border-border/30 rounded-full"
               >
                 <X className="h-5 w-5 text-foreground" />
               </motion.div>
@@ -283,10 +284,10 @@ const SoulChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/30 bg-background/95 backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/20 bg-background/70 backdrop-blur-3xl shadow-2xl shadow-black/20 overflow-hidden"
           >
             {/* Header */}
-            <div className="px-5 py-4 flex items-center gap-3 border-b border-border/20">
+            <div className="px-5 py-4 flex items-center gap-3 border-b border-border/15 bg-card/20 backdrop-blur-xl">
               <div className="relative">
                 <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-primary/20">
                   <img src={soulIcon} alt="Soul" className="w-full h-full object-cover dark:invert" />
@@ -304,7 +305,7 @@ const SoulChatbot = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-lg bg-secondary/40 hover:bg-secondary/70 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
+                className="w-8 h-8 rounded-lg bg-card/40 backdrop-blur-xl border border-border/20 hover:bg-card/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -332,7 +333,7 @@ const SoulChatbot = () => {
                         onClick={() => sendMessage(q)}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
-                        className="text-xs px-4 py-2 rounded-xl border border-border/40 bg-secondary/20 text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:border-primary/30 transition-all duration-200"
+                        className="text-xs px-4 py-2 rounded-xl border border-border/20 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-200"
                       >
                         {q}
                       </motion.button>
@@ -357,7 +358,7 @@ const SoulChatbot = () => {
                   <div
                     className={`max-w-[80%] text-[13px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-2xl rounded-br-md px-4 py-2.5"
+                        ? "bg-primary/90 backdrop-blur-xl text-primary-foreground rounded-2xl rounded-br-md px-4 py-2.5 shadow-md shadow-primary/10"
                         : "text-foreground"
                     }`}
                   >
@@ -386,7 +387,7 @@ const SoulChatbot = () => {
                       onClick={() => sendMessage(q)}
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
-                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/40 bg-secondary/20 text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:border-primary/30 transition-all duration-200"
+                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/20 bg-card/30 backdrop-blur-xl text-muted-foreground hover:bg-card/50 hover:text-foreground hover:border-primary/30 hover:shadow-sm hover:shadow-primary/5 transition-all duration-200"
                     >
                       {q}
                     </motion.button>
@@ -413,10 +414,10 @@ const SoulChatbot = () => {
             </div>
 
             {/* Input area - Gemini/ChatGPT style */}
-            <div className="p-3 border-t border-border/20">
+            <div className="p-3 border-t border-border/15 bg-card/10 backdrop-blur-xl">
               <form
                 onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-                className="relative flex items-end bg-secondary/30 border border-border/30 rounded-2xl focus-within:border-primary/40 focus-within:ring-1 focus-within:ring-primary/20 transition-all duration-200"
+                className="relative flex items-end bg-card/30 backdrop-blur-2xl border border-border/20 rounded-2xl focus-within:border-primary/40 focus-within:ring-1 focus-within:ring-primary/20 focus-within:shadow-md focus-within:shadow-primary/5 transition-all duration-200"
               >
                 <textarea
                   ref={inputRef}
