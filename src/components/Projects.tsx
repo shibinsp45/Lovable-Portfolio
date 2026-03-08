@@ -2,6 +2,7 @@ import { motion, PanInfo } from "framer-motion";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye, ChevronUp, ChevronDown } from "lucide-react";
+import { useImageColor } from "@/hooks/use-image-color";
 
 const projectGroups = [
   {
