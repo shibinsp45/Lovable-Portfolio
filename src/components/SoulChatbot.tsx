@@ -12,6 +12,7 @@ const contactChips = [
   { label: "WhatsApp", icon: MessageSquare, url: "https://wa.me/918606129072" },
   { label: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/shibinsp45/" },
   { label: "Instagram", icon: Instagram, url: "https://www.instagram.com/shibin_sp45/" },
+  { label: "Email", icon: Mail, url: "mailto:shibinsp45@gmail.com" },
   { label: "Resume", icon: FileText, url: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF" },
 ];
 
