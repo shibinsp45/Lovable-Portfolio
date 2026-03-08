@@ -1,4 +1,4 @@
-import { motion, useAnimation, PanInfo } from "framer-motion";
+import { motion, PanInfo } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye } from "lucide-react";
@@ -159,19 +159,18 @@ interface CardStackProps {
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const controls = useAnimation();
 
   const handleSwipe = (_: any, info: PanInfo) => {
-    const swipeThreshold = 50;
-    if (info.offset.y < -swipeThreshold && activeIndex < projects.length - 1) {
+    const swipeThreshold = 40;
+    if (info.offset.x < -swipeThreshold && activeIndex < projects.length - 1) {
       setActiveIndex((prev) => prev + 1);
-    } else if (info.offset.y > swipeThreshold && activeIndex > 0) {
+    } else if (info.offset.x > swipeThreshold && activeIndex > 0) {
       setActiveIndex((prev) => prev - 1);
     }
   };
 
-  const visibleCount = Math.min(projects.length, 4);
-  const stackPeek = 24; // px each card peeks behind
+  const stackOffset = 10; // horizontal offset per card
+  const stackScale = 0.04; // scale reduction per card
 
   return (
     <motion.div
@@ -192,14 +191,10 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       {/* Stack Container */}
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
-        style={{
-          height: `${260 + (visibleCount - 1) * stackPeek}px`,
-        }}
+        style={{ height: "340px" }}
       >
         {projects.map((project, index) => {
           const position = index - activeIndex;
-
-          // Only show cards that are at or behind the active card (up to 3 behind)
           if (position < 0 || position > 3) return null;
 
           const isHovered = hoveredIndex === index;
@@ -208,70 +203,64 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
           return (
             <motion.div
               key={project.slug}
-              className="absolute left-0 right-0 top-0 touch-pan-x"
+              className="absolute inset-0 touch-pan-y"
               animate={{
-                y: position * stackPeek,
-                scale: 1 - position * 0.04,
+                x: position * stackOffset,
+                y: position * 8,
+                scale: 1 - position * stackScale,
                 zIndex: projects.length - position,
                 opacity: 1 - position * 0.15,
               }}
               transition={{ type: "spring", stiffness: 350, damping: 32 }}
-              drag={isFront ? "y" : false}
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={0.15}
+              drag={isFront ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
               onDragEnd={isFront ? handleSwipe : undefined}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              style={{ transformOrigin: "center top" }}
+              style={{ transformOrigin: "center center" }}
             >
-              <div
-                className="relative rounded-2xl overflow-hidden border border-border/20 shadow-lg"
-                style={{
-                  height: "260px",
-                  background:
-                    position === 0
-                      ? undefined
-                      : `hsl(var(--muted) / ${0.5 - position * 0.1})`,
-                }}
-              >
-                {/* Image */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  draggable={false}
-                />
+              <div className="relative h-full rounded-2xl overflow-hidden border border-border/20 shadow-lg bg-card/30 backdrop-blur-xl flex flex-col">
+                {/* Image - top portion */}
+                <div className="relative h-[55%] overflow-hidden flex-shrink-0">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    draggable={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80" />
+                </div>
 
-                {/* Bottom gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-
-                {/* Content at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                  <div
-                    className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    <span>{project.year}</span>
-                    <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                    <span>{project.role}</span>
+                {/* Content - bottom portion */}
+                <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
+                  <div>
+                    <div
+                      className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1.5"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      <span>{project.year}</span>
+                      <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                      <span>{project.role}</span>
+                    </div>
+                    <h4
+                      className="text-lg sm:text-xl font-light tracking-tight text-foreground mb-1"
+                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                    >
+                      {project.title}
+                    </h4>
+                    <p
+                      className="text-xs text-muted-foreground leading-relaxed line-clamp-2"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {project.description}
+                    </p>
                   </div>
-                  <h4
-                    className="text-lg sm:text-xl font-light tracking-tight text-foreground"
-                    style={{ fontFamily: "'Quicksand', sans-serif" }}
-                  >
-                    {project.title}
-                  </h4>
-                  <p
-                    className="text-xs text-muted-foreground leading-relaxed line-clamp-1 mt-0.5"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.description}
-                  </p>
                 </div>
 
                 {/* Hover overlay — View Project */}
                 <motion.div
-                  className="absolute inset-0 bg-background/75 backdrop-blur-sm flex items-center justify-center"
+                  className="absolute inset-0 bg-background/75 backdrop-blur-sm flex items-center justify-center rounded-2xl"
                   initial={false}
                   animate={{ opacity: isHovered ? 1 : 0 }}
                   transition={{ duration: 0.2 }}
@@ -295,7 +284,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       </div>
 
       {/* Dot navigation */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex justify-center gap-2 mt-4">
         {projects.map((_, index) => (
           <button
             key={index}
@@ -319,7 +308,6 @@ const Projects = () => {
       <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -341,7 +329,6 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        {/* Project Groups Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 md:gap-14">
           {projectGroups.map((group) => (
             <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
