@@ -15,7 +15,7 @@ const experiences = [
     period: "2024 - 2024",
     description:
       "Designed user-centered UI/UX solutions, leading user research to inform design decisions. Developed interactive prototypes and wireframes, ensuring seamless user experiences. Mentored budding designers on UX best practices and integrated AI-driven enhancements to improve frontend experiences.",
-    scrollColor: "#f87171",
+    scrollColor: "#ef4444",
   },
   {
     title: "UI/UX Designer Intern – Nuren AI",
