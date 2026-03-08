@@ -140,6 +140,7 @@ const SoulChatbot = () => {
 
   useEffect(() => {
     if (showBubble && !bubbleDismissed) {
+      playBubble();
       const timer = setTimeout(() => {
         setShowBubble(false);
         setBubbleDismissed(true);
