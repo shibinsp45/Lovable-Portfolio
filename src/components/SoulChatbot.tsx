@@ -17,6 +17,25 @@ const quickQuestions = [
   "Show his resume",
 ];
 
+const followUpSuggestions: Record<string, string[]> = {
+  default: ["Your skills?", "Show resume", "Contact info"],
+  projects: ["Tell me more", "Which is your favorite?", "Any recent work?"],
+  skills: ["Your projects?", "Where did you work?", "Show resume"],
+  contact: ["WhatsApp number?", "LinkedIn?", "Instagram?"],
+  work: ["Current role?", "Your projects?", "Skills you use?"],
+  resume: ["Your projects?", "Contact info", "Tell me about yourself"],
+};
+
+function getSuggestions(lastAssistantMsg: string): string[] {
+  const lower = lastAssistantMsg.toLowerCase();
+  if (lower.includes("project") || lower.includes("fudit") || lower.includes("invoice") || lower.includes("groplan")) return followUpSuggestions.projects;
+  if (lower.includes("figma") || lower.includes("skill") || lower.includes("design system")) return followUpSuggestions.skills;
+  if (lower.includes("mail") || lower.includes("email") || lower.includes("whatsapp") || lower.includes("contact")) return followUpSuggestions.contact;
+  if (lower.includes("webcastle") || lower.includes("nuren") || lower.includes("kreative") || lower.includes("work")) return followUpSuggestions.work;
+  if (lower.includes("resume") || lower.includes("drive.google")) return followUpSuggestions.resume;
+  return followUpSuggestions.default;
+}
+
 async function streamChat({
   messages,
   onDelta,
