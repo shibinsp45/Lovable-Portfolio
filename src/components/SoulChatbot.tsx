@@ -284,7 +284,7 @@ const SoulChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/30 bg-background/95 backdrop-blur-2xl shadow-2xl shadow-black/20 overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(520px,70vh)] flex flex-col rounded-2xl border border-border/20 bg-background/70 backdrop-blur-3xl shadow-2xl shadow-black/20 overflow-hidden"
           >
             {/* Header */}
             <div className="px-5 py-4 flex items-center gap-3 border-b border-border/20">
