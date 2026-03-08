@@ -341,12 +341,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                         View Project
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
-                      <span
-                        className="text-[10px] tracking-wider uppercase text-muted-foreground"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        or tap to flip
-                      </span>
                     </div>
                   </motion.div>
                 )}
