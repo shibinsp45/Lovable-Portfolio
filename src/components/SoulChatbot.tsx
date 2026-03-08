@@ -189,8 +189,8 @@ const SoulChatbot = () => {
           >
             {/* Header */}
             <div className="px-4 py-3 border-b border-border/30 bg-primary/5 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary" />
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
