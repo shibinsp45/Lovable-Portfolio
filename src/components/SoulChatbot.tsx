@@ -11,6 +11,8 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soul-chat`;
 const quickQuestions = [
   "What do you do?",
   "Tell me about your projects",
+  "What are your skills?",
+  "How to contact you?",
 ];
 
 async function streamChat({
