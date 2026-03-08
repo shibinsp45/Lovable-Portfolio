@@ -223,7 +223,7 @@ const SoulChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
             className="fixed bottom-24 right-6 z-50 bg-card/30 border border-border/20 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl shadow-primary/10 max-w-[220px] cursor-pointer overflow-hidden"
-            onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
+            onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); playOpen(); }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.05] via-transparent to-transparent pointer-events-none rounded-2xl" />
             <p className="text-sm text-foreground relative z-10" style={{ fontFamily: "'Poppins', sans-serif" }}>
