@@ -87,6 +87,7 @@ const Contact = () => {
           </motion.p>
 
           <motion.div
+            className="flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
@@ -96,24 +97,51 @@ const Contact = () => {
               type: "spring",
               stiffness: 100,
             }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
           >
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
-              asChild
-            >
-              <a
-                href="mailto:shibinsp45@gmail.com"
-                className="flex items-center gap-2"
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
+                asChild
               >
-                <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                Email me
-                <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-              </a>
-            </Button>
+                <a href="mailto:shibinsp45@gmail.com" className="flex items-center gap-2">
+                  <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  Email me
+                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </a>
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
+                asChild
+              >
+                <a href="https://wa.me/918606129072" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  WhatsApp
+                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </a>
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
+                asChild
+              >
+                <a href="https://linkedin.com/in/shibinsp45" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  LinkedIn
+                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </a>
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
