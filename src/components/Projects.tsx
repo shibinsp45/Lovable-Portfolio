@@ -208,7 +208,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
     }
   };
 
-  const smCardHeight = 360;
+  const smCardHeight = 420;
   const titleBarHeight = 40;
   const maxVisible = 3;
 
