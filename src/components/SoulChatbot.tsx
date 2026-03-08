@@ -218,15 +218,16 @@ const SoulChatbot = () => {
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50 bg-card/90 border border-border/40 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl max-w-[220px] cursor-pointer"
+            className="fixed bottom-24 right-6 z-50 bg-card/30 border border-border/20 backdrop-blur-2xl rounded-2xl rounded-br-sm px-4 py-3 shadow-2xl shadow-primary/10 max-w-[220px] cursor-pointer overflow-hidden"
             onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
           >
-            <p className="text-sm text-foreground" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.05] via-transparent to-transparent pointer-events-none rounded-2xl" />
+            <p className="text-sm text-foreground relative z-10" style={{ fontFamily: "'Poppins', sans-serif" }}>
               hey 👋 I'm <span className="text-primary font-semibold">Soul</span>, can I help you?
             </p>
             <button
               onClick={(e) => { e.stopPropagation(); setShowBubble(false); setBubbleDismissed(true); }}
-              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground text-[10px]"
+              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-card/60 backdrop-blur-xl border border-border/30 flex items-center justify-center text-muted-foreground hover:text-foreground text-[10px]"
             >
               ✕
             </button>
