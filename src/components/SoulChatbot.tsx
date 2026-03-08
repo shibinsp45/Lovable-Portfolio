@@ -394,7 +394,7 @@ const SoulChatbot = () => {
                 </motion.div>
               )}
 
-
+              {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
