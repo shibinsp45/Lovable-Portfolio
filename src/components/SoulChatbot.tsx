@@ -13,6 +13,7 @@ const quickQuestions = [
   "Tell me about your projects",
   "What are your skills?",
   "How to contact you?",
+  "Where have you worked?",
 ];
 
 async function streamChat({
