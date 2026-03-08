@@ -282,6 +282,14 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   >
                     {project.title}
                   </h4>
+                  {isFront && projects.length > 1 && (
+                    <div
+                      className="text-[9px] tracking-[0.12em] text-muted-foreground/60 flex-shrink-0 ml-3"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {activeIndex + 1}/{projects.length}
+                    </div>
+                  )}
                 </div>
 
                 <div className="relative flex-1 overflow-hidden">
