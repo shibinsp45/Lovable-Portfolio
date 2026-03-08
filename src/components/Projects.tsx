@@ -173,8 +173,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   };
 
   const cardHeight = 300;
-  const peekX = 12; // horizontal offset per card
-  const peekY = 14; // vertical offset per card
+  const peekX = 3;
+  const peekY = -34; // stack upward so titles peek above
 
   return (
     <motion.div
@@ -195,7 +195,10 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       {/* Stack Container */}
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
-        style={{ height: `${cardHeight + (Math.min(projects.length - 1, 3)) * peekY + 10}px` }}
+        style={{
+          height: `${cardHeight + 20}px`,
+          marginTop: `${Math.min(projects.length - 1, 3) * 34}px`,
+        }}
       >
         {projects.map((project, index) => {
           const position = index - activeIndex;
@@ -214,8 +217,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 y: isSwiped ? -cardHeight - 40 : position * peekY,
                 scale: isSwiped ? 0.95 : 1,
                 zIndex: isSwiped ? 0 : projects.length - position,
-                opacity: isSwiped ? 0 : 1 - position * 0.1,
-              }}
+                opacity: isSwiped ? 0 : 1,
+              }
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
               drag={isFront ? "y" : false}
               dragConstraints={{ top: 0, bottom: 0 }}
