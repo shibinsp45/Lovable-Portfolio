@@ -107,8 +107,8 @@ const Contact = () => {
               >
                 <a href="mailto:shibinsp45@gmail.com" className="flex items-center gap-2">
                   <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  Email me
-                  <ArrowUpRight className="ml-1 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  <span className="hidden md:inline">Email me</span>
+                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </a>
               </Button>
             </motion.div>
