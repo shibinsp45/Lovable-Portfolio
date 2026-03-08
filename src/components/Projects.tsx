@@ -226,26 +226,11 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       className="flex flex-col items-center"
     >
       <h3
-        className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-4"
+        className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-8"
         style={{ fontFamily: "'Quicksand', sans-serif" }}
       >
         {caption}
       </h3>
-
-      {/* Swap to more button */}
-      {projects.length > 1 && (
-        <button
-          onClick={handleNext}
-          className="flex items-center gap-1.5 mb-6 px-4 py-1.5 rounded-full bg-card/40 backdrop-blur-sm border border-border/20 text-[10px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground hover:border-border/40 transition-all duration-300"
-          style={{ fontFamily: "'Poppins', sans-serif" }}
-        >
-          <ChevronUp className="w-3 h-3" />
-          Swap to more
-          <span className="text-foreground/40 ml-1">
-            {activeIndex + 1}/{projects.length}
-          </span>
-        </button>
-      )}
 
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
@@ -297,6 +282,14 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   >
                     {project.title}
                   </h4>
+                  {isFront && projects.length > 1 && (
+                    <div
+                      className="text-[9px] tracking-[0.12em] text-muted-foreground/60 flex-shrink-0 ml-3"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {activeIndex + 1}/{projects.length}
+                    </div>
+                  )}
                 </div>
 
                 <div className="relative flex-1 overflow-hidden">
