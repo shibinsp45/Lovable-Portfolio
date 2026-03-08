@@ -131,7 +131,7 @@ const Testimonials = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-secondary/50 flex-shrink-0">
                       <img
-                        src={getRandomAvatar(testimonial.name)}
+                        src={testimonial.avatar || getRandomAvatar(testimonial.name)}
                         alt={testimonial.name}
                         className="w-full h-full object-cover"
                       />
