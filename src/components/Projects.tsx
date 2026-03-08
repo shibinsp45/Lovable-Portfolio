@@ -410,9 +410,19 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 lg:gap-12 xl:gap-10">
-          {projectGroups.map((group) => (
-            <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
+        <div className="flex flex-col gap-16 lg:gap-20">
+          {projectGroups.map((group, groupIndex) => (
+            <div
+              key={group.caption}
+              className={`flex justify-center lg:justify-start ${
+                groupIndex % 2 === 0
+                  ? "lg:ml-0 lg:mr-auto"
+                  : "lg:ml-auto lg:mr-0"
+              }`}
+              style={{ maxWidth: "600px", width: "100%", alignSelf: groupIndex % 2 === 0 ? "flex-start" : "flex-end" }}
+            >
+              <CardStack caption={group.caption} projects={group.projects} />
+            </div>
           ))}
         </div>
       </div>
