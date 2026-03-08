@@ -1,7 +1,7 @@
 import { motion, PanInfo } from "framer-motion";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Eye } from "lucide-react";
+import { ArrowUpRight, Eye, ChevronUp } from "lucide-react";
 
 const projectGroups = [
   {
@@ -203,6 +203,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
   const cardHeight = 320;
   const titleBarHeight = 44;
+  const maxVisible = 3;
 
   // Get wrapped position for infinite scrolling
   const getPosition = (index: number) => {
@@ -210,6 +211,10 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
     if (pos < -Math.floor(projects.length / 2)) pos += projects.length;
     if (pos > Math.floor(projects.length / 2)) pos -= projects.length;
     return pos;
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % projects.length);
   };
 
   return (
@@ -221,27 +226,41 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       className="flex flex-col items-center"
     >
       <h3
-        className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-8"
+        className="text-2xl sm:text-3xl font-light tracking-tight text-foreground mb-4"
         style={{ fontFamily: "'Quicksand', sans-serif" }}
       >
         {caption}
       </h3>
 
+      {/* Swap to more button */}
+      {projects.length > 1 && (
+        <button
+          onClick={handleNext}
+          className="flex items-center gap-1.5 mb-6 px-4 py-1.5 rounded-full bg-card/40 backdrop-blur-sm border border-border/20 text-[10px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground hover:border-border/40 transition-all duration-300"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
+        >
+          <ChevronUp className="w-3 h-3" />
+          Swap to more
+          <span className="text-foreground/40 ml-1">
+            {activeIndex + 1}/{projects.length}
+          </span>
+        </button>
+      )}
+
       <div
         className="relative w-full max-w-[380px] sm:max-w-[420px]"
         style={{
           height: `${cardHeight + 16}px`,
-          marginTop: `${Math.min(projects.length - 1, 3) * titleBarHeight}px`,
+          marginTop: `${Math.min(projects.length - 1, maxVisible - 1) * titleBarHeight}px`,
           perspective: "1200px",
         }}
       >
         {projects.map((project, index) => {
           const position = getPosition(index);
-          if (position < -1 || position > 3) return null;
+          if (position < -1 || position >= maxVisible) return null;
 
           const isFront = position === 0;
           const isSwiped = position < 0;
-          const isFlipped = false;
           const tint = cardTints[index % cardTints.length];
 
           return (
@@ -252,10 +271,9 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 y: isSwiped ? -cardHeight - 60 : position * -titleBarHeight,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
-                rotateY: isFlipped ? 180 : 0,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              drag={isFront && !isFlipped ? "y" : false}
+              drag={isFront ? "y" : false}
               dragConstraints={{ top: 0, bottom: 0 }}
               dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
@@ -266,13 +284,11 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 transformOrigin: "center center",
                 height: `${cardHeight}px`,
                 cursor: "pointer",
-                transformStyle: "preserve-3d",
               }}
             >
               {/* Front face */}
               <div
                 className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col bg-gradient-to-b ${tint}`}
-                style={{ backfaceVisibility: "hidden" }}
               >
                 <div className="px-4 sm:px-5 py-3 flex items-center justify-between border-b border-border/10 flex-shrink-0">
                   <h4
@@ -291,8 +307,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                     draggable={false}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
-                  {/* Tap hint on front card */}
-                  {isFront && !isFlipped && (
+                  {isFront && (
                     <Link
                       to={`/project/${project.slug}`}
                       className="absolute bottom-3 right-3 text-[10px] tracking-wider uppercase text-foreground/60 bg-background/30 backdrop-blur-sm px-3 py-1 rounded-full"
@@ -320,7 +335,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 </div>
 
                 {/* Hover overlay — View Project */}
-                {isFront && !isFlipped && (
+                {isFront && (
                   <motion.div
                     className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
                     initial={false}
@@ -343,7 +358,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                   </motion.div>
                 )}
               </div>
-
             </motion.div>
           );
         })}
