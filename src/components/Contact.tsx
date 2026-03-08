@@ -117,7 +117,7 @@ const Contact = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full px-8 py-6 text-lg border-border hover:bg-secondary hover:border-primary/50 transition-all duration-300 group"
+                className="rounded-full px-8 py-6 text-lg border-border/30 bg-card/30 backdrop-blur-xl hover:bg-card/50 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group"
                 asChild
               >
                 <a href="https://wa.me/918606129072" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
