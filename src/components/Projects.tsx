@@ -545,7 +545,7 @@ const Projects = () => {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className={`absolute top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 ${
-                    isLeft ? "right-8 xl:right-16" : "left-8 xl:left-16"
+                    isLeft ? "right-0 xl:right-4" : "left-0 xl:left-4"
                   }`}
                 >
                   <motion.div
