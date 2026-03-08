@@ -22,7 +22,7 @@ const experiences = [
     period: "2023 - 2024",
     description:
       "Created web UI and interactions for a CRM system with a focus on user-centered design. Conducted user research and developed prototypes to improve the overall user experience. Worked closely with teams to ensure the delivery of a smooth and visually engaging interface.",
-    scrollColor: "#60a5fa",
+    scrollColor: "#3b82f6",
   },
 ];
 
