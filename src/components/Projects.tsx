@@ -111,6 +111,14 @@ const projectGroups = [
     caption: "Generative AI",
     projects: [
       {
+        title: "Perfume Branding Collections",
+        description: "AI-generated perfume branding with elegant bottle designs and luxury aesthetics.",
+        image: "/projects/perfume-branding.png",
+        slug: "perfume-branding",
+        year: "2025",
+        role: "AI Designer",
+      },
+      {
         title: "AI Art Explorer",
         description: "Exploring creative innovations powered by prompt generation.",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop",

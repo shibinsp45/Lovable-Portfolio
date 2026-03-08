@@ -209,6 +209,22 @@ const projectsData = {
     role: "Brand Designer",
     behanceUrl: "https://www.behance.net/gallery/197538045/Happy-Cart-Branding",
   },
+  "perfume-branding": {
+    title: "Perfume Branding Collections",
+    description: "AI-generated perfume branding with elegant bottle designs and luxury aesthetics.",
+    fullDescription: "Perfume Branding Collections is a generative AI project showcasing luxury perfume bottle designs and branding concepts. The collection features elegant bottle shapes, rich color palettes, and sophisticated typography — all crafted using AI-powered design tools to explore the intersection of artificial intelligence and brand identity.",
+    image: "/projects/perfume-branding.png",
+    gallery: [
+      "/projects/perfume-branding-2.jpg",
+      "/projects/perfume-branding-3.png",
+    ],
+    technologies: ["AI Tools", "Photoshop", "Illustrator"],
+    category: "Generative AI",
+    year: "2025",
+    client: "Personal Project",
+    role: "AI Designer",
+    behanceUrl: "https://www.behance.net/gallery/228929049/Perfume-Branding-Collections",
+  },
   "smiley-wallpaper": {
     title: "Smiley Desktop Wallpaper Design",
     description: "Desktop wallpaper design with a cheerful smiley theme.",
