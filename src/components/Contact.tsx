@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, MessageCircle, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 
