@@ -455,7 +455,7 @@ const illustrations = [
     label: "AI",
     glow: "bg-amber-500/30",
     svg: (
-      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="30" y="30" width="60" height="60" rx="14" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
         <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
         <circle cx="70" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
