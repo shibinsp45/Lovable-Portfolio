@@ -4,8 +4,16 @@ import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
 import { useChatSounds } from "@/hooks/use-chat-sounds";
+import { MessageSquare, Linkedin, Instagram, FileText } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
+
+const contactChips = [
+  { label: "WhatsApp", icon: MessageSquare, url: "https://wa.me/918606129072" },
+  { label: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/shibinsp45/" },
+  { label: "Instagram", icon: Instagram, url: "https://www.instagram.com/shibin_sp45/" },
+  { label: "Resume", icon: FileText, url: "https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF" },
+];
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soul-chat`;
 
