@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation, PanInfo } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye } from "lucide-react";
@@ -23,18 +23,42 @@ const projectGroups = [
         year: "2024",
         role: "Product Designer",
       },
+      {
+        title: "Dashboard UI",
+        description: "Clean analytics dashboards with data-driven design patterns.",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
+        slug: "dashboard-ui",
+        year: "2024",
+        role: "UI Designer",
+      },
     ],
   },
   {
     caption: "Web Development",
     projects: [
       {
-        title: "Web Development",
+        title: "E-Commerce Platform",
         description: "Bringing websites to life with responsive design and robust code.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop",
         slug: "web-development",
         year: "2024",
         role: "Full Stack Developer",
+      },
+      {
+        title: "SaaS Landing Page",
+        description: "High-converting landing pages with modern frameworks and animations.",
+        image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=800&fit=crop",
+        slug: "saas-landing",
+        year: "2024",
+        role: "Frontend Developer",
+      },
+      {
+        title: "Portfolio Website",
+        description: "Minimal portfolio sites with smooth interactions and fast performance.",
+        image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&h=800&fit=crop",
+        slug: "portfolio-website",
+        year: "2023",
+        role: "Web Developer",
       },
     ],
   },
@@ -42,12 +66,28 @@ const projectGroups = [
     caption: "Product Branding",
     projects: [
       {
-        title: "Product Branding",
-        description: "Creating Unique Brand Identities Building that stand out.",
+        title: "Brand Identity System",
+        description: "Creating unique brand identities that stand out in the market.",
         image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200&h=800&fit=crop",
         slug: "product-branding",
         year: "2024",
         role: "Brand Designer",
+      },
+      {
+        title: "Packaging Design",
+        description: "Eye-catching packaging that tells a brand story on the shelf.",
+        image: "https://images.unsplash.com/photo-1636955816868-fcb4e89c3e6a?w=1200&h=800&fit=crop",
+        slug: "packaging-design",
+        year: "2024",
+        role: "Visual Designer",
+      },
+      {
+        title: "Logo Collection",
+        description: "Timeless logo designs crafted with precision and purpose.",
+        image: "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=1200&h=800&fit=crop",
+        slug: "logo-collection",
+        year: "2023",
+        role: "Logo Designer",
       },
     ],
   },
@@ -55,12 +95,28 @@ const projectGroups = [
     caption: "Generative AI",
     projects: [
       {
-        title: "Generative AI",
+        title: "AI Art Explorer",
         description: "Exploring creative innovations powered by prompt generation.",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop",
         slug: "generative-ai",
         year: "2024",
         role: "AI Explorer",
+      },
+      {
+        title: "AI Chat Interface",
+        description: "Conversational AI interfaces with natural language understanding.",
+        image: "https://images.unsplash.com/photo-1684487747720-1ba29cda82c8?w=1200&h=800&fit=crop",
+        slug: "ai-chat-interface",
+        year: "2024",
+        role: "AI Designer",
+      },
+      {
+        title: "Prompt Engineering",
+        description: "Mastering prompt craft to unlock creative AI potential.",
+        image: "https://images.unsplash.com/photo-1685094488371-6d44f76b09da?w=1200&h=800&fit=crop",
+        slug: "prompt-engineering",
+        year: "2023",
+        role: "AI Specialist",
       },
     ],
   },
@@ -68,12 +124,28 @@ const projectGroups = [
     caption: "Psychology Articles",
     projects: [
       {
-        title: "Psychology Articles",
+        title: "Cognitive Bias in UX",
         description: "Blending psychology and design to craft more human-centered products.",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
         slug: "psychology-articles",
         year: "2024",
         role: "Writer & Researcher",
+      },
+      {
+        title: "Color Psychology",
+        description: "How colors influence user behavior and decision making in design.",
+        image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=800&fit=crop",
+        slug: "color-psychology",
+        year: "2024",
+        role: "Researcher",
+      },
+      {
+        title: "Design Thinking",
+        description: "Applying psychological frameworks to the product design process.",
+        image: "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=1200&h=800&fit=crop",
+        slug: "design-thinking",
+        year: "2023",
+        role: "UX Writer",
       },
     ],
   },
@@ -85,14 +157,21 @@ interface CardStackProps {
 }
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const controls = useAnimation();
 
-  const toggleExpand = () => {
-    if (projects.length > 1) {
-      setExpanded(!expanded);
+  const handleSwipe = (_: any, info: PanInfo) => {
+    const swipeThreshold = 50;
+    if (info.offset.y < -swipeThreshold && activeIndex < projects.length - 1) {
+      setActiveIndex((prev) => prev + 1);
+    } else if (info.offset.y > swipeThreshold && activeIndex > 0) {
+      setActiveIndex((prev) => prev - 1);
     }
   };
+
+  const visibleCount = Math.min(projects.length, 4);
+  const stackPeek = 24; // px each card peeks behind
 
   return (
     <motion.div
@@ -112,78 +191,95 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
       {/* Stack Container */}
       <div
-        className="relative w-full max-w-[400px] sm:max-w-[440px] cursor-pointer"
-        onClick={toggleExpand}
+        className="relative w-full max-w-[380px] sm:max-w-[420px]"
         style={{
-          height: expanded
-            ? `${projects.length * 280 + (projects.length - 1) * 16}px`
-            : `${280 + (Math.min(projects.length - 1, 3)) * 32}px`,
-          transition: "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+          height: `${260 + (visibleCount - 1) * stackPeek}px`,
         }}
       >
         {projects.map((project, index) => {
-          const isHovered = hoveredIndex === index;
+          const position = index - activeIndex;
 
-          // Collapsed: cards stack behind with slight y offset
-          // Expanded: cards fan out vertically like the reference
-          const collapsedY = index * 32;
-          const expandedY = index * 296;
+          // Only show cards that are at or behind the active card (up to 3 behind)
+          if (position < 0 || position > 3) return null;
+
+          const isHovered = hoveredIndex === index;
+          const isFront = position === 0;
 
           return (
             <motion.div
               key={project.slug}
-              className="absolute left-0 right-0 top-0"
+              className="absolute left-0 right-0 top-0 touch-pan-x"
               animate={{
-                y: expanded ? expandedY : collapsedY,
-                scale: expanded ? 1 : 1 - index * 0.04,
-                zIndex: projects.length - index,
-                opacity: expanded ? 1 : 1 - index * 0.2,
+                y: position * stackPeek,
+                scale: 1 - position * 0.04,
+                zIndex: projects.length - position,
+                opacity: 1 - position * 0.15,
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{ type: "spring", stiffness: 350, damping: 32 }}
+              drag={isFront ? "y" : false}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={0.15}
+              onDragEnd={isFront ? handleSwipe : undefined}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{ transformOrigin: "center top" }}
             >
-              <div className="relative h-[280px] rounded-2xl overflow-hidden bg-card/30 backdrop-blur-xl border border-border/20 shadow-xl group">
+              <div
+                className="relative rounded-2xl overflow-hidden border border-border/20 shadow-lg"
+                style={{
+                  height: "260px",
+                  background:
+                    position === 0
+                      ? undefined
+                      : `hsl(var(--muted) / ${0.5 - position * 0.1})`,
+                }}
+              >
                 {/* Image */}
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover"
+                  draggable={false}
                 />
 
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent" />
+                {/* Bottom gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
                 {/* Content at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
                   <div
-                    className="flex items-center gap-3 text-xs tracking-[0.15em] uppercase text-muted-foreground mb-1"
+                    className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                   >
                     <span>{project.year}</span>
-                    <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+                    <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
                     <span>{project.role}</span>
                   </div>
                   <h4
-                    className="text-xl font-light tracking-tight text-foreground"
+                    className="text-lg sm:text-xl font-light tracking-tight text-foreground"
                     style={{ fontFamily: "'Quicksand', sans-serif" }}
                   >
                     {project.title}
                   </h4>
+                  <p
+                    className="text-xs text-muted-foreground leading-relaxed line-clamp-1 mt-0.5"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {project.description}
+                  </p>
                 </div>
 
-                {/* Hover overlay with View Project */}
+                {/* Hover overlay — View Project */}
                 <motion.div
-                  className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center"
+                  className="absolute inset-0 bg-background/75 backdrop-blur-sm flex items-center justify-center"
                   initial={false}
                   animate={{ opacity: isHovered ? 1 : 0 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.2 }}
                   style={{ pointerEvents: isHovered ? "auto" : "none" }}
                 >
                   <Link
                     to={`/project/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
                     style={{ fontFamily: "'Poppins', sans-serif" }}
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -198,16 +294,21 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
         })}
       </div>
 
-      {/* Expand/Collapse hint for multi-card stacks */}
-      {projects.length > 1 && (
-        <button
-          onClick={toggleExpand}
-          className="mt-6 text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
-          style={{ fontFamily: "'Poppins', sans-serif" }}
-        >
-          {expanded ? "Collapse" : `+${projects.length - 1} more`}
-        </button>
-      )}
+      {/* Dot navigation */}
+      <div className="flex justify-center gap-2 mt-6">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`rounded-full transition-all duration-300 ${
+              index === activeIndex
+                ? "w-6 h-1.5 bg-foreground"
+                : "w-1.5 h-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+            }`}
+            aria-label={`Go to project ${index + 1}`}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 };
@@ -240,8 +341,8 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        {/* Project Groups */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 md:gap-12">
+        {/* Project Groups Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 md:gap-14">
           {projectGroups.map((group) => (
             <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
           ))}
