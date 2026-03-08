@@ -357,7 +357,12 @@ const ProjectDetail = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <motion.span 
-                className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm mb-6 border border-primary/20"
+                className="inline-block px-4 py-2 rounded-full text-sm mb-6"
+                style={{
+                  background: imageColor ? `rgba(${imageColor}, 0.12)` : "hsl(var(--primary) / 0.1)",
+                  color: imageColor ? `rgb(${imageColor})` : "hsl(var(--primary))",
+                  border: `1px solid ${imageColor ? `rgba(${imageColor}, 0.25)` : "hsl(var(--primary) / 0.2)"}`,
+                }}
                 whileHover={{ scale: 1.05 }}
               >
                 {project.category}
