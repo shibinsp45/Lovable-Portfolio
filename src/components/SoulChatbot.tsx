@@ -372,7 +372,29 @@ const SoulChatbot = () => {
                 </motion.div>
               ))}
 
-              {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
+              {/* Follow-up suggestions after last assistant message */}
+              {!isLoading && messages.length > 0 && messages[messages.length - 1]?.role === "assistant" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="flex flex-wrap gap-1.5 pl-8"
+                >
+                  {getSuggestions(messages[messages.length - 1].content).map((q) => (
+                    <motion.button
+                      key={q}
+                      onClick={() => sendMessage(q)}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="text-[11px] px-3 py-1.5 rounded-xl border border-border/40 bg-secondary/20 text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:border-primary/30 transition-all duration-200"
+                    >
+                      {q}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+
+
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
