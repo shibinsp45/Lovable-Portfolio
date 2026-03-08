@@ -346,42 +346,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 )}
               </div>
 
-              {/* Back face — View Project */}
-              <div
-                className={`absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-xl flex flex-col items-center justify-center bg-gradient-to-b ${tint}`}
-                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-              >
-                <div className="text-center px-6">
-                  <h4
-                    className="text-2xl font-light tracking-tight text-foreground mb-2"
-                    style={{ fontFamily: "'Quicksand', sans-serif" }}
-                  >
-                    {project.title}
-                  </h4>
-                  <p
-                    className="text-sm text-muted-foreground mb-6 leading-relaxed"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.description}
-                  </p>
-                  <Link
-                    to={`/project/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Eye className="w-4 h-4" />
-                    View Project
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <p
-                    className="text-[10px] tracking-wider uppercase text-muted-foreground/60 mt-4"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    Tap to flip back
-                  </p>
-                </div>
-              </div>
             </motion.div>
           );
         })}
