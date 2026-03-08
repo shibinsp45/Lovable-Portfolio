@@ -4,7 +4,7 @@ import { X, Send, ArrowDown } from "lucide-react";
 import soulIcon from "@/assets/soul-icon.jpg";
 import ReactMarkdown from "react-markdown";
 import { useChatSounds } from "@/hooks/use-chat-sounds";
-import { MessageSquare, Linkedin, Instagram, FileText } from "lucide-react";
+import { MessageSquare, Linkedin, Instagram, FileText, Mail } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
