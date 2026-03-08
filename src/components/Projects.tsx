@@ -31,6 +31,14 @@ const projectGroups = [
         year: "2024",
         role: "UI Designer",
       },
+      {
+        title: "Invoice Generator App",
+        description: "A mobile invoice app case study – create bills faster, manage your shop better.",
+        image: "/projects/invoice-generator.jpg",
+        slug: "invoice-generator",
+        year: "2025",
+        role: "UI/UX Designer",
+      },
     ],
   },
   {

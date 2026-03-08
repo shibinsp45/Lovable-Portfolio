@@ -54,6 +54,23 @@ const projectsData = {
     client: "Various Brands",
     role: "Brand Designer",
   },
+  "invoice-generator": {
+    title: "Invoice Generator Mobile App",
+    description: "A mobile invoice app – create bills faster, manage your shop better.",
+    fullDescription: "BILLZY is an invoice generator mobile app case study created as part of UI/UX design professional practice. The app helps shop owners create bills faster and manage their business better, featuring product catalog management, invoice generation, and easy sharing via PDF, JPEG, WhatsApp, and email.",
+    image: "/projects/invoice-generator.jpg",
+    gallery: [
+      "/projects/invoice-generator-2.jpg",
+      "/projects/invoice-generator-3.jpg",
+      "/projects/invoice-generator-4.jpg",
+    ],
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI/UX Design",
+    year: "2025",
+    client: "Case Study",
+    role: "UI/UX Designer",
+    behanceUrl: "https://www.behance.net/gallery/243058217/Invoice-Generator-Mobile-App-Case-Study",
+  },
 };
 
 const ProjectDetail = () => {
