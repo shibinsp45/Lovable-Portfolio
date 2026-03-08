@@ -188,19 +188,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Auto-cycle every 5 seconds, pause on interaction
-  useEffect(() => {
-    if (paused || flippedIndex !== null) return;
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [paused, flippedIndex, projects.length]);
-
   const pauseAutoCycle = useCallback(() => {
-    setPaused(true);
-    if (pauseTimer.current) clearTimeout(pauseTimer.current);
-    pauseTimer.current = setTimeout(() => setPaused(false), 10000); // resume after 10s idle
+    // No-op: auto-rotation disabled
   }, []);
 
   const handleSwipe = (_: any, info: PanInfo) => {
