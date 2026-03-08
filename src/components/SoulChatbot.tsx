@@ -338,7 +338,24 @@ const SoulChatbot = () => {
                       Shibin's AI assistant. Ask me anything about his work, skills, or projects.
                     </p>
                   </div>
+                  {/* Contact chips */}
                   <div className="flex flex-wrap gap-2 justify-center mt-1">
+                    {contactChips.map((chip) => (
+                      <motion.a
+                        key={chip.label}
+                        href={chip.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200"
+                      >
+                        <chip.icon className="w-3 h-3" />
+                        {chip.label}
+                      </motion.a>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center mt-2">
                     {quickQuestions.map((q) => (
                       <motion.button
                         key={q}
