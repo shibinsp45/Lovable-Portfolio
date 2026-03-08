@@ -225,6 +225,21 @@ const projectsData = {
     role: "AI Designer",
     behanceUrl: "https://www.behance.net/gallery/228929049/Perfume-Branding-Collections",
   },
+  "medicine-vending": {
+    title: "ProMedic - Medicine Vending Machine",
+    description: "Medicine vending machine case study – access medicines faster during emergencies.",
+    fullDescription: "PROMEDIC is a UI/UX case study for an Android application that interfaces with a medical vending machine. The project addresses the challenge of accessing essential medicines during emergencies, especially in areas with limited medical facilities. Key features include real-time stock monitoring, cashless payment, and easy access to first-aid and non-prescription medicines via a portable vending system.",
+    image: "/projects/medicine-vending.png",
+    gallery: [
+      "/projects/medicine-vending-2.png",
+    ],
+    technologies: ["Figma", "Android", "GitHub"],
+    category: "UI/UX Design",
+    year: "2024",
+    client: "Case Study",
+    role: "UI/UX Designer",
+    behanceUrl: "https://www.behance.net/gallery/197536455/Medicine-Vending-Machine-Case-Study",
+  },
   "smiley-wallpaper": {
     title: "Smiley Desktop Wallpaper Design",
     description: "Desktop wallpaper design with a cheerful smiley theme.",
