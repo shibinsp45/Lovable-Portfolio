@@ -363,23 +363,27 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
         })}
       </div>
 
-      {/* Navigation dots for mobile */}
+      {/* Counter */}
       {projects.length > 1 && (
-        <div className="flex items-center gap-1.5 mt-4">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setActiveIndex(index);
-                setTappedIndex(null);
-              }}
-              className={`rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? "w-6 h-2 bg-primary"
-                  : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-            />
-          ))}
+        <div className="flex items-center gap-3 mt-4">
+          <button
+            onClick={() => { setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length); setTappedIndex(null); }}
+            className="text-xs text-muted-foreground/50 hover:text-foreground transition-colors"
+          >
+            ←
+          </button>
+          <span
+            className="text-sm text-muted-foreground tracking-wider"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            {activeIndex + 1}/{projects.length}
+          </span>
+          <button
+            onClick={() => { setActiveIndex((prev) => (prev + 1) % projects.length); setTappedIndex(null); }}
+            className="text-xs text-muted-foreground/50 hover:text-foreground transition-colors"
+          >
+            →
+          </button>
         </div>
       )}
     </motion.div>
