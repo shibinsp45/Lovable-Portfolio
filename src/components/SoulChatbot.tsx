@@ -194,7 +194,7 @@ const SoulChatbot = () => {
       await streamChat({
         messages: allMessages,
         onDelta: upsert,
-        onDone: () => setIsLoading(false),
+        onDone: () => { setIsLoading(false); playReceive(); },
         onError: (msg) => {
           setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${msg}` }]);
           setIsLoading(false);
