@@ -178,13 +178,15 @@ const Hero = () => {
           }}
           className="mt-10 md:mt-12"
         >
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 py-6 text-lg border-border hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300"
-          >
-            Get Resume <ArrowUpRight className="ml-2 h-5 w-5" />
-          </Button>
+          <a href="https://drive.google.com/drive/folders/1FMTzFedlti8jhFb-k_y83SzHGbcjUjvF" target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8 py-6 text-lg border-border hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300"
+            >
+              Get Resume <ArrowUpRight className="ml-2 h-5 w-5" />
+            </Button>
+          </a>
         </motion.div>
       </motion.div>
 
