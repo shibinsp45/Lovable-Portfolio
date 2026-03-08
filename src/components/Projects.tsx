@@ -410,7 +410,7 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 lg:gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-16 lg:gap-12 xl:gap-10">
           {projectGroups.map((group) => (
             <CardStack key={group.caption} caption={group.caption} projects={group.projects} />
           ))}
