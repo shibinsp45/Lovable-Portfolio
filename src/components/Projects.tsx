@@ -400,7 +400,7 @@ const illustrations = [
     label: "UI/UX",
     glow: "bg-primary/30",
     svg: (
-      <svg width="240" height="240" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
         <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="1" />
         <rect x="42" y="28" width="36" height="5" rx="2" fill="currentColor" opacity="0.25" />
         <rect x="42" y="38" width="28" height="5" rx="2" fill="currentColor" opacity="0.2" />
