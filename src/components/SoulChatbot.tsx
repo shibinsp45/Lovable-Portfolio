@@ -99,8 +99,33 @@ const SoulChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
+  const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Show popup bubble when user scrolls to portfolio section
+  useEffect(() => {
+    if (bubbleDismissed || isOpen) return;
+    const handleScroll = () => {
+      if (window.scrollY > 600 && !showBubble) {
+        setShowBubble(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showBubble, bubbleDismissed, isOpen]);
+
+  // Auto-hide bubble after 6 seconds
+  useEffect(() => {
+    if (showBubble && !bubbleDismissed) {
+      const timer = setTimeout(() => {
+        setShowBubble(false);
+        setBubbleDismissed(true);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [showBubble, bubbleDismissed]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -152,6 +177,29 @@ const SoulChatbot = () => {
 
   return (
     <>
+      {/* Popup bubble */}
+      <AnimatePresence>
+        {showBubble && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className="fixed bottom-24 right-6 z-50 bg-card border border-border/50 backdrop-blur-xl rounded-2xl rounded-br-md px-4 py-3 shadow-xl max-w-[200px] cursor-pointer"
+            onClick={() => { setShowBubble(false); setBubbleDismissed(true); setIsOpen(true); }}
+          >
+            <p className="text-sm text-foreground" style={{ fontFamily: "'Poppins', sans-serif" }}>
+              hey 👋 I'm <span className="text-primary font-semibold">Soul</span>, can I help you?
+            </p>
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowBubble(false); setBubbleDismissed(true); }}
+              className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground text-xs"
+            >
+              ✕
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating button */}
       <motion.div
         className="fixed bottom-6 right-6 z-50"
@@ -160,7 +208,7 @@ const SoulChatbot = () => {
         transition={{ delay: 1, type: "spring", stiffness: 200 }}
       >
         <Button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => { setIsOpen(!isOpen); setShowBubble(false); setBubbleDismissed(true); }}
           className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0 overflow-hidden"
         >
           <AnimatePresence mode="wait">
