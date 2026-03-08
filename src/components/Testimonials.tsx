@@ -26,6 +26,7 @@ const testimonials = [
       "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
+    avatar: jestinImg,
   },
 ];
 
