@@ -175,9 +175,7 @@ const cardTints = [
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pauseAutoCycle = useCallback(() => {
