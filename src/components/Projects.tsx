@@ -129,8 +129,16 @@ const projectGroups = [
     ],
   },
   {
-    caption: "Psychology Articles",
+    caption: "Blogs and Articles",
     projects: [
+      {
+        title: "Why UI/UX Design Shapes the World",
+        description: "How UI/UX design decides whether we stay, trust, and return to digital products.",
+        image: "/projects/uiux-blog.png",
+        slug: "uiux-shapes-world",
+        year: "2025",
+        role: "Writer",
+      },
       {
         title: "Cognitive Bias in UX",
         description: "Blending psychology and design to craft more human-centered products.",
