@@ -168,6 +168,7 @@ const cardTints = [
 const CardStack = ({ projects, caption }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleSwipe = (_: any, info: PanInfo) => {
     const swipeThreshold = 50;
