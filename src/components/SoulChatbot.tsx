@@ -218,7 +218,7 @@ const SoulChatbot = () => {
               </motion.div>
             ) : (
               <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
-                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full" />
+                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full dark:invert" />
               </motion.div>
             )}
           </AnimatePresence>
