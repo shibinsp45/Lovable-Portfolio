@@ -384,140 +384,107 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 
 const illustrations = [
   {
-    // UI UX Design — pen tool + artboard + layers
+    // UI UX Design
     label: "UI/UX",
     glow: "bg-primary/30",
     svg: (
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
-        {/* Phone frame */}
-        <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="0.6" />
-        <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="0.3" strokeDasharray="3 3" />
-        {/* Screen content lines */}
-        <rect x="42" y="28" width="36" height="4" rx="2" fill="currentColor" opacity="0.15" />
-        <rect x="42" y="38" width="28" height="4" rx="2" fill="currentColor" opacity="0.1" />
-        <rect x="42" y="48" width="32" height="4" rx="2" fill="currentColor" opacity="0.1" />
-        {/* Button */}
-        <rect x="48" y="60" width="24" height="8" rx="4" stroke="currentColor" strokeWidth="0.5" />
-        {/* Pen tool */}
-        <path d="M18 95 L28 55 L35 62 Z" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.08" />
-        <circle cx="28" cy="55" r="2" fill="currentColor" opacity="0.2" />
-        {/* Cursor */}
-        <path d="M90 30 L90 50 L96 44 L104 52" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" />
-        {/* Notch */}
-        <rect x="52" y="14" width="16" height="3" rx="1.5" fill="currentColor" opacity="0.1" />
+      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+        <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="1" />
+        <rect x="42" y="28" width="36" height="5" rx="2" fill="currentColor" opacity="0.25" />
+        <rect x="42" y="38" width="28" height="5" rx="2" fill="currentColor" opacity="0.2" />
+        <rect x="42" y="48" width="32" height="5" rx="2" fill="currentColor" opacity="0.2" />
+        <rect x="48" y="60" width="24" height="8" rx="4" stroke="currentColor" strokeWidth="0.8" />
+        <path d="M18 95 L28 55 L35 62 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.12" />
+        <circle cx="28" cy="55" r="3" fill="currentColor" opacity="0.3" />
+        <path d="M90 30 L90 50 L96 44 L104 52" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" />
+        <rect x="52" y="14" width="16" height="3" rx="1.5" fill="currentColor" opacity="0.15" />
       </svg>
     ),
   },
   {
-    // Web Development — browser + code
+    // Web Development
     label: "Code",
     glow: "bg-blue-500/30",
     svg: (
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
-        {/* Browser window */}
-        <rect x="10" y="15" width="100" height="80" rx="8" stroke="currentColor" strokeWidth="0.5" />
-        {/* Title bar */}
-        <line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="0.3" />
-        <circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.15" />
-        <circle cx="32" cy="22" r="3" fill="currentColor" opacity="0.15" />
-        <circle cx="42" cy="22" r="3" fill="currentColor" opacity="0.15" />
-        {/* URL bar */}
-        <rect x="52" y="19" width="52" height="6" rx="3" stroke="currentColor" strokeWidth="0.3" />
-        {/* Code lines - angle brackets */}
-        <path d="M25 48 L40 58 L25 68" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M55 48 L70 58 L55 68" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round" transform="scale(-1,1) translate(-125,0)" />
-        {/* Slash between */}
-        <line x1="52" y1="45" x2="42" y2="72" stroke="currentColor" strokeWidth="0.5" />
-        {/* Content lines */}
-        <rect x="25" y="78" width="40" height="3" rx="1.5" fill="currentColor" opacity="0.1" />
-        <rect x="25" y="84" width="30" height="3" rx="1.5" fill="currentColor" opacity="0.08" />
-        {/* Floating elements */}
-        <rect x="80" y="42" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 2" />
-        <rect x="82" y="68" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="0.3" strokeDasharray="2 2" />
+      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+        <rect x="10" y="15" width="100" height="80" rx="8" stroke="currentColor" strokeWidth="0.8" />
+        <line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.25" />
+        <circle cx="32" cy="22" r="3" fill="currentColor" opacity="0.25" />
+        <circle cx="42" cy="22" r="3" fill="currentColor" opacity="0.25" />
+        <rect x="52" y="19" width="52" height="6" rx="3" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M25 48 L40 58 L25 68" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M95 48 L80 58 L95 68" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="52" y1="45" x2="42" y2="72" stroke="currentColor" strokeWidth="0.8" />
+        <rect x="25" y="78" width="40" height="3" rx="1.5" fill="currentColor" opacity="0.15" />
+        <rect x="25" y="84" width="30" height="3" rx="1.5" fill="currentColor" opacity="0.12" />
       </svg>
     ),
   },
   {
-    // Product Branding — tag + palette + logo mark
+    // Product Branding
     label: "Brand",
     glow: "bg-purple-500/30",
     svg: (
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
-        {/* Tag shape */}
-        <path d="M30 25 L80 25 L95 60 L80 95 L30 95 L30 25 Z" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
-        {/* Tag hole */}
-        <circle cx="42" cy="42" r="6" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="42" cy="42" r="2" fill="currentColor" opacity="0.2" />
-        {/* Color swatches */}
-        <circle cx="55" cy="60" r="10" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.05" />
-        <circle cx="70" cy="55" r="8" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.08" />
-        <circle cx="65" cy="72" r="7" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.06" />
-        {/* Typography hint */}
-        <text x="40" y="88" fontSize="12" fill="currentColor" opacity="0.15" fontFamily="serif" fontWeight="bold">Aa</text>
-        {/* Sparkle */}
-        <path d="M90 25 L92 32 L99 34 L92 36 L90 43 L88 36 L81 34 L88 32 Z" fill="currentColor" opacity="0.15" />
+      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+        <path d="M30 25 L80 25 L95 60 L80 95 L30 95 L30 25 Z" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
+        <circle cx="42" cy="42" r="6" stroke="currentColor" strokeWidth="0.8" />
+        <circle cx="42" cy="42" r="2.5" fill="currentColor" opacity="0.3" />
+        <circle cx="55" cy="60" r="12" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.08" />
+        <circle cx="72" cy="54" r="9" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.1" />
+        <circle cx="66" cy="74" r="8" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.09" />
+        <text x="40" y="90" fontSize="14" fill="currentColor" opacity="0.25" fontFamily="serif" fontWeight="bold">Aa</text>
+        <path d="M90 25 L92 32 L99 34 L92 36 L90 43 L88 36 L81 34 L88 32 Z" fill="currentColor" opacity="0.25" />
       </svg>
     ),
   },
   {
-    // Generative AI — neural network / sparkles
+    // Generative AI
     label: "AI",
     glow: "bg-amber-500/30",
     svg: (
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
-        {/* Brain/chip outline */}
-        <rect x="30" y="30" width="60" height="60" rx="14" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
-        {/* Neural nodes */}
-        <circle cx="50" cy="50" r="5" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="70" cy="50" r="5" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="60" cy="70" r="5" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="60" cy="45" r="3" fill="currentColor" opacity="0.15" />
-        {/* Connections */}
-        <line x1="54" y1="48" x2="66" y2="48" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="52" y1="54" x2="58" y2="66" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="68" y1="54" x2="62" y2="66" stroke="currentColor" strokeWidth="0.4" />
-        {/* Sparkles */}
-        <path d="M20 20 L22 26 L28 28 L22 30 L20 36 L18 30 L12 28 L18 26 Z" fill="currentColor" opacity="0.2" />
-        <path d="M95 18 L96 22 L100 23 L96 24 L95 28 L94 24 L90 23 L94 22 Z" fill="currentColor" opacity="0.15" />
-        <path d="M100 85 L101 89 L105 90 L101 91 L100 95 L99 91 L95 90 L99 89 Z" fill="currentColor" opacity="0.15" />
-        {/* Chip pins */}
-        <line x1="45" y1="30" x2="45" y2="22" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="60" y1="30" x2="60" y2="22" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="75" y1="30" x2="75" y2="22" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="45" y1="90" x2="45" y2="98" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="60" y1="90" x2="60" y2="98" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="75" y1="90" x2="75" y2="98" stroke="currentColor" strokeWidth="0.4" />
+      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+        <rect x="30" y="30" width="60" height="60" rx="14" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
+        <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
+        <circle cx="70" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
+        <circle cx="60" cy="72" r="6" stroke="currentColor" strokeWidth="0.8" />
+        <circle cx="60" cy="45" r="3" fill="currentColor" opacity="0.2" />
+        <line x1="55" y1="48" x2="65" y2="48" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="52" y1="55" x2="57" y2="67" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="68" y1="55" x2="63" y2="67" stroke="currentColor" strokeWidth="0.6" />
+        <path d="M20 20 L22 27 L29 29 L22 31 L20 38 L18 31 L11 29 L18 27 Z" fill="currentColor" opacity="0.3" />
+        <path d="M95 18 L97 23 L102 25 L97 27 L95 32 L93 27 L88 25 L93 23 Z" fill="currentColor" opacity="0.25" />
+        <path d="M100 85 L102 90 L107 92 L102 94 L100 99 L98 94 L93 92 L98 90 Z" fill="currentColor" opacity="0.25" />
+        <line x1="45" y1="30" x2="45" y2="20" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="60" y1="30" x2="60" y2="20" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="75" y1="30" x2="75" y2="20" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="45" y1="90" x2="45" y2="100" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="60" y1="90" x2="60" y2="100" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="75" y1="90" x2="75" y2="100" stroke="currentColor" strokeWidth="0.6" />
       </svg>
     ),
   },
   {
-    // Blogs and Articles — open book + pen
+    // Blogs and Articles
     label: "Blog",
     glow: "bg-emerald-500/30",
     svg: (
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/20">
-        {/* Open book left page */}
-        <path d="M60 30 Q45 25 20 30 L20 90 Q45 85 60 90 Z" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.03" />
-        {/* Open book right page */}
-        <path d="M60 30 Q75 25 100 30 L100 90 Q75 85 60 90 Z" stroke="currentColor" strokeWidth="0.5" fill="currentColor" opacity="0.03" />
-        {/* Spine */}
-        <line x1="60" y1="30" x2="60" y2="90" stroke="currentColor" strokeWidth="0.5" />
-        {/* Text lines left */}
-        <line x1="30" y1="42" x2="52" y2="42" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="30" y1="50" x2="50" y2="50" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="30" y1="58" x2="48" y2="58" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="30" y1="66" x2="52" y2="66" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="30" y1="74" x2="46" y2="74" stroke="currentColor" strokeWidth="0.4" />
-        {/* Text lines right */}
-        <line x1="68" y1="42" x2="90" y2="42" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="68" y1="50" x2="88" y2="50" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="68" y1="58" x2="86" y2="58" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="68" y1="66" x2="90" y2="66" stroke="currentColor" strokeWidth="0.4" />
-        {/* Pen */}
-        <path d="M92 15 L98 12 L102 22 L96 25 Z" stroke="currentColor" strokeWidth="0.4" fill="currentColor" opacity="0.08" />
-        <path d="M96 25 L94 30" stroke="currentColor" strokeWidth="0.4" />
-        {/* Bookmark */}
-        <path d="M55 25 L55 18 L60 22 L65 18 L65 25" stroke="currentColor" strokeWidth="0.4" fill="currentColor" opacity="0.06" />
+      <svg width="180" height="180" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
+        <path d="M60 30 Q45 25 20 30 L20 90 Q45 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
+        <path d="M60 30 Q75 25 100 30 L100 90 Q75 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
+        <line x1="60" y1="30" x2="60" y2="90" stroke="currentColor" strokeWidth="0.8" />
+        <line x1="30" y1="42" x2="52" y2="42" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="30" y1="50" x2="50" y2="50" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="30" y1="58" x2="48" y2="58" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="30" y1="66" x2="52" y2="66" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="30" y1="74" x2="46" y2="74" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="68" y1="42" x2="90" y2="42" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="68" y1="50" x2="88" y2="50" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="68" y1="58" x2="86" y2="58" stroke="currentColor" strokeWidth="0.6" />
+        <line x1="68" y1="66" x2="90" y2="66" stroke="currentColor" strokeWidth="0.6" />
+        <path d="M92 15 L98 12 L102 22 L96 25 Z" stroke="currentColor" strokeWidth="0.6" fill="currentColor" opacity="0.12" />
+        <path d="M96 25 L94 30" stroke="currentColor" strokeWidth="0.6" />
+        <path d="M55 25 L55 18 L60 22 L65 18 L65 25" stroke="currentColor" strokeWidth="0.6" fill="currentColor" opacity="0.1" />
       </svg>
     ),
   },
