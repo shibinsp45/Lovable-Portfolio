@@ -211,7 +211,8 @@ const SoulChatbot = () => {
         onDelta: upsert,
         onDone: () => { setIsLoading(false); playReceive(); },
         onError: (msg) => {
-          setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${msg}` }]);
+          const friendly = msg.includes("Rate limit") ? "⏳ Too many messages! Give me a sec and try again." : `⚠️ ${msg}`;
+          setMessages((prev) => [...prev, { role: "assistant", content: friendly }]);
           setIsLoading(false);
         },
       });
