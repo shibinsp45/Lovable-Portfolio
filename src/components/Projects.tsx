@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Eye } from "lucide-react";
@@ -85,15 +85,14 @@ interface CardStackProps {
 }
 
 const CardStack = ({ projects, caption }: CardStackProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const handleCardClick = (index: number) => {
-    if (index !== activeIndex) {
-      setActiveIndex(index);
+  const toggleExpand = () => {
+    if (projects.length > 1) {
+      setExpanded(!expanded);
     }
   };
-
-  const stackHeight = projects.length > 1 ? "520px" : "480px";
 
   return (
     <motion.div
@@ -112,101 +111,102 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
       </h3>
 
       {/* Stack Container */}
-      <div className="relative w-full max-w-[400px] sm:max-w-[440px]" style={{ height: stackHeight }}>
-        <AnimatePresence mode="popLayout">
-          {projects.map((project, index) => {
-            const position = index - activeIndex;
-            if (position < 0 || position > 3) return null;
+      <div
+        className="relative w-full max-w-[400px] sm:max-w-[440px] cursor-pointer"
+        onClick={toggleExpand}
+        style={{
+          height: expanded
+            ? `${projects.length * 280 + (projects.length - 1) * 16}px`
+            : `${280 + (Math.min(projects.length - 1, 3)) * 32}px`,
+          transition: "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        {projects.map((project, index) => {
+          const isHovered = hoveredIndex === index;
 
-            return (
-              <motion.div
-                key={project.slug}
-                layout
-                className="absolute inset-0 cursor-pointer"
-                initial={{ opacity: 0, scale: 0.9, y: 80 }}
-                animate={{
-                  scale: 1 - position * 0.05,
-                  y: position * 28,
-                  zIndex: projects.length - position,
-                  opacity: 1 - position * 0.25,
-                  rotateZ: position * -1.2,
-                }}
-                exit={{ opacity: 0, scale: 0.9, y: -50 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                onClick={() => handleCardClick(index)}
-                style={{ transformOrigin: "center bottom" }}
-              >
-                <div className="h-full rounded-3xl overflow-hidden bg-card/30 backdrop-blur-xl border border-border/20 shadow-xl flex flex-col">
-                  {/* Image */}
-                  <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
+          // Collapsed: cards stack behind with slight y offset
+          // Expanded: cards fan out vertically like the reference
+          const collapsedY = index * 32;
+          const expandedY = index * 296;
+
+          return (
+            <motion.div
+              key={project.slug}
+              className="absolute left-0 right-0 top-0"
+              animate={{
+                y: expanded ? expandedY : collapsedY,
+                scale: expanded ? 1 : 1 - index * 0.04,
+                zIndex: projects.length - index,
+                opacity: expanded ? 1 : 1 - index * 0.2,
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{ transformOrigin: "center top" }}
+            >
+              <div className="relative h-[280px] rounded-2xl overflow-hidden bg-card/30 backdrop-blur-xl border border-border/20 shadow-xl group">
+                {/* Image */}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/30 to-transparent" />
+
+                {/* Content at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div
+                    className="flex items-center gap-3 text-xs tracking-[0.15em] uppercase text-muted-foreground mb-1"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    <span>{project.year}</span>
+                    <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+                    <span>{project.role}</span>
                   </div>
-
-                  {/* Content */}
-                  <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
-                    <div className="space-y-2">
-                      <div
-                        className="flex items-center gap-3 text-xs tracking-[0.15em] uppercase text-muted-foreground"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        <span>{project.year}</span>
-                        <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
-                        <span>{project.role}</span>
-                      </div>
-                      <h4
-                        className="text-xl sm:text-2xl font-light tracking-tight text-foreground"
-                        style={{ fontFamily: "'Quicksand', sans-serif" }}
-                      >
-                        {project.title}
-                      </h4>
-                      <p
-                        className="text-sm text-muted-foreground leading-relaxed line-clamp-2"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* CTA for front card */}
-                    {position === 0 && (
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                        <Link
-                          to={`/project/${project.slug}`}
-                          className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground/10 border border-border/30 text-sm font-medium text-foreground hover:bg-foreground/20 transition-all duration-300 backdrop-blur-sm"
-                          style={{ fontFamily: "'Poppins', sans-serif" }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Eye className="w-4 h-4" />
-                          Tap to Preview
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </motion.div>
-                    )}
-                  </div>
+                  <h4
+                    className="text-xl font-light tracking-tight text-foreground"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    {project.title}
+                  </h4>
                 </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+
+                {/* Hover overlay with View Project */}
+                <motion.div
+                  className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center"
+                  initial={false}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ pointerEvents: isHovered ? "auto" : "none" }}
+                >
+                  <Link
+                    to={`/project/${project.slug}`}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium hover:scale-105 transition-transform duration-200"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Eye className="w-4 h-4" />
+                    View Project
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Dots (only if multiple cards) */}
+      {/* Expand/Collapse hint for multi-card stacks */}
       {projects.length > 1 && (
-        <div className="flex justify-center gap-2 mt-8">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? "w-7 h-2 bg-foreground"
-                  : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
+        <button
+          onClick={toggleExpand}
+          className="mt-6 text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
+        >
+          {expanded ? "Collapse" : `+${projects.length - 1} more`}
+        </button>
       )}
     </motion.div>
   );
@@ -215,7 +215,6 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
 const Projects = () => {
   return (
     <section id="portfolio" className="relative min-h-screen overflow-hidden bg-background">
-      {/* Top Gradient Fade */}
       <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none z-20" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -249,7 +248,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none z-20" />
     </section>
   );
