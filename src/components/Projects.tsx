@@ -218,7 +218,7 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
                 scale: isSwiped ? 0.95 : 1,
                 zIndex: isSwiped ? 0 : projects.length - position,
                 opacity: isSwiped ? 0 : 1,
-              }
+              }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
               drag={isFront ? "y" : false}
               dragConstraints={{ top: 0, bottom: 0 }}
