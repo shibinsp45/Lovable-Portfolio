@@ -177,8 +177,14 @@ const SoulChatbot = () => {
       inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 120) + "px";
     }
   }, [input]);
+  const lastSentRef = useRef(0);
 
   const sendMessage = async (text: string) => {
+    if (!text.trim() || isLoading) return;
+    // Cooldown: 2 seconds between messages
+    const now = Date.now();
+    if (now - lastSentRef.current < 2000) return;
+    lastSentRef.current = now;
     if (!text.trim() || isLoading) return;
     playSend();
     const userMsg: Message = { role: "user", content: text.trim() };
