@@ -204,7 +204,7 @@ const SoulChatbot = () => {
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground text-center mb-4">
-                    Hi! 👋 I'm <span className="text-primary font-medium">Soul</span>, Shibin's AI assistant. Ask me anything about his work, projects, or skills!
+                    hey 👋 I'm <span className="text-primary font-medium">Soul</span> — ask me anything about Shibin
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {quickQuestions.map((q) => (
