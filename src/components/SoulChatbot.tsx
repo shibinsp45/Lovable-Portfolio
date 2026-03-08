@@ -9,9 +9,8 @@ type Message = { role: "user" | "assistant"; content: string };
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soul-chat`;
 
 const quickQuestions = [
-  "Who is Shibin?",
-  "What projects has he done?",
-  "How can I contact him?",
+  "What do you do?",
+  "Tell me about your projects",
 ];
 
 async function streamChat({
