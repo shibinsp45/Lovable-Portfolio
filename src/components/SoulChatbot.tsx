@@ -161,7 +161,7 @@ const SoulChatbot = () => {
       >
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0"
+          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0 overflow-hidden"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -169,8 +169,8 @@ const SoulChatbot = () => {
                 <X className="h-6 w-6" />
               </motion.div>
             ) : (
-              <motion.div key="chat" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                <MessageCircle className="h-6 w-6" />
+              <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
+                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full" />
               </motion.div>
             )}
           </AnimatePresence>
