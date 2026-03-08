@@ -419,7 +419,7 @@ const SoulChatbot = () => {
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-primary/40 bg-primary/25 text-foreground hover:bg-primary/35 hover:border-primary/50 shadow-sm shadow-primary/10 no-underline transition-all duration-200 mx-0.5"
+                                    className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-full border border-border/50 bg-card/30 text-foreground hover:bg-card/50 hover:border-border/70 shadow-sm shadow-border/10 no-underline transition-all duration-200 mx-0.5"
                                   >
                                     <Icon className="w-3 h-3" />
                                     {label}
