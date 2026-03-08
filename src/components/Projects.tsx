@@ -134,7 +134,7 @@ const projectGroups = [
       {
         title: "Why UI/UX Design Shapes the World",
         description: "How UI/UX design decides whether we stay, trust, and return to digital products.",
-        image: "/projects/uiux-blog.png",
+        image: "/projects/uiux-blog.webp",
         slug: "uiux-shapes-world",
         year: "2025",
         role: "Writer",
