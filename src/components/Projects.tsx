@@ -148,6 +148,14 @@ const projectGroups = [
         role: "Writer",
       },
       {
+        title: "Human-Computer Interaction",
+        description: "The science, principles, and real-world applications of how humans and computers understand each other.",
+        image: "/projects/hci-blog.jpg",
+        slug: "human-computer-interaction",
+        year: "2025",
+        role: "Writer & Researcher",
+      },
+      {
         title: "Cognitive Bias in UX",
         description: "Blending psychology and design to craft more human-centered products.",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
