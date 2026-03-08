@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send } from "lucide-react";
+import soulIcon from "@/assets/soul-icon.jpg";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 
@@ -160,7 +161,7 @@ const SoulChatbot = () => {
       >
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0"
+          className="h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/30 p-0 overflow-hidden"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -168,8 +169,8 @@ const SoulChatbot = () => {
                 <X className="h-6 w-6" />
               </motion.div>
             ) : (
-              <motion.div key="chat" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                <MessageCircle className="h-6 w-6" />
+              <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
+                <img src={soulIcon} alt="Soul" className="h-14 w-14 object-cover rounded-full" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -188,8 +189,8 @@ const SoulChatbot = () => {
           >
             {/* Header */}
             <div className="px-4 py-3 border-b border-border/30 bg-primary/5 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary" />
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <img src={soulIcon} alt="Soul" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "'Quicksand', sans-serif" }}>
