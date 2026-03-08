@@ -14,6 +14,7 @@ const quickQuestions = [
   "What are your skills?",
   "How to contact you?",
   "Where have you worked?",
+  "Show his resume",
 ];
 
 async function streamChat({
