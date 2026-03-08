@@ -193,12 +193,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
   };
 
   const handleCardTap = (index: number, position: number) => {
-    pauseAutoCycle();
     if (position > 0) {
       setActiveIndex(index);
-      setFlippedIndex(null);
-    } else if (position === 0) {
-      setFlippedIndex(flippedIndex === index ? null : index);
     }
   };
 
