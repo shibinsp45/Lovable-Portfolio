@@ -248,6 +248,8 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
               dragElastic={0.15}
               onDragEnd={isFront ? handleSwipe : undefined}
               onClick={() => handleCardTap(index, position)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 transformOrigin: "center center",
                 height: `${cardHeight}px`,
