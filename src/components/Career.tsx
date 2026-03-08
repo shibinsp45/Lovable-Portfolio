@@ -8,21 +8,21 @@ const experiences = [
     period: "2025 - Now",
     description:
       "Helping humans with UI/UX design and development, AI-driven social insights, and mentoring designers!",
-    scrollColor: "text-green-400",
+    scrollColor: "#4ade80",
   },
   {
     title: "UI/UX Designer - Kreative Sparkz",
     period: "2024 - 2024",
     description:
       "Designed user-centered UI/UX solutions, leading user research to inform design decisions. Developed interactive prototypes and wireframes, ensuring seamless user experiences. Mentored budding designers on UX best practices and integrated AI-driven enhancements to improve frontend experiences.",
-    scrollColor: "text-red-400",
+    scrollColor: "#f87171",
   },
   {
     title: "UI/UX Designer Intern – Nuren AI",
     period: "2023 - 2024",
     description:
       "Created web UI and interactions for a CRM system with a focus on user-centered design. Conducted user research and developed prototypes to improve the overall user experience. Worked closely with teams to ensure the delivery of a smooth and visually engaging interface.",
-    scrollColor: "text-blue-400",
+    scrollColor: "#60a5fa",
   },
 ];
 
