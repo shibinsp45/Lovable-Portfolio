@@ -194,6 +194,36 @@ const projectsData = {
     role: "Web Developer",
     behanceUrl: "https://www.behance.net/gallery/202930537/TeaTym-Product-Website",
   },
+  "happy-cart": {
+    title: "Happy Cart Branding",
+    description: "Branding design for a shopping cart – vibrant and playful identity.",
+    fullDescription: "Happy Cart is a branding design project for a shopping cart brand. The design features a playful smiley cart logo on a vibrant red background with shopping-themed iconography, creating a fun and memorable brand identity.",
+    image: "/projects/happy-cart.png",
+    gallery: [
+      "/projects/happy-cart-2.png",
+    ],
+    technologies: ["Canva"],
+    category: "Branding",
+    year: "2024",
+    client: "Case Study",
+    role: "Brand Designer",
+    behanceUrl: "https://www.behance.net/gallery/197538045/Happy-Cart-Branding",
+  },
+  "smiley-wallpaper": {
+    title: "Smiley Desktop Wallpaper Design",
+    description: "Desktop wallpaper design with a cheerful smiley theme.",
+    fullDescription: "A cheerful desktop wallpaper design featuring a minimalist smiley face on a bright yellow background. The design includes mockup presentations showing the wallpaper on various devices.",
+    image: "/projects/smiley-wallpaper.png",
+    gallery: [
+      "/projects/smiley-wallpaper-2.png",
+    ],
+    technologies: ["Canva"],
+    category: "Graphic Design",
+    year: "2024",
+    client: "Personal Project",
+    role: "Graphic Designer",
+    behanceUrl: "https://www.behance.net/gallery/197538631/Smiley-Desktop-Wallpaper-Design",
+  },
 };
 
 const ProjectDetail = () => {
