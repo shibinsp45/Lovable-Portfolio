@@ -7,7 +7,7 @@ const getCtx = (() => {
   };
 })();
 
-function tone(freq: number, dur: number, type: OscillatorType = "square", vol = 0.10, delay = 0) {
+function tone(freq: number, dur: number, type: OscillatorType = "sine", vol = 0.08, delay = 0) {
   const ctx = getCtx();
   if (!ctx) return;
   const t = ctx.currentTime + delay;
@@ -23,44 +23,33 @@ function tone(freq: number, dur: number, type: OscillatorType = "square", vol = 
 }
 
 export function useChatSounds() {
-  // Mario power-up / pipe sound – ascending arpeggio
+  // Soft pop – chat open
   const playOpen = () => {
-    tone(262, 0.08, "square", 0.10, 0);      // C4
-    tone(330, 0.08, "square", 0.10, 0.07);    // E4
-    tone(392, 0.08, "square", 0.10, 0.14);    // G4
-    tone(523, 0.12, "square", 0.10, 0.21);    // C5
-    tone(659, 0.10, "square", 0.08, 0.30);    // E5
-    tone(784, 0.15, "square", 0.06, 0.37);    // G5
+    tone(480, 0.1, "sine", 0.09);
+    tone(640, 0.08, "sine", 0.07, 0.06);
   };
 
-  // Mario pipe-down – descending
+  // Gentle drop – chat close
   const playClose = () => {
-    tone(784, 0.06, "square", 0.08, 0);       // G5
-    tone(523, 0.06, "square", 0.08, 0.06);    // C5
-    tone(392, 0.06, "square", 0.08, 0.12);    // G4
-    tone(262, 0.12, "square", 0.06, 0.18);    // C4
+    tone(520, 0.08, "sine", 0.06);
+    tone(380, 0.1, "sine", 0.05, 0.05);
   };
 
-  // Mario fireball – quick rising blip
+  // Quick whoosh – message sent
   const playSend = () => {
-    tone(400, 0.04, "square", 0.07, 0);
-    tone(600, 0.04, "square", 0.07, 0.03);
-    tone(900, 0.04, "square", 0.06, 0.06);
-    tone(1200, 0.06, "triangle", 0.05, 0.09);
+    tone(600, 0.06, "triangle", 0.05);
+    tone(800, 0.05, "triangle", 0.04, 0.03);
   };
 
-  // Mario coin sound – classic two-tone ping
+  // Soft ding – message received
   const playReceive = () => {
-    tone(988, 0.08, "square", 0.10, 0);       // B5
-    tone(1319, 0.30, "square", 0.08, 0.08);   // E6
+    tone(830, 0.12, "sine", 0.08);
+    tone(1050, 0.1, "sine", 0.05, 0.1);
   };
 
-  // Mario 1-UP – short mushroom pop
+  // Subtle pop – bubble appears
   const playBubble = () => {
-    tone(330, 0.06, "square", 0.08, 0);       // E4
-    tone(392, 0.06, "square", 0.08, 0.06);    // G4
-    tone(523, 0.06, "square", 0.08, 0.12);    // C5
-    tone(659, 0.10, "square", 0.06, 0.18);    // E5
+    tone(440, 0.1, "sine", 0.06);
   };
 
   return { playOpen, playClose, playSend, playReceive, playBubble };
