@@ -3,6 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import adarshImg from "@/assets/adarsh.png";
+import libinImg from "@/assets/libin.png";
+import jestinImg from "@/assets/jestin.png";
 
 const testimonials = [
   {
@@ -10,6 +12,7 @@ const testimonials = [
       "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes. Whether working in a team or independently, Shibin adapts seamlessly and delivers outstanding results.",
     name: "Dr.Libin P Oommen",
     role: "HOD at PRC",
+    avatar: libinImg,
   },
   {
     quote:
@@ -23,6 +26,7 @@ const testimonials = [
       "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
+    avatar: jestinImg,
   },
 ];
 
