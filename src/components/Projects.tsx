@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 
 const projectGroups = [
   {
-    caption: "UI UX Design",
+    caption: "UI UX Designs and Case Studies",
     projects: [
       {
         title: "Invoice Generator App",
@@ -174,6 +175,8 @@ const projectGroups = [
   },
 ];
 
+const INITIAL_VISIBLE = 3;
+
 const ProjectCard = ({
   project,
   index,
@@ -186,22 +189,22 @@ const ProjectCard = ({
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <Link
         to={`/project/${project.slug}`}
         className="group block rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-border/5"
       >
         {/* Header */}
-        <div className="p-5 sm:p-6 pb-3 sm:pb-4">
-          <div className="flex items-center gap-2 mb-3">
-            <div className={`w-8 h-8 rounded-lg ${project.accent} flex items-center justify-center`}>
-              <span className="text-xs font-bold text-background" style={{ fontFamily: "'Poppins', sans-serif" }}>
+        <div className="p-4 sm:p-5 pb-2.5 sm:pb-3">
+          <div className="flex items-center gap-2 mb-2.5">
+            <div className={`w-7 h-7 rounded-lg ${project.accent} flex items-center justify-center`}>
+              <span className="text-[10px] font-bold text-background" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 {project.role.split(" ")[0].charAt(0)}
               </span>
             </div>
             <span
-              className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
+              className="text-[9px] sm:text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
               style={{ fontFamily: "'Poppins', sans-serif" }}
             >
               {project.role}
@@ -209,13 +212,13 @@ const ProjectCard = ({
           </div>
 
           <h4
-            className="text-lg sm:text-xl font-semibold tracking-tight text-foreground mb-1.5 group-hover:text-primary transition-colors"
+            className="text-base sm:text-lg font-semibold tracking-tight text-foreground mb-1 group-hover:text-primary transition-colors leading-tight"
             style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
             {project.title}
           </h4>
           <p
-            className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2"
+            className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
             {project.description}
@@ -223,7 +226,7 @@ const ProjectCard = ({
         </div>
 
         {/* Image */}
-        <div className="px-5 sm:px-6 pb-5 sm:pb-6">
+        <div className="px-4 sm:px-5 pb-4 sm:pb-5">
           <div className="relative rounded-xl overflow-hidden bg-muted/30 aspect-[4/3]">
             <img
               src={project.image}
@@ -233,8 +236,8 @@ const ProjectCard = ({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-              <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center">
-                <ArrowUpRight className="w-4 h-4 text-background" />
+              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center">
+                <ArrowUpRight className="w-3.5 h-3.5 text-background" />
               </div>
             </div>
           </div>
@@ -245,6 +248,12 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
+  const [expandedGroups, setExpandedGroups] = useState<Record<number, boolean>>({});
+
+  const toggleGroup = (index: number) => {
+    setExpandedGroups((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
   return (
     <section id="portfolio" className="relative bg-background">
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
@@ -272,26 +281,71 @@ const Projects = () => {
         </motion.div>
 
         <div className="flex flex-col gap-16 sm:gap-20 max-w-7xl mx-auto">
-          {projectGroups.map((group, groupIndex) => (
-            <div key={group.caption}>
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8 sm:mb-10 text-center"
-                style={{ fontFamily: "'Quicksand', sans-serif" }}
-              >
-                {group.caption}
-              </motion.h3>
+          {projectGroups.map((group, groupIndex) => {
+            const isExpanded = expandedGroups[groupIndex];
+            const visibleProjects = isExpanded
+              ? group.projects
+              : group.projects.slice(0, INITIAL_VISIBLE);
+            const hasMore = group.projects.length > INITIAL_VISIBLE;
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                {group.projects.map((project, index) => (
-                  <ProjectCard key={project.slug} project={project} index={index} />
-                ))}
+            return (
+              <div key={group.caption}>
+                {/* Section header with View All */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-center justify-between mb-4 sm:mb-5"
+                >
+                  <h3
+                    className="text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-foreground"
+                    style={{ fontFamily: "'Quicksand', sans-serif" }}
+                  >
+                    {group.caption}
+                  </h3>
+
+                  {hasMore && (
+                    <button
+                      onClick={() => toggleGroup(groupIndex)}
+                      className="inline-flex items-center gap-1 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {isExpanded ? "Show less" : "View all"}
+                      <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
+                    </button>
+                  )}
+                </motion.div>
+
+                {/* Project name chips */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="flex flex-wrap gap-2 mb-6 sm:mb-8"
+                >
+                  {group.projects.map((project) => (
+                    <Link
+                      key={project.slug}
+                      to={`/project/${project.slug}`}
+                      className="inline-flex items-center px-3 py-1.5 rounded-full border border-border/50 bg-card/50 text-[10px] sm:text-[11px] text-muted-foreground hover:text-foreground hover:border-border hover:bg-card transition-all duration-200"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {project.title}
+                    </Link>
+                  ))}
+                </motion.div>
+
+                {/* Cards grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                  {visibleProjects.map((project, index) => (
+                    <ProjectCard key={project.slug} project={project} index={index} />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
