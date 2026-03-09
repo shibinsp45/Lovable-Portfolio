@@ -616,11 +616,6 @@ const Projects = () => {
                     }}
                   >
                     {illustration.svg}
-                    <motion.div
-                      className={`absolute inset-0 ${illustration.glow} blur-3xl rounded-full`}
-                      animate={{ opacity: [0.15, 0.25, 0.15] }}
-                      transition={{ duration: 3 + index, repeat: Infinity, ease: "easeInOut" }}
-                    />
                   </motion.div>
                   <span
                     className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/40 font-light"
