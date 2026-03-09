@@ -1,8 +1,6 @@
-import { motion, PanInfo } from "framer-motion";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Eye, ChevronUp, ChevronDown } from "lucide-react";
-import { useImageColor } from "@/hooks/use-image-color";
+import { ArrowUpRight } from "lucide-react";
 
 const projectGroups = [
   {
@@ -15,7 +13,7 @@ const projectGroups = [
         slug: "invoice-generator",
         year: "2025",
         role: "UI/UX Designer",
-        tint: "from-blue-600/25 via-blue-500/10 to-transparent border-blue-500/25",
+        accent: "bg-emerald-500",
       },
       {
         title: "Tools - Service App",
@@ -24,7 +22,7 @@ const projectGroups = [
         slug: "tools-app",
         year: "2025",
         role: "UI/UX Designer",
-        tint: "from-orange-500/25 via-orange-400/10 to-transparent border-orange-400/25",
+        accent: "bg-orange-500",
       },
       {
         title: "Fudit - Food Delivery",
@@ -33,7 +31,7 @@ const projectGroups = [
         slug: "fudit-app",
         year: "2024",
         role: "UI/UX Designer",
-        tint: "from-red-500/25 via-red-400/10 to-transparent border-red-400/25",
+        accent: "bg-red-500",
       },
       {
         title: "GetFit - Fitness Tracker",
@@ -42,7 +40,7 @@ const projectGroups = [
         slug: "fitness-app",
         year: "2024",
         role: "UI/UX Designer",
-        tint: "from-lime-500/25 via-lime-400/10 to-transparent border-lime-400/25",
+        accent: "bg-lime-500",
       },
       {
         title: "GroPlan - Grocery App",
@@ -51,7 +49,7 @@ const projectGroups = [
         slug: "grocery-app",
         year: "2025",
         role: "UI/UX Designer",
-        tint: "from-emerald-500/25 via-emerald-400/10 to-transparent border-emerald-400/25",
+        accent: "bg-emerald-500",
       },
       {
         title: "ProMedic - Medicine Vending",
@@ -60,7 +58,7 @@ const projectGroups = [
         slug: "medicine-vending",
         year: "2024",
         role: "UI/UX Designer",
-        tint: "from-sky-500/25 via-sky-400/10 to-transparent border-sky-400/25",
+        accent: "bg-sky-500",
       },
     ],
   },
@@ -74,7 +72,7 @@ const projectGroups = [
         slug: "event-mgmt",
         year: "2024",
         role: "Web Designer",
-        tint: "from-violet-500/25 via-violet-400/10 to-transparent border-violet-400/25",
+        accent: "bg-violet-500",
       },
       {
         title: "ElitePath Dashboard",
@@ -83,7 +81,7 @@ const projectGroups = [
         slug: "elitepath",
         year: "2024",
         role: "UI/UX Designer",
-        tint: "from-indigo-500/25 via-indigo-400/10 to-transparent border-indigo-400/25",
+        accent: "bg-indigo-500",
       },
       {
         title: "Beat Landing Page",
@@ -92,7 +90,7 @@ const projectGroups = [
         slug: "beat-landing",
         year: "2024",
         role: "Web Developer",
-        tint: "from-yellow-500/25 via-yellow-400/10 to-transparent border-yellow-400/25",
+        accent: "bg-yellow-500",
       },
       {
         title: "TeaTym Product Website",
@@ -101,7 +99,7 @@ const projectGroups = [
         slug: "teatym",
         year: "2024",
         role: "Web Developer",
-        tint: "from-amber-600/25 via-amber-500/10 to-transparent border-amber-500/25",
+        accent: "bg-amber-600",
       },
     ],
   },
@@ -115,7 +113,7 @@ const projectGroups = [
         slug: "happy-cart",
         year: "2024",
         role: "Brand Designer",
-        tint: "from-pink-500/25 via-pink-400/10 to-transparent border-pink-400/25",
+        accent: "bg-pink-500",
       },
       {
         title: "Smiley Wallpaper Design",
@@ -124,7 +122,7 @@ const projectGroups = [
         slug: "smiley-wallpaper",
         year: "2024",
         role: "Graphic Designer",
-        tint: "from-yellow-400/25 via-yellow-300/10 to-transparent border-yellow-300/25",
+        accent: "bg-yellow-400",
       },
     ],
   },
@@ -138,7 +136,7 @@ const projectGroups = [
         slug: "perfume-branding",
         year: "2025",
         role: "AI Designer",
-        tint: "from-rose-400/25 via-rose-300/10 to-transparent border-rose-300/25",
+        accent: "bg-rose-400",
       },
     ],
   },
@@ -152,7 +150,7 @@ const projectGroups = [
         slug: "uiux-shapes-world",
         year: "2025",
         role: "Writer",
-        tint: "from-cyan-500/25 via-cyan-400/10 to-transparent border-cyan-400/25",
+        accent: "bg-cyan-500",
       },
       {
         title: "How Your Brain Shapes UX",
@@ -161,7 +159,7 @@ const projectGroups = [
         slug: "brain-shapes-ux",
         year: "2025",
         role: "Writer",
-        tint: "from-purple-500/25 via-purple-400/10 to-transparent border-purple-400/25",
+        accent: "bg-purple-500",
       },
       {
         title: "Human-Computer Interaction",
@@ -170,401 +168,81 @@ const projectGroups = [
         slug: "human-computer-interaction",
         year: "2025",
         role: "Writer & Researcher",
-        tint: "from-teal-500/25 via-teal-400/10 to-transparent border-teal-400/25",
+        accent: "bg-teal-500",
       },
     ],
   },
 ];
 
-type ProjectType = typeof projectGroups[0]["projects"][0];
-
 const ProjectCard = ({
-  project, index, position, isFront, isSwiped, projects, activeIndex,
-  smCardHeight, titleBarHeight, handleSwipe, handleCardTap, showOverlay,
-  isTouchDevice, hoveredIndex, setHoveredIndex,
+  project,
+  index,
 }: {
-  project: ProjectType; index: number; position: number; isFront: boolean;
-  isSwiped: boolean; projects: ProjectType[]; activeIndex: number;
-  smCardHeight: number; titleBarHeight: number;
-  handleSwipe: (_: any, info: PanInfo) => void;
-  handleCardTap: (index: number, position: number) => void;
-  showOverlay: boolean; isTouchDevice: boolean;
-  hoveredIndex: number | null; setHoveredIndex: (v: number | null) => void;
+  project: (typeof projectGroups)[0]["projects"][0];
+  index: number;
 }) => {
-  const color = useImageColor(project.image);
-
   return (
     <motion.div
-      className="absolute left-0 right-0 top-0"
-      animate={{
-        x: isSwiped ? -400 : 0,
-        y: isSwiped ? 0 : position * -titleBarHeight,
-        rotateZ: isSwiped ? -8 : 0,
-        zIndex: isSwiped ? 0 : projects.length - position,
-        opacity: isSwiped ? 0 : 1,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 28 }}
-      drag={isFront ? "x" : false}
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.18}
-      onDragEnd={isFront ? handleSwipe : undefined}
-      onClick={() => handleCardTap(index, position)}
-      onMouseEnter={() => !isTouchDevice && setHoveredIndex(index)}
-      onMouseLeave={() => !isTouchDevice && setHoveredIndex(null)}
-      style={{
-        transformOrigin: "center bottom",
-        height: `${smCardHeight}px`,
-        cursor: isFront ? "grab" : "pointer",
-        touchAction: isFront ? "pan-y" : "auto",
-      }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div
-        className="absolute inset-0 rounded-2xl overflow-hidden backdrop-blur-xl flex flex-col"
-        style={{
-          background: color
-            ? `linear-gradient(to bottom, rgba(${color}, 0.25), rgba(${color}, 0.08), transparent)`
-            : undefined,
-          borderWidth: 1,
-          borderStyle: "solid",
-          borderColor: color ? `rgba(${color}, 0.25)` : "transparent",
-        }}
+      <Link
+        to={`/project/${project.slug}`}
+        className="group block rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-border/5"
       >
-        <div
-          className="px-3 sm:px-4 md:px-5 py-2.5 sm:py-3 flex items-center justify-between flex-shrink-0"
-          style={{
-            borderBottom: color ? `1px solid rgba(${color}, 0.15)` : "1px solid hsl(var(--border) / 0.1)",
-            background: color ? `rgba(${color}, 0.08)` : undefined,
-          }}
-        >
+        {/* Header */}
+        <div className="p-5 sm:p-6 pb-3 sm:pb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className={`w-8 h-8 rounded-lg ${project.accent} flex items-center justify-center`}>
+              <span className="text-xs font-bold text-background" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                {project.role.split(" ")[0].charAt(0)}
+              </span>
+            </div>
+            <span
+              className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+            >
+              {project.role}
+            </span>
+          </div>
+
           <h4
-            className="text-sm sm:text-base md:text-lg font-light tracking-tight text-foreground truncate"
+            className="text-lg sm:text-xl font-semibold tracking-tight text-foreground mb-1.5 group-hover:text-primary transition-colors"
             style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
             {project.title}
           </h4>
-          {isFront && projects.length > 1 && (
-            <div
-              className="text-[8px] sm:text-[9px] tracking-[0.12em] text-muted-foreground/60 flex-shrink-0 ml-2 sm:ml-3"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              {activeIndex + 1}/{projects.length}
-            </div>
-          )}
-        </div>
-
-        <div className="relative flex-1 overflow-hidden">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            draggable={false}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
-          {isFront && (
-            <Link
-              to={`/project/${project.slug}`}
-              className="absolute inset-0 flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span
-                className="text-[10px] sm:text-xs tracking-wider uppercase text-foreground/80 bg-background/30 backdrop-blur-sm px-4 py-2 rounded-full"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-              >
-                Tap to view
-              </span>
-            </Link>
-          )}
-        </div>
-
-        <div className="px-3 sm:px-4 md:px-5 py-2.5 sm:py-3">
-          <div
-            className="flex items-center gap-2 text-[9px] sm:text-[10px] tracking-[0.12em] uppercase text-muted-foreground mb-1"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
-          >
-            <span>{project.role}</span>
-          </div>
           <p
-            className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2"
+            className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
             {project.description}
           </p>
         </div>
 
-        {/* Overlay — View Project */}
-        {isFront && (
-          <motion.div
-            className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center rounded-2xl"
-            initial={false}
-            animate={{ opacity: showOverlay ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-            style={{ pointerEvents: showOverlay ? "auto" : "none" }}
-          >
-            <div className="flex flex-col items-center gap-3">
-              <Link
-                to={`/project/${project.slug}`}
-                className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-foreground text-background text-xs sm:text-sm font-medium hover:scale-105 active:scale-95 transition-transform duration-200"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                View Project
-                <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </motion.div>
-  );
-};
-
-interface CardStackProps {
-  projects: typeof projectGroups[0]["projects"];
-  caption: string;
-}
-
-const CardStack = ({ projects, caption }: CardStackProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [tappedIndex, setTappedIndex] = useState<number | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-  }, []);
-
-  const handleSwipe = (_: any, info: PanInfo) => {
-    const swipeThreshold = 40;
-    if (info.offset.x < -swipeThreshold) {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
-    } else if (info.offset.x > swipeThreshold) {
-      setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    }
-  };
-
-  const handleCardTap = (index: number, position: number) => {
-    if (position > 0) {
-      setActiveIndex(index);
-      setTappedIndex(null);
-    } else if (isTouchDevice) {
-      // Toggle overlay on tap for touch devices
-      setTappedIndex((prev) => (prev === index ? null : index));
-    }
-  };
-
-  const [smCardHeight, setSmCardHeight] = useState(280);
-  const titleBarHeight = 40;
-
-  useEffect(() => {
-    const updateHeight = () => {
-      setSmCardHeight(window.innerWidth >= 768 ? 420 : 280);
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-  const maxVisible = 3;
-
-  const getPosition = (index: number) => {
-    let pos = index - activeIndex;
-    if (pos < -Math.floor(projects.length / 2)) pos += projects.length;
-    if (pos > Math.floor(projects.length / 2)) pos -= projects.length;
-    return pos;
-  };
-
-  const showOverlay = (index: number) => {
-    if (isTouchDevice) return tappedIndex === index;
-    return hoveredIndex === index;
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6 }}
-      className="flex flex-col items-center"
-    >
-      <h3
-        className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-foreground mb-6 sm:mb-8"
-        style={{ fontFamily: "'Quicksand', sans-serif" }}
-      >
-        {caption}
-      </h3>
-
-      <div
-        className="relative w-full"
-        style={{
-          height: `${smCardHeight + 16}px`,
-          marginTop: `${Math.min(projects.length - 1, maxVisible - 1) * titleBarHeight}px`,
-          perspective: "1200px",
-        }}
-      >
-        {projects.map((project, index) => {
-          const position = getPosition(index);
-          if (position < -1 || position >= maxVisible) return null;
-
-          const isFront = position === 0;
-          const isSwiped = position < 0;
-
-          return (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              index={index}
-              position={position}
-              isFront={isFront}
-              isSwiped={isSwiped}
-              projects={projects}
-              activeIndex={activeIndex}
-              smCardHeight={smCardHeight}
-              titleBarHeight={titleBarHeight}
-              handleSwipe={handleSwipe}
-              handleCardTap={handleCardTap}
-              showOverlay={showOverlay(index)}
-              isTouchDevice={isTouchDevice}
-              hoveredIndex={hoveredIndex}
-              setHoveredIndex={setHoveredIndex}
+        {/* Image */}
+        <div className="px-5 sm:px-6 pb-5 sm:pb-6">
+          <div className="relative rounded-xl overflow-hidden bg-muted/30 aspect-[4/3]">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
-          );
-        })}
-      </div>
-
-      {/* Counter */}
-      {projects.length > 1 && (
-        <div className="flex items-center gap-3 mt-4">
-          <button
-            onClick={() => { setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length); setTappedIndex(null); }}
-            className="text-muted-foreground/50 hover:text-foreground transition-colors"
-          >
-            <ChevronUp className="w-4 h-4" />
-          </button>
-          <span
-            className="text-sm text-muted-foreground tracking-wider"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
-          >
-            {activeIndex + 1}/{projects.length}
-          </span>
-          <button
-            onClick={() => { setActiveIndex((prev) => (prev + 1) % projects.length); setTappedIndex(null); }}
-            className="text-muted-foreground/50 hover:text-foreground transition-colors"
-          >
-            <ChevronDown className="w-4 h-4" />
-          </button>
+            <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+              <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center">
+                <ArrowUpRight className="w-4 h-4 text-background" />
+              </div>
+            </div>
+          </div>
         </div>
-      )}
+      </Link>
     </motion.div>
   );
 };
-
-const illustrations = [
-  {
-    // UI UX Design
-    label: "UI/UX",
-    glow: "bg-primary/30",
-    svg: (
-      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
-        <rect x="35" y="10" width="50" height="90" rx="10" stroke="currentColor" strokeWidth="1" />
-        <rect x="42" y="28" width="36" height="5" rx="2" fill="currentColor" opacity="0.25" />
-        <rect x="42" y="38" width="28" height="5" rx="2" fill="currentColor" opacity="0.2" />
-        <rect x="42" y="48" width="32" height="5" rx="2" fill="currentColor" opacity="0.2" />
-        <rect x="48" y="60" width="24" height="8" rx="4" stroke="currentColor" strokeWidth="0.8" />
-        <path d="M18 95 L28 55 L35 62 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.12" />
-        <circle cx="28" cy="55" r="3" fill="currentColor" opacity="0.3" />
-        <path d="M90 30 L90 50 L96 44 L104 52" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" />
-        <rect x="52" y="14" width="16" height="3" rx="1.5" fill="currentColor" opacity="0.15" />
-      </svg>
-    ),
-  },
-  {
-    // Web Development
-    label: "Code",
-    glow: "bg-blue-500/30",
-    svg: (
-      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
-        <rect x="10" y="15" width="100" height="80" rx="8" stroke="currentColor" strokeWidth="0.8" />
-        <line x1="10" y1="30" x2="110" y2="30" stroke="currentColor" strokeWidth="0.5" />
-        <circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.25" />
-        <circle cx="32" cy="22" r="3" fill="currentColor" opacity="0.25" />
-        <circle cx="42" cy="22" r="3" fill="currentColor" opacity="0.25" />
-        <rect x="52" y="19" width="52" height="6" rx="3" stroke="currentColor" strokeWidth="0.5" />
-        <path d="M25 48 L40 58 L25 68" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M95 48 L80 58 L95 68" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-        <line x1="52" y1="45" x2="42" y2="72" stroke="currentColor" strokeWidth="0.8" />
-        <rect x="25" y="78" width="40" height="3" rx="1.5" fill="currentColor" opacity="0.15" />
-        <rect x="25" y="84" width="30" height="3" rx="1.5" fill="currentColor" opacity="0.12" />
-      </svg>
-    ),
-  },
-  {
-    // Product Branding
-    label: "Brand",
-    glow: "bg-purple-500/30",
-    svg: (
-      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
-        <path d="M30 25 L80 25 L95 60 L80 95 L30 95 L30 25 Z" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
-        <circle cx="42" cy="42" r="6" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="42" cy="42" r="2.5" fill="currentColor" opacity="0.3" />
-        <circle cx="55" cy="60" r="12" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.08" />
-        <circle cx="72" cy="54" r="9" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.1" />
-        <circle cx="66" cy="74" r="8" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.09" />
-        <text x="40" y="90" fontSize="14" fill="currentColor" opacity="0.25" fontFamily="serif" fontWeight="bold">Aa</text>
-        <path d="M90 25 L92 32 L99 34 L92 36 L90 43 L88 36 L81 34 L88 32 Z" fill="currentColor" opacity="0.25" />
-      </svg>
-    ),
-  },
-  {
-    // Generative AI
-    label: "AI",
-    glow: "bg-amber-500/30",
-    svg: (
-      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
-        <rect x="30" y="30" width="60" height="60" rx="14" stroke="currentColor" strokeWidth="0.8" strokeDasharray="4 4" />
-        <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="70" cy="50" r="6" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="60" cy="72" r="6" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="60" cy="45" r="3" fill="currentColor" opacity="0.2" />
-        <line x1="55" y1="48" x2="65" y2="48" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="52" y1="55" x2="57" y2="67" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="68" y1="55" x2="63" y2="67" stroke="currentColor" strokeWidth="0.6" />
-        <path d="M20 20 L22 27 L29 29 L22 31 L20 38 L18 31 L11 29 L18 27 Z" fill="currentColor" opacity="0.3" />
-        <path d="M95 18 L97 23 L102 25 L97 27 L95 32 L93 27 L88 25 L93 23 Z" fill="currentColor" opacity="0.25" />
-        <path d="M100 85 L102 90 L107 92 L102 94 L100 99 L98 94 L93 92 L98 90 Z" fill="currentColor" opacity="0.25" />
-        <line x1="45" y1="30" x2="45" y2="20" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="60" y1="30" x2="60" y2="20" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="75" y1="30" x2="75" y2="20" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="45" y1="90" x2="45" y2="100" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="60" y1="90" x2="60" y2="100" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="75" y1="90" x2="75" y2="100" stroke="currentColor" strokeWidth="0.6" />
-      </svg>
-    ),
-  },
-  {
-    // Blogs and Articles
-    label: "Blog",
-    glow: "bg-emerald-500/30",
-    svg: (
-      <svg width="340" height="340" viewBox="0 0 120 120" fill="none" className="text-muted-foreground/50">
-        <path d="M60 30 Q45 25 20 30 L20 90 Q45 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
-        <path d="M60 30 Q75 25 100 30 L100 90 Q75 85 60 90 Z" stroke="currentColor" strokeWidth="0.8" fill="currentColor" opacity="0.05" />
-        <line x1="60" y1="30" x2="60" y2="90" stroke="currentColor" strokeWidth="0.8" />
-        <line x1="30" y1="42" x2="52" y2="42" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="30" y1="50" x2="50" y2="50" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="30" y1="58" x2="48" y2="58" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="30" y1="66" x2="52" y2="66" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="30" y1="74" x2="46" y2="74" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="68" y1="42" x2="90" y2="42" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="68" y1="50" x2="88" y2="50" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="68" y1="58" x2="86" y2="58" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="68" y1="66" x2="90" y2="66" stroke="currentColor" strokeWidth="0.6" />
-        <path d="M92 15 L98 12 L102 22 L96 25 Z" stroke="currentColor" strokeWidth="0.6" fill="currentColor" opacity="0.12" />
-        <path d="M96 25 L94 30" stroke="currentColor" strokeWidth="0.6" />
-        <path d="M55 25 L55 18 L60 22 L65 18 L65 25" stroke="currentColor" strokeWidth="0.6" fill="currentColor" opacity="0.1" />
-      </svg>
-    ),
-  },
-];
 
 const Projects = () => {
   return (
@@ -594,52 +272,26 @@ const Projects = () => {
         </motion.div>
 
         <div className="flex flex-col gap-16 sm:gap-20 max-w-7xl mx-auto">
-          {projectGroups.map((group, index) => {
-            const isLeft = index % 2 === 0;
-            const illustration = illustrations[index % illustrations.length];
-            return (
-              <div
-                key={group.caption}
-                className={`relative flex justify-center ${isLeft ? "lg:justify-start" : "lg:justify-end"}`}
+          {projectGroups.map((group, groupIndex) => (
+            <div key={group.caption}>
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8 sm:mb-10 text-center"
+                style={{ fontFamily: "'Quicksand', sans-serif" }}
               >
-                {/* Decorative illustration on the opposite side */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className={`absolute top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 ${
-                    isLeft ? "right-0 xl:right-4" : "left-0 xl:left-4"
-                  }`}
-                >
-                  <motion.div
-                    className="relative"
-                    animate={{
-                      y: [0, -8, 0],
-                      rotate: [0, 2, -2, 0],
-                    }}
-                    transition={{
-                      duration: 5 + index,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    {illustration.svg}
-                  </motion.div>
-                  <span
-                    className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/40 font-light"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {illustration.label}
-                  </span>
-                </motion.div>
+                {group.caption}
+              </motion.h3>
 
-                <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[560px] xl:max-w-[580px]">
-                  <CardStack caption={group.caption} projects={group.projects} />
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                {group.projects.map((project, index) => (
+                  <ProjectCard key={project.slug} project={project} index={index} />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
