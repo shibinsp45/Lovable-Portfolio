@@ -353,8 +353,17 @@ const CardStack = ({ projects, caption }: CardStackProps) => {
     }
   };
 
-  const smCardHeight = 280;
+  const [smCardHeight, setSmCardHeight] = useState(280);
   const titleBarHeight = 40;
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setSmCardHeight(window.innerWidth >= 768 ? 420 : 280);
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
   const maxVisible = 3;
 
   const getPosition = (index: number) => {
