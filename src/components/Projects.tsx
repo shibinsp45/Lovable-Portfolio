@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 const projectGroups = [
   {
@@ -175,90 +175,172 @@ const projectGroups = [
   },
 ];
 
-const INITIAL_VISIBLE = 3;
-
-const ProjectCard = ({
-  project,
-  index,
+const CarouselGroup = ({
+  group,
+  groupIndex,
 }: {
-  project: (typeof projectGroups)[0]["projects"][0];
-  index: number;
+  group: (typeof projectGroups)[0];
+  groupIndex: number;
 }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const cards = container.children;
+    if (cards[index]) {
+      const card = cards[index] as HTMLElement;
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const scrollLeft = card.offsetLeft - containerRect.width / 2 + cardRect.width / 2;
+      container.scrollTo({ left: scrollLeft, behavior: "smooth" });
+    }
+    setActiveIndex(index);
+  };
+
+  useEffect(() => {
+    if (isPlaying && group.projects.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setActiveIndex((prev) => {
+          const next = (prev + 1) % group.projects.length;
+          scrollToIndex(next);
+          return next;
+        });
+      }, 4000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isPlaying, group.projects.length]);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const scrollCenter = container.scrollLeft + container.clientWidth / 2;
+    let closestIndex = 0;
+    let closestDist = Infinity;
+    Array.from(container.children).forEach((child, i) => {
+      const el = child as HTMLElement;
+      const center = el.offsetLeft + el.offsetWidth / 2;
+      const dist = Math.abs(scrollCenter - center);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIndex = i;
+      }
+    });
+    setActiveIndex(closestIndex);
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
     >
-      <Link
-        to={`/project/${project.slug}`}
-        className="group block rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-border/5"
+      {/* Section Title */}
+      <h3
+        className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-10"
+        style={{ fontFamily: "'Quicksand', sans-serif" }}
       >
-        {/* Header */}
-        <div className="p-4 sm:p-5 pb-2.5 sm:pb-3">
-          <div className="flex items-center gap-2 mb-2.5">
-            <div className={`w-7 h-7 rounded-lg ${project.accent} flex items-center justify-center`}>
-              <span className="text-[10px] font-bold text-background" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                {project.role.split(" ")[0].charAt(0)}
-              </span>
-            </div>
-            <span
-              className="text-[9px] sm:text-[10px] tracking-[0.1em] uppercase text-muted-foreground"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              {project.role}
-            </span>
-          </div>
+        {group.caption}
+      </h3>
 
-          <h4
-            className="text-base sm:text-lg font-semibold tracking-tight text-foreground mb-1 group-hover:text-primary transition-colors leading-tight"
-            style={{ fontFamily: "'Quicksand', sans-serif" }}
+      {/* Carousel */}
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-8 pb-2"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {group.projects.map((project, index) => (
+          <Link
+            key={project.slug}
+            to={`/project/${project.slug}`}
+            className="group flex-shrink-0 snap-center w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]"
           >
-            {project.title}
-          </h4>
-          <p
-            className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
-          >
-            {project.description}
-          </p>
-        </div>
+            <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
+              {/* Cover Image */}
+              <div className="relative w-full aspect-[3/4] sm:aspect-[4/5]">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                {/* Gradient overlay at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        {/* Image */}
-        <div className="px-4 sm:px-5 pb-4 sm:pb-5">
-          <div className="relative rounded-xl overflow-hidden bg-muted/30 aspect-[4/3]">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center">
-                <ArrowUpRight className="w-3.5 h-3.5 text-background" />
+                {/* Role chip */}
+                <div className="absolute bottom-28 sm:bottom-32 left-4 sm:left-5">
+                  <span
+                    className="inline-block px-3 py-1 rounded-md bg-muted/80 backdrop-blur-sm text-[10px] sm:text-xs text-foreground font-medium"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {project.role}
+                  </span>
+                </div>
+
+                {/* Bottom content overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                  <p
+                    className="text-xs sm:text-sm text-white/80 leading-relaxed mb-3 sm:mb-4 line-clamp-2"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {project.description}
+                  </p>
+                  <div className="flex items-center justify-center w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
+                    <span
+                      className="text-xs sm:text-sm font-medium text-white tracking-wide"
+                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                    >
+                      Explore
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* Dots & controls */}
+      {group.projects.length > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-5 sm:mt-6">
+          <div className="flex items-center gap-1.5">
+            {group.projects.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === activeIndex
+                    ? "w-6 h-2.5 bg-foreground"
+                    : "w-2.5 h-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                }`}
+              />
+            ))}
           </div>
+          <button
+            onClick={() => setIsPlaying((p) => !p)}
+            className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+          </button>
         </div>
-      </Link>
+      )}
     </motion.div>
   );
 };
 
 const Projects = () => {
-  const [expandedGroups, setExpandedGroups] = useState<Record<number, boolean>>({});
-
-  const toggleGroup = (index: number) => {
-    setExpandedGroups((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
-
   return (
     <section id="portfolio" className="relative bg-background">
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32">
+      <div className="relative z-10 py-16 sm:py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -280,72 +362,10 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="flex flex-col gap-16 sm:gap-20 max-w-7xl mx-auto">
-          {projectGroups.map((group, groupIndex) => {
-            const isExpanded = expandedGroups[groupIndex];
-            const visibleProjects = isExpanded
-              ? group.projects
-              : group.projects.slice(0, INITIAL_VISIBLE);
-            const hasMore = group.projects.length > INITIAL_VISIBLE;
-
-            return (
-              <div key={group.caption}>
-                {/* Section header with View All */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="flex items-center justify-between mb-4 sm:mb-5"
-                >
-                  <h3
-                    className="text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-foreground"
-                    style={{ fontFamily: "'Quicksand', sans-serif" }}
-                  >
-                    {group.caption}
-                  </h3>
-
-                  {hasMore && (
-                    <button
-                      onClick={() => toggleGroup(groupIndex)}
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      {isExpanded ? "Show less" : "View all"}
-                      <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
-                    </button>
-                  )}
-                </motion.div>
-
-                {/* Project name chips */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="flex flex-wrap gap-2 mb-6 sm:mb-8"
-                >
-                  {group.projects.map((project) => (
-                    <Link
-                      key={project.slug}
-                      to={`/project/${project.slug}`}
-                      className="inline-flex items-center px-3 py-1.5 rounded-full border border-border/50 bg-card/50 text-[10px] sm:text-[11px] text-muted-foreground hover:text-foreground hover:border-border hover:bg-card transition-all duration-200"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      {project.title}
-                    </Link>
-                  ))}
-                </motion.div>
-
-                {/* Cards grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                  {visibleProjects.map((project, index) => (
-                    <ProjectCard key={project.slug} project={project} index={index} />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        <div className="flex flex-col gap-20 sm:gap-28">
+          {projectGroups.map((group, groupIndex) => (
+            <CarouselGroup key={group.caption} group={group} groupIndex={groupIndex} />
+          ))}
         </div>
       </div>
 
