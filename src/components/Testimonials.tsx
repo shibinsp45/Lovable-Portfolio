@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
@@ -8,22 +8,19 @@ import jestinImg from "@/assets/jestin.png";
 
 const testimonials = [
   {
-    quote:
-      "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes. Whether working in a team or independently, Shibin adapts seamlessly and delivers outstanding results.",
+    quote: "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes. Whether working in a team or independently, Shibin adapts seamlessly and delivers outstanding results.",
     name: "Dr.Libin P Oommen",
     role: "HOD at PRC",
     avatar: libinImg,
   },
   {
-    quote:
-      "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
+    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
     name: "Adarsh Sharma",
     role: "CEO Nuren AI",
     avatar: adarshImg,
   },
   {
-    quote:
-      "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
+    quote: "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
     avatar: jestinImg,
@@ -36,6 +33,14 @@ const getRandomAvatar = (seed: string) => {
 
 const Testimonials = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const leftY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+  const rightY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["35%", "-35%"]);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -51,23 +56,23 @@ const Testimonials = () => {
       className="py-24 md:py-32 bg-background overflow-hidden relative"
       ref={containerRef}
     >
-      {/* Subtle background elements */}
+      {/* Parallax background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[100px]" />
+        <motion.div style={{ y: bgGlowY }}>
+          <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[100px]" />
+        </motion.div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left side - Header */}
+          {/* Left side - Header (faster parallax) */}
           <motion.div
+            style={{ y: leftY }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0.8,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="lg:sticky lg:top-32 space-y-6"
           >
             <motion.div
@@ -109,8 +114,8 @@ const Testimonials = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Scrolling testimonials */}
-          <div className="relative h-[350px] sm:h-[400px] md:h-[500px] overflow-hidden">
+          {/* Right side - Scrolling testimonials (slower parallax) */}
+          <motion.div style={{ y: rightY }} className="relative h-[350px] sm:h-[400px] md:h-[500px] overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 
@@ -152,7 +157,7 @@ const Testimonials = () => {
                 </motion.div>
               ))}
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -15,8 +15,13 @@ const About = () => {
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const bgGlow1Y = useTransform(scrollYProgress, [0, 1], ["40%", "-40%"]);
+  const bgGlow2Y = useTransform(scrollYProgress, [0, 1], ["-30%", "30%"]);
+  const headingY = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
+  const statsY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   return (
     <section
@@ -24,20 +29,27 @@ const About = () => {
       className="py-24 md:py-32 bg-background overflow-hidden relative"
       ref={containerRef}
     >
-      {/* Glassmorphism background elements */}
+      {/* Parallax background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-[hsl(280,70%,55%)]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
+        <motion.div
+          style={{ y: bgGlow1Y }}
+          className="absolute top-1/4 right-0 w-96 h-96 bg-[hsl(280,70%,55%)]/10 rounded-full blur-[120px]"
+        />
+        <motion.div
+          style={{ y: bgGlow2Y }}
+          className="absolute bottom-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.p
+          style={{ y: headingY }}
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-3xl md:text-4xl font-light text-center mb-4"
-          style={{ fontFamily: "'Quicksand', sans-serif" }}
+          {...{ style: { fontFamily: "'Quicksand', sans-serif", y: headingY } }}
         >
           <span className="bg-gradient-to-b from-foreground via-muted-foreground/80 to-muted-foreground/50 bg-clip-text text-transparent">
             Craft by mind
@@ -54,7 +66,7 @@ const About = () => {
         />
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Profile Image */}
+          {/* Profile Image - parallax layer */}
           <motion.div
             style={{ y: imageY }}
             initial={{ opacity: 0, x: -80, rotateY: 15 }}
@@ -84,7 +96,7 @@ const About = () => {
             />
           </motion.div>
 
-          {/* About Content */}
+          {/* About Content - different parallax speed */}
           <motion.div
             style={{ y: contentY }}
             initial={{ opacity: 0, x: 80 }}
@@ -140,7 +152,7 @@ const About = () => {
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 pt-4">
+            <motion.div style={{ y: statsY }} className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 pt-4">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -169,7 +181,7 @@ const About = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

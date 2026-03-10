@@ -6,22 +6,19 @@ const experiences = [
   {
     title: "UI UX Designer - Webcastle",
     period: "2025 - Now",
-    description:
-      "Helping humans with UI/UX design and development, AI-driven social insights, and mentoring designers!",
+    description: "Helping humans with UI/UX design and development, AI-driven social insights, and mentoring designers!",
     scrollColor: "#22c55e",
   },
   {
     title: "UI/UX Designer - Kreative Sparkz",
     period: "2024 - 2024",
-    description:
-      "Designed user-centered UI/UX solutions, leading user research to inform design decisions. Developed interactive prototypes and wireframes, ensuring seamless user experiences. Mentored budding designers on UX best practices and integrated AI-driven enhancements to improve frontend experiences.",
+    description: "Designed user-centered UI/UX solutions, leading user research to inform design decisions. Developed interactive prototypes and wireframes, ensuring seamless user experiences. Mentored budding designers on UX best practices and integrated AI-driven enhancements to improve frontend experiences.",
     scrollColor: "#ef4444",
   },
   {
     title: "UI/UX Designer Intern – Nuren AI",
     period: "2023 - 2024",
-    description:
-      "Created web UI and interactions for a CRM system with a focus on user-centered design. Conducted user research and developed prototypes to improve the overall user experience. Worked closely with teams to ensure the delivery of a smooth and visually engaging interface.",
+    description: "Created web UI and interactions for a CRM system with a focus on user-centered design. Conducted user research and developed prototypes to improve the overall user experience. Worked closely with teams to ensure the delivery of a smooth and visually engaging interface.",
     scrollColor: "#3b82f6",
   },
 ];
@@ -32,16 +29,27 @@ const Career = () => {
     target: containerRef,
     offset: ["start end", "end start"],
   });
+
   const lineHeight = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
+  const headerY = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["40%", "-40%"]);
 
   return (
     <section
-      className="py-24 md:py-32 bg-background overflow-hidden"
+      className="py-24 md:py-32 bg-background overflow-hidden relative"
       id="journey"
       ref={containerRef}
     >
+      {/* Parallax background glow */}
+      <motion.div className="absolute inset-0 -z-10 overflow-hidden" style={{ y: bgGlowY }}>
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-[hsl(280,60%,50%)]/8 rounded-full blur-[150px]" />
+      </motion.div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
+          style={{ y: headerY }}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -70,7 +78,7 @@ const Career = () => {
           </motion.h2>
         </motion.div>
 
-        <div className="space-y-16 relative">
+        <motion.div style={{ y: cardsY }} className="space-y-16 relative">
           {/* Animated timeline line */}
           <div className="absolute left-[5px] top-0 bottom-0 w-[2px] bg-border hidden md:block">
             <motion.div
@@ -98,11 +106,7 @@ const Career = () => {
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 0.4,
-                    delay: index * 0.2,
-                    type: "spring",
-                  }}
+                  transition={{ duration: 0.4, delay: index * 0.2, type: "spring" }}
                   whileHover={{ scale: 1.5 }}
                 />
                 <motion.div
@@ -140,7 +144,7 @@ const Career = () => {
               </motion.p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

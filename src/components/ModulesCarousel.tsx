@@ -1,5 +1,5 @@
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 
 const modules = [
   ["Design Systems", "Product Design", "User Research", "User Experience Design"],
@@ -72,7 +72,6 @@ const DraggableModule = ({
               : "border-border/30 bg-card/20"
         }`}
       >
-        {/* Inner glass reflection */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-b from-foreground/[0.06] via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-foreground/[0.03] to-foreground/[0.08] pointer-events-none" />
         
@@ -90,19 +89,27 @@ const DraggableModule = ({
 
 const ModulesCarousel = () => {
   const [activeModule, setActiveModule] = useState<string | null>(null);
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
+  const chipsY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
 
   return (
-    <section className="relative py-10 md:py-16 overflow-hidden">
-      {/* Subtle ambient glow behind chips */}
-      <div className="absolute inset-0 -z-10">
+    <section ref={sectionRef} className="relative py-10 md:py-16 overflow-hidden">
+      {/* Parallax ambient glow */}
+      <motion.div className="absolute inset-0 -z-10" style={{ y: bgGlowY }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-[120px]" />
-      </div>
+      </motion.div>
 
       {/* Gradient Fades */}
       <div className="absolute top-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div style={{ y: chipsY }} className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 md:gap-5">
           {modules.map((row, rowIndex) => (
             <div
@@ -123,7 +130,7 @@ const ModulesCarousel = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -9,13 +9,11 @@ const Contact = () => {
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+
+  const bgOrbY = useTransform(scrollYProgress, [0, 1], ["40%", "-40%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.95]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0.5, 1, 1, 0.8]
-  );
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 1, 1, 0.8]);
 
   return (
     <section
@@ -23,11 +21,8 @@ const Contact = () => {
       className="py-24 md:py-32 bg-background relative overflow-hidden"
       ref={containerRef}
     >
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ y }}
-      >
+      {/* Parallax animated background orbs */}
+      <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgOrbY }}>
         <motion.div
           className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -42,7 +37,7 @@ const Contact = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          style={{ scale, opacity }}
+          style={{ y: contentY, scale, opacity }}
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -91,12 +86,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0.8,
-              delay: 0.6,
-              type: "spring",
-              stiffness: 100,
-            }}
+            transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Button

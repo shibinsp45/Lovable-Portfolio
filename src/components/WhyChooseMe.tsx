@@ -7,20 +7,17 @@ const features = [
   {
     icon: Clock,
     title: "Efficient Workflow",
-    description:
-      "Streamlined design process for rapid delivery, meeting tight deadlines without compromising quality or detail.",
+    description: "Streamlined design process for rapid delivery, meeting tight deadlines without compromising quality or detail.",
   },
   {
     icon: MessageCircle,
     title: "Collaborative Process",
-    description:
-      "I work closely with you, integrating your feedback to create designs that exceed your expectations.",
+    description: "I work closely with you, integrating your feedback to create designs that exceed your expectations.",
   },
   {
     icon: Search,
     title: "Attention to Detail",
-    description:
-      "Meticulous attention to every element, ensuring a polished and cohesive final product that impresses.",
+    description: "Meticulous attention to every element, ensuring a polished and cohesive final product that impresses.",
   },
 ];
 
@@ -30,21 +27,32 @@ const WhyChooseMe = () => {
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+
+  const cardsY = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+  const headerY = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
+  const bgGlow1Y = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
+  const bgGlow2Y = useTransform(scrollYProgress, [0, 1], ["-40%", "40%"]);
 
   return (
     <section
       className="py-24 md:py-32 bg-background overflow-hidden relative"
       ref={containerRef}
     >
-      {/* Glassmorphism background elements */}
+      {/* Parallax background elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[hsl(220,80%,60%)]/10 rounded-full blur-[100px]" />
+        <motion.div
+          style={{ y: bgGlow1Y }}
+          className="absolute top-0 left-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]"
+        />
+        <motion.div
+          style={{ y: bgGlow2Y }}
+          className="absolute bottom-0 right-1/4 w-80 h-80 bg-[hsl(220,80%,60%)]/10 rounded-full blur-[100px]"
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
+          style={{ y: headerY }}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -76,7 +84,7 @@ const WhyChooseMe = () => {
         </motion.div>
 
         <motion.div
-          style={{ y }}
+          style={{ y: cardsY }}
           className="grid md:grid-cols-3 gap-6 lg:gap-8"
         >
           {features.map((feature, index) => (
