@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import logoDark from "@/assets/logo-dark.png";
 
 const footerLinks = {
@@ -17,13 +18,24 @@ const footerLinks = {
 };
 
 const Footer = () => {
+  const footerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["10%", "-5%"]);
+
   return (
-    <footer className="py-16 md:py-20 bg-card/20 backdrop-blur-xl border-t border-border/30 relative overflow-hidden">
+    <footer ref={footerRef} className="py-16 md:py-20 bg-card/20 backdrop-blur-xl border-t border-border/30 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[150px]" />
-        <div className="absolute top-0 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[120px]" />
+        <motion.div style={{ y: bgGlowY }}>
+          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[150px]" />
+          <div className="absolute top-0 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[120px]" />
+        </motion.div>
       </div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div style={{ y: contentY }} className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +94,7 @@ const Footer = () => {
             </ul>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

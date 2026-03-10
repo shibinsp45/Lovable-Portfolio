@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
 
 const projectGroups = [
   {
@@ -186,6 +186,16 @@ const CarouselGroup = ({
   const [isPlaying, setIsPlaying] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const groupRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: groupRef,
+    offset: ["start end", "end start"],
+  });
+
+  const titleY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
+  const dotsY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
   const scrollToIndex = (index: number) => {
     if (!scrollRef.current) return;
@@ -235,113 +245,121 @@ const CarouselGroup = ({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
-    >
-      {/* Section Title */}
-      <h3
-        className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-10"
-        style={{ fontFamily: "'Quicksand', sans-serif" }}
+    <div ref={groupRef}>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
       >
-        {group.caption}
-      </h3>
+        {/* Section Title - fastest parallax layer */}
+        <motion.h3
+          style={{ y: titleY }}
+          className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-10"
+          {...{ style: { fontFamily: "'Quicksand', sans-serif", y: titleY } }}
+        >
+          {group.caption}
+        </motion.h3>
 
-      {/* Carousel */}
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-8 pb-2"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {group.projects.map((project, index) => (
-          <Link
-            key={project.slug}
-            to={`/project/${project.slug}`}
-            className="group flex-shrink-0 snap-center w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]"
+        {/* Carousel - medium parallax layer */}
+        <motion.div style={{ y: cardsY }}>
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-8 pb-2"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
-              {/* Cover Image */}
-              <div className="relative w-full aspect-[3/4] sm:aspect-[4/5]">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
-                />
-                {/* Gradient overlay at bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                {/* Role chip */}
-                <div className="absolute bottom-28 sm:bottom-32 left-4 sm:left-5">
-                  <span
-                    className="inline-block px-3 py-1 rounded-md bg-muted/80 backdrop-blur-sm text-[10px] sm:text-xs text-foreground font-medium"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.role}
-                  </span>
-                </div>
-
-                {/* Bottom content overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                  <p
-                    className="text-xs sm:text-sm text-white/80 leading-relaxed mb-3 sm:mb-4 line-clamp-2"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {project.description}
-                  </p>
-                  <div className="flex items-center justify-center w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
-                    <span
-                      className="text-xs sm:text-sm font-medium text-white tracking-wide"
-                      style={{ fontFamily: "'Quicksand', sans-serif" }}
-                    >
-                      Explore
-                    </span>
+            {group.projects.map((project) => (
+              <Link
+                key={project.slug}
+                to={`/project/${project.slug}`}
+                className="group flex-shrink-0 snap-center w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]"
+              >
+                <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
+                  <div className="relative w-full aspect-[3/4] sm:aspect-[4/5]">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-28 sm:bottom-32 left-4 sm:left-5">
+                      <span
+                        className="inline-block px-3 py-1 rounded-md bg-muted/80 backdrop-blur-sm text-[10px] sm:text-xs text-foreground font-medium"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {project.role}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <p
+                        className="text-xs sm:text-sm text-white/80 leading-relaxed mb-3 sm:mb-4 line-clamp-2"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {project.description}
+                      </p>
+                      <div className="flex items-center justify-center w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
+                        <span
+                          className="text-xs sm:text-sm font-medium text-white tracking-wide"
+                          style={{ fontFamily: "'Quicksand', sans-serif" }}
+                        >
+                          Explore
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* Dots & controls */}
-      {group.projects.length > 1 && (
-        <div className="flex items-center justify-center gap-4 mt-5 sm:mt-6">
-          <div className="flex items-center gap-1.5">
-            {group.projects.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => scrollToIndex(i)}
-                className={`rounded-full transition-all duration-300 ${
-                  i === activeIndex
-                    ? "w-6 h-2.5 bg-foreground"
-                    : "w-2.5 h-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
-                }`}
-              />
+              </Link>
             ))}
           </div>
-          <button
-            onClick={() => setIsPlaying((p) => !p)}
-            className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-          </button>
-        </div>
-      )}
-    </motion.div>
+        </motion.div>
+
+        {/* Dots - slowest parallax layer */}
+        {group.projects.length > 1 && (
+          <motion.div style={{ y: dotsY }} className="flex items-center justify-center gap-4 mt-5 sm:mt-6">
+            <div className="flex items-center gap-1.5">
+              {group.projects.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollToIndex(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === activeIndex
+                      ? "w-6 h-2.5 bg-foreground"
+                      : "w-2.5 h-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setIsPlaying((p) => !p)}
+              className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+            </button>
+          </motion.div>
+        )}
+      </motion.div>
+    </div>
   );
 };
 
 const Projects = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const headerY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+
   return (
-    <section id="portfolio" className="relative bg-background">
+    <section id="portfolio" className="relative bg-background" ref={sectionRef}>
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
       <div className="relative z-10 py-16 sm:py-24 md:py-32">
         <motion.div
+          style={{ y: headerY }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
