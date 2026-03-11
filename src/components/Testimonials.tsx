@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import adarshImg from "@/assets/adarsh.png";
@@ -8,38 +8,34 @@ import jestinImg from "@/assets/jestin.png";
 
 const testimonials = [
   {
-    quote: "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes. Whether working in a team or independently, Shibin adapts seamlessly and delivers outstanding results.",
+    quote: "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes.",
     name: "Dr.Libin P Oommen",
     role: "HOD at PRC",
     avatar: libinImg,
   },
   {
-    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability, I'd gladly recommend him for software design roles.",
+    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability.",
     name: "Adarsh Sharma",
     role: "CEO Nuren AI",
     avatar: adarshImg,
   },
   {
-    quote: "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions to complex problems.",
+    quote: "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
     avatar: jestinImg,
   },
 ];
 
-const getRandomAvatar = (seed: string) => {
-  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9`;
-};
-
 const Testimonials = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const leftY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
-  const rightY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const titleY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
   const bgGlowY = useTransform(scrollYProgress, [0, 1], ["35%", "-35%"]);
 
   const scrollToContact = () => {
@@ -48,8 +44,6 @@ const Testimonials = () => {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
     <section
@@ -60,105 +54,102 @@ const Testimonials = () => {
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div style={{ y: bgGlowY }}>
           <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[hsl(280,60%,50%)]/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
         </motion.div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left side - Header (faster parallax) */}
-          <motion.div
-            style={{ y: leftY }}
+        {/* Header */}
+        <motion.div
+          style={{ y: titleY }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <motion.h2
+            className="text-3xl md:text-5xl font-bold text-foreground mb-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="lg:sticky lg:top-32 space-y-6"
+            transition={{ duration: 0.8 }}
           >
+            Recommendations
+          </motion.h2>
+          <motion.p
+            className="text-muted-foreground text-lg max-w-md mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            I have helped many people to make designs for their product. Wanna be the next?
+          </motion.p>
+        </motion.div>
+
+        {/* Horizontal scrolling cards - Porsche Discover style */}
+        <div
+          ref={scrollRef}
+          className="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {testimonials.map((testimonial, index) => (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={index}
+              className="flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-[45vw] lg:w-[32%] snap-start relative rounded-2xl overflow-hidden group cursor-pointer"
+              style={{ aspectRatio: "4/5" }}
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <Button variant="secondary" className="rounded-full px-6">
-                Recommendations
-              </Button>
-            </motion.div>
+              {/* Full card background with avatar */}
+              <div className="absolute inset-0 bg-card">
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  className="w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
 
-            <motion.p
-              className="text-muted-foreground text-lg leading-relaxed max-w-md"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              I have helped many people to make designs for their product. Wanna
-              be the next?
-            </motion.p>
+              {/* Bottom gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Button
-                variant="secondary"
-                className="rounded-full px-6 gap-2 group"
-                onClick={scrollToContact}
-              >
-                Contact
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right side - Scrolling testimonials (slower parallax) */}
-          <motion.div style={{ y: rightY }} className="relative h-[350px] sm:h-[400px] md:h-[500px] overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
-
-            <motion.div
-              className="flex flex-col gap-4"
-              animate={{ y: [0, -50 * testimonials.length * 4] }}
-              transition={{
-                y: { duration: 20, repeat: Infinity, ease: "linear" },
-              }}
-            >
-              {duplicatedTestimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-card/30 backdrop-blur-2xl rounded-2xl p-6 border border-border/20 hover:border-primary/20 shadow-lg shadow-primary/5"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="text-foreground/80 text-sm leading-relaxed mb-6">
-                    {testimonial.quote}
-                  </p>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-secondary/50 flex-shrink-0">
-                      <img
-                        src={testimonial.avatar || getRandomAvatar(testimonial.name)}
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-medium text-foreground text-sm">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {testimonial.role}
-                      </div>
-                    </div>
+              {/* Content at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col gap-4">
+                <p className="text-white/80 text-sm leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+                  "{testimonial.quote}"
+                </p>
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <h3 className="text-white font-semibold text-lg md:text-xl leading-tight">
+                      {testimonial.name}
+                    </h3>
+                    <span className="text-white/60 text-sm">{testimonial.role}</span>
                   </div>
-                </motion.div>
-              ))}
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300">
+                    <ArrowRight className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+              </div>
             </motion.div>
-          </motion.div>
+          ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <Button
+            variant="secondary"
+            className="rounded-full px-8 gap-2 group"
+            onClick={scrollToContact}
+          >
+            Get in Touch
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
