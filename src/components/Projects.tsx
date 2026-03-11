@@ -266,14 +266,14 @@ const CarouselGroup = ({
           <div
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 sm:px-8 pb-2"
+            className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-6 sm:px-12 pb-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {group.projects.map((project) => (
               <Link
                 key={project.slug}
                 to={`/project/${project.slug}`}
-                className="group flex-shrink-0 snap-center w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]"
+                className="group flex-shrink-0 snap-center w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw]"
               >
                 <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
                   <div className="relative w-full aspect-[3/4] sm:aspect-[4/5]">
@@ -299,13 +299,14 @@ const CarouselGroup = ({
                       >
                         {project.description}
                       </p>
-                      <div className="flex items-center justify-center w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
+                      <div className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
                         <span
                           className="text-xs sm:text-sm font-medium text-white tracking-wide"
                           style={{ fontFamily: "'Quicksand', sans-serif" }}
                         >
-                          Explore
+                          View Project
                         </span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                       </div>
                     </div>
                   </div>
