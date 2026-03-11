@@ -14,6 +14,7 @@ const projectGroups = [
         slug: "invoice-generator",
         year: "2025",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-emerald-500",
       },
       {
@@ -23,6 +24,7 @@ const projectGroups = [
         slug: "tools-app",
         year: "2025",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-orange-500",
       },
       {
@@ -32,6 +34,7 @@ const projectGroups = [
         slug: "fudit-app",
         year: "2024",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-red-500",
       },
       {
@@ -41,6 +44,7 @@ const projectGroups = [
         slug: "fitness-app",
         year: "2024",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-lime-500",
       },
       {
@@ -50,6 +54,7 @@ const projectGroups = [
         slug: "grocery-app",
         year: "2025",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-emerald-500",
       },
       {
@@ -59,6 +64,7 @@ const projectGroups = [
         slug: "medicine-vending",
         year: "2024",
         role: "UI/UX Designer",
+        type: "Case Study",
         accent: "bg-sky-500",
       },
     ],
@@ -73,6 +79,7 @@ const projectGroups = [
         slug: "event-mgmt",
         year: "2024",
         role: "Web Designer",
+        type: "Website",
         accent: "bg-violet-500",
       },
       {
@@ -82,6 +89,7 @@ const projectGroups = [
         slug: "elitepath",
         year: "2024",
         role: "UI/UX Designer",
+        type: "Dashboard",
         accent: "bg-indigo-500",
       },
       {
@@ -91,6 +99,7 @@ const projectGroups = [
         slug: "beat-landing",
         year: "2024",
         role: "Web Developer",
+        type: "Landing Page",
         accent: "bg-yellow-500",
       },
       {
@@ -100,6 +109,7 @@ const projectGroups = [
         slug: "teatym",
         year: "2024",
         role: "Web Developer",
+        type: "Product Website",
         accent: "bg-amber-600",
       },
     ],
@@ -114,6 +124,7 @@ const projectGroups = [
         slug: "happy-cart",
         year: "2024",
         role: "Brand Designer",
+        type: "Branding",
         accent: "bg-pink-500",
       },
       {
@@ -123,6 +134,7 @@ const projectGroups = [
         slug: "smiley-wallpaper",
         year: "2024",
         role: "Graphic Designer",
+        type: "Graphic Design",
         accent: "bg-yellow-400",
       },
     ],
@@ -137,6 +149,7 @@ const projectGroups = [
         slug: "perfume-branding",
         year: "2025",
         role: "AI Designer",
+        type: "AI Design",
         accent: "bg-rose-400",
       },
     ],
@@ -151,6 +164,7 @@ const projectGroups = [
         slug: "uiux-shapes-world",
         year: "2025",
         role: "Writer",
+        type: "Blog",
         accent: "bg-cyan-500",
       },
       {
@@ -160,6 +174,7 @@ const projectGroups = [
         slug: "brain-shapes-ux",
         year: "2025",
         role: "Writer",
+        type: "Blog",
         accent: "bg-purple-500",
       },
       {
@@ -169,6 +184,7 @@ const projectGroups = [
         slug: "human-computer-interaction",
         year: "2025",
         role: "Writer & Researcher",
+        type: "Article",
         accent: "bg-teal-500",
       },
     ],
@@ -252,7 +268,6 @@ const CarouselGroup = ({
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
       >
-        {/* Section Title - fastest parallax layer */}
         <motion.h3
           style={{ y: titleY }}
           className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-10"
@@ -261,7 +276,6 @@ const CarouselGroup = ({
           {group.caption}
         </motion.h3>
 
-        {/* Carousel - medium parallax layer */}
         <motion.div style={{ y: cardsY }}>
           <div
             ref={scrollRef}
@@ -273,41 +287,45 @@ const CarouselGroup = ({
               <Link
                 key={project.slug}
                 to={`/project/${project.slug}`}
-                className="group flex-shrink-0 snap-center w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw]"
+                className="group flex-shrink-0 snap-center w-[75vw] sm:w-[50vw] md:w-[38vw] lg:w-[28vw] xl:w-[24vw]"
               >
                 <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
-                  <div className="relative w-full aspect-[3/4] sm:aspect-[4/5]">
+                  {/* Project name on top */}
+                  <div className="px-4 pt-4 pb-2">
+                    <h4
+                      className="text-sm sm:text-base font-semibold text-foreground truncate"
+                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                    >
+                      {project.title}
+                    </h4>
+                  </div>
+
+                  {/* Image - standard card ratio */}
+                  <div className="relative w-full aspect-[16/10] overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute bottom-28 sm:bottom-32 left-4 sm:left-5">
+                  </div>
+
+                  {/* Description and type at bottom */}
+                  <div className="px-4 pt-3 pb-4">
+                    <p
+                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-3"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {project.description}
+                    </p>
+                    <div className="flex items-center justify-between">
                       <span
-                        className="inline-block px-3 py-1 rounded-md bg-muted/80 backdrop-blur-sm text-[10px] sm:text-xs text-foreground font-medium"
+                        className="text-[10px] sm:text-xs text-muted-foreground/70 font-medium uppercase tracking-wider"
                         style={{ fontFamily: "'Poppins', sans-serif" }}
                       >
-                        {project.role}
+                        {project.type} · {project.year}
                       </span>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                      <p
-                        className="text-xs sm:text-sm text-white/80 leading-relaxed mb-3 sm:mb-4 line-clamp-2"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        {project.description}
-                      </p>
-                      <div className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors duration-300">
-                        <span
-                          className="text-xs sm:text-sm font-medium text-white tracking-wide"
-                          style={{ fontFamily: "'Quicksand', sans-serif" }}
-                        >
-                          View Project
-                        </span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                     </div>
                   </div>
                 </div>
@@ -316,7 +334,6 @@ const CarouselGroup = ({
           </div>
         </motion.div>
 
-        {/* Dots - slowest parallax layer */}
         {group.projects.length > 1 && (
           <motion.div style={{ y: dotsY }} className="flex items-center justify-center gap-4 mt-5 sm:mt-6">
             <div className="flex items-center gap-1.5">
