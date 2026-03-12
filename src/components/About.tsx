@@ -9,6 +9,33 @@ const stats = [
   { value: 100, suffix: "+", label: "Hours of Designing", decimals: 0 },
 ];
 
+const AnimatedCounter = ({ value, suffix, decimals }: { value: number; suffix: string; decimals: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const startTime = Date.now();
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(eased * value);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref}>
+      {decimals > 0 ? displayValue.toFixed(decimals) : Math.round(displayValue)}
+      {suffix}
+    </span>
+  );
+};
+
 const About = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
