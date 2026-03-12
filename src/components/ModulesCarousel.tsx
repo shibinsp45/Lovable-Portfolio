@@ -64,20 +64,20 @@ const DraggableModule = ({
       className="cursor-grab active:cursor-grabbing"
     >
       <div
-        className={`relative px-5 md:px-7 py-2.5 md:py-3 rounded-full border backdrop-blur-2xl transition-all duration-500 overflow-hidden ${
+        className={`relative px-5 md:px-7 py-2.5 md:py-3 rounded-full border backdrop-blur-xl transition-all duration-500 overflow-hidden ${
           isActive
-            ? `${glowStyle.border} shadow-lg ${glowStyle.glow} bg-gradient-to-r ${glowStyle.bg}`
+            ? `border-white/25 bg-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_2px_8px_rgba(0,0,0,0.2)]`
             : isHovered
-              ? "border-border/50 bg-card/40 shadow-md shadow-primary/5"
-              : "border-border/30 bg-card/20"
+              ? "border-white/20 bg-white/[0.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]"
+              : "border-white/[0.12] bg-white/[0.02]"
         }`}
       >
-        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-foreground/[0.06] via-transparent to-transparent pointer-events-none" />
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-foreground/[0.03] to-foreground/[0.08] pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.08] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.08] pointer-events-none" />
         
         <span
           className={`relative z-10 font-normal text-xs md:text-sm whitespace-nowrap transition-colors duration-300 ${
-            isActive ? "text-foreground font-medium" : "text-muted-foreground"
+            isActive ? "text-white font-medium" : "text-white/70"
           }`}
         >
           {module}
