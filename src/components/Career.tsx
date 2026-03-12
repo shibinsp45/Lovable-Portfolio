@@ -79,13 +79,6 @@ const Career = () => {
         </motion.div>
 
         <motion.div style={{ y: cardsY }} className="space-y-16 relative">
-          {/* Animated timeline line */}
-          <div className="absolute left-[5px] top-0 bottom-0 w-[2px] bg-border hidden md:block">
-            <motion.div
-              style={{ height: lineHeight }}
-              className="w-full bg-primary"
-            />
-          </div>
 
           {experiences.map((exp, index) => (
             <motion.div
