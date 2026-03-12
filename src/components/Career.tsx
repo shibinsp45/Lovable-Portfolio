@@ -79,13 +79,6 @@ const Career = () => {
         </motion.div>
 
         <motion.div style={{ y: cardsY }} className="space-y-16 relative">
-          {/* Animated timeline line */}
-          <div className="absolute left-[5px] top-0 bottom-0 w-[2px] bg-border hidden md:block">
-            <motion.div
-              style={{ height: lineHeight }}
-              className="w-full bg-primary"
-            />
-          </div>
 
           {experiences.map((exp, index) => (
             <motion.div
@@ -98,7 +91,7 @@ const Career = () => {
                 delay: index * 0.15,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-card/30 backdrop-blur-xl rounded-none p-6 border border-border/20 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-card/30 backdrop-blur-xl rounded-none p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 <motion.div
