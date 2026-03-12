@@ -1,12 +1,12 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const stats = [
-  { value: "2.8+", label: "Years of experience" },
-  { value: "5+", label: "Clients" },
-  { value: "10+", label: "Projects Completed" },
-  { value: "100+", label: "Hours of Designing" },
+  { value: 2.8, suffix: "+", label: "Years of experience", decimals: 1 },
+  { value: 5, suffix: "+", label: "Clients", decimals: 0 },
+  { value: 10, suffix: "+", label: "Projects Completed", decimals: 0 },
+  { value: 100, suffix: "+", label: "Hours of Designing", decimals: 0 },
 ];
 
 const About = () => {
