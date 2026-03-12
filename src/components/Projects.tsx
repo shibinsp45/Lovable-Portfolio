@@ -283,25 +283,25 @@ const CarouselGroup = ({
             className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-6 sm:px-12 pb-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {group.projects.map((project) => (
+          {group.projects.map((project) => (
               <Link
                 key={project.slug}
                 to={`/project/${project.slug}`}
-                className="group flex-shrink-0 snap-center w-[75vw] sm:w-[50vw] md:w-[38vw] lg:w-[28vw] xl:w-[24vw]"
+                className="group flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[32vw] xl:w-[28vw]"
               >
                 <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
                   {/* Project name on top */}
-                  <div className="px-4 pt-4 pb-2">
+                  <div className="px-5 pt-5 pb-3">
                     <h4
-                      className="text-sm sm:text-base font-semibold text-foreground truncate"
+                      className="text-base sm:text-lg font-semibold text-foreground truncate"
                       style={{ fontFamily: "'Quicksand', sans-serif" }}
                     >
                       {project.title}
                     </h4>
                   </div>
 
-                  {/* Image - standard card ratio */}
-                  <div className="relative w-full aspect-[16/10] overflow-hidden">
+                  {/* Image - larger card ratio */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -311,21 +311,21 @@ const CarouselGroup = ({
                   </div>
 
                   {/* Description and type at bottom */}
-                  <div className="px-4 pt-3 pb-4">
+                  <div className="px-5 pt-4 pb-5">
                     <p
-                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-3"
+                      className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4"
                       style={{ fontFamily: "'Poppins', sans-serif" }}
                     >
                       {project.description}
                     </p>
                     <div className="flex items-center justify-between">
                       <span
-                        className="text-[10px] sm:text-xs text-muted-foreground/70 font-medium uppercase tracking-wider"
+                        className="text-xs text-muted-foreground/70 font-medium uppercase tracking-wider"
                         style={{ fontFamily: "'Poppins', sans-serif" }}
                       >
                         {project.type} · {project.year}
                       </span>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                     </div>
                   </div>
                 </div>
