@@ -289,9 +289,13 @@ const CarouselGroup = ({
                 to={`/project/${project.slug}`}
                 className="group flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[32vw] xl:w-[28vw]"
               >
-                <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30">
+                <div className="relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] group-hover:border-white/[0.15] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500">
+                  {/* Glass shine overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
+                  
                   {/* Project name on top */}
-                  <div className="px-5 pt-5 pb-3">
+                  <div className="px-5 pt-5 pb-3 relative z-20">
                     <h4
                       className="text-base sm:text-lg font-semibold text-foreground truncate"
                       style={{ fontFamily: "'Quicksand', sans-serif" }}
@@ -300,7 +304,7 @@ const CarouselGroup = ({
                     </h4>
                   </div>
 
-                  {/* Image - larger card ratio */}
+                  {/* Image */}
                   <div className="relative w-full aspect-[4/3] overflow-hidden">
                     <img
                       src={project.image}
@@ -311,7 +315,7 @@ const CarouselGroup = ({
                   </div>
 
                   {/* Description and type at bottom */}
-                  <div className="px-5 pt-4 pb-5">
+                  <div className="px-5 pt-4 pb-5 relative z-20">
                     <p
                       className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4"
                       style={{ fontFamily: "'Poppins', sans-serif" }}

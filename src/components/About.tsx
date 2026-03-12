@@ -1,13 +1,40 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const stats = [
-  { value: "2.8+", label: "Years of experience" },
-  { value: "5+", label: "Clients" },
-  { value: "10+", label: "Projects Completed" },
-  { value: "100+", label: "Hours of Designing" },
+  { value: 2.8, suffix: "+", label: "Years of experience", decimals: 1 },
+  { value: 5, suffix: "+", label: "Clients", decimals: 0 },
+  { value: 10, suffix: "+", label: "Projects Completed", decimals: 0 },
+  { value: 100, suffix: "+", label: "Hours of Designing", decimals: 0 },
 ];
+
+const AnimatedCounter = ({ value, suffix, decimals }: { value: number; suffix: string; decimals: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const startTime = Date.now();
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(eased * value);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref}>
+      {decimals > 0 ? displayValue.toFixed(decimals) : Math.round(displayValue)}
+      {suffix}
+    </span>
+  );
+};
 
 const About = () => {
   const containerRef = useRef(null);
@@ -166,17 +193,15 @@ const About = () => {
                     stiffness: 100,
                   }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="text-center cursor-default bg-card/40 backdrop-blur-xl rounded-2xl p-4 border border-border/30 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                  className="text-center cursor-default bg-white/[0.04] backdrop-blur-2xl rounded-2xl p-4 border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500"
                 >
-                  <motion.div
-                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.7 + index * 0.1 }}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] via-transparent to-transparent pointer-events-none rounded-2xl" />
+                  <div
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground relative z-10"
                   >
-                    {stat.value}
-                  </motion.div>
-                  <div className="text-sm text-muted-foreground mt-1">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} decimals={stat.decimals} />
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1 relative z-10">
                     {stat.label}
                   </div>
                 </motion.div>
