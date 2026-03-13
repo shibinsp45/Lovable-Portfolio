@@ -139,28 +139,36 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="space-y-4 md:space-y-6"
+          className="space-y-0"
         >
+          <motion.p
+            className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Shibin S P
+          </motion.p>
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-['Anton'] uppercase tracking-tight leading-[0.85] text-white"
+            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Shibin S P
+            Product
           </motion.h1>
-          <motion.h2
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+          <motion.h1
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-['Anton'] uppercase tracking-tight leading-[0.85] text-white"
+            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            UX Designer
-          </motion.h2>
+            Designer
+          </motion.h1>
           <motion.p
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-normal tracking-tight text-[hsl(220,70%,45%)]"
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-light tracking-wide text-muted-foreground mt-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             Crafting Soulful Experiences
