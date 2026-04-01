@@ -98,6 +98,15 @@ const ModulesCarousel = () => {
       <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
 
       <motion.div style={{ y: chipsY }} className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          className="text-3xl md:text-4xl lg:text-5xl font-['Cormorant_Garamond'] italic text-center text-foreground mb-10 md:mb-14"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          My Design Superpowers
+        </motion.h2>
         <div className="flex flex-col items-center gap-4 md:gap-5">
           {modules.map((row, rowIndex) => (
             <div
