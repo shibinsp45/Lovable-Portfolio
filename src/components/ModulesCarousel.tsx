@@ -20,10 +20,9 @@ const DraggableModule = ({
 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 30, damping: 12 });
   const springY = useSpring(y, { stiffness: 30, damping: 12 });
   const [isHovered, setIsHovered] = useState(false);
-
-  const glowStyle = moduleGlows[module];
 
   const handleDragEnd = () => {
     x.set(0);
