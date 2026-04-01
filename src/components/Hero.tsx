@@ -1,9 +1,9 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 
-const skills = ["Web Development", "Mobile App Design", "Product Design", "Prompt Engineering", "Web Development", "Mobile App Design", "Product Design", "Prompt Engineering"];
+const roles = ["product designer", "UI/UX designer", "frontend developer", "artist"];
 
 const generateStars = (count: number) => {
   return Array.from({ length: count }, (_, i) => ({
@@ -28,6 +28,7 @@ const generateShootingStars = (count: number) => {
 
 const Hero = () => {
   const ref = useRef(null);
+  const [roleIndex, setRoleIndex] = useState(0);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -37,6 +38,13 @@ const Hero = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
   const stars = useMemo(() => generateStars(150), []);
   const shootingStars = useMemo(() => generateShootingStars(5), []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -133,46 +141,50 @@ const Hero = () => {
 
       <motion.div
         style={{ y, opacity, scale }}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex-1 flex flex-col items-center justify-center"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 text-left flex-1 flex flex-col justify-center max-w-5xl"
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="space-y-0"
+          className="space-y-6"
         >
-          <motion.p
-            className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Shibin S P
-          </motion.p>
           <motion.h1
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-['Anton'] uppercase tracking-tight leading-[0.85] text-white"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-['Anton'] uppercase tracking-tight leading-[0.95] text-white"
             initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Product
+            a product design
+            <br />
+            partner crafting
+            <br />
+            interactive
+            <br />
+            experiences as a
           </motion.h1>
-          <motion.h1
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-['Anton'] uppercase tracking-tight leading-[0.85] text-white"
-            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Designer
-          </motion.h1>
-          <motion.p
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-light tracking-wide text-muted-foreground mt-6"
-            initial={{ opacity: 0, y: 30 }}
+
+          <motion.div
+            className="h-16 sm:h-20 md:h-24 lg:h-28 flex items-center overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Crafting Soulful Experiences
-          </motion.p>
+            <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mr-2">(</span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={roleIndex}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-muted-foreground tracking-wide"
+                initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -30, filter: "blur(8px)" }}
+                transition={{ duration: 0.5 }}
+              >
+                {roles[roleIndex]}
+              </motion.span>
+            </AnimatePresence>
+            <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light ml-2">)</span>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -197,14 +209,6 @@ const Hero = () => {
           </a>
         </motion.div>
       </motion.div>
-
-      {/* Skills Marquee placeholder */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        className="w-full"
-      />
     </section>
   );
 };
