@@ -1,133 +1,134 @@
-import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 
-const modules = [
-  ["Design Systems", "Product Design", "User Research", "User Experience Design"],
-  ["Interaction Design", "Design Thinking", "Visual Design", "Prototyping"],
-  ["Gamification", "Experience Design", "Branding", "Game UI/UX"],
+const skills = [
+  { label: "Design Systems", x: -35, y: -38 },
+  { label: "Gamification", x: -8, y: -45 },
+  { label: "Experience Design", x: 25, y: -40 },
+  { label: "Design Research", x: -42, y: -15 },
+  { label: "User Interface Design", x: 38, y: -12 },
+  { label: "Prototyping", x: -38, y: 18 },
+  { label: "Branding", x: 35, y: 15 },
+  { label: "Game UI/UX", x: -12, y: 38 },
+  { label: "Visual Design", x: 20, y: 35 },
 ];
 
-const DraggableModule = ({
-  module,
-  delay,
-  isActive,
-  onSelect,
+const DraggableChip = ({
+  label,
+  x,
+  y,
+  index,
 }: {
-  module: string;
-  delay: number;
-  isActive: boolean;
-  onSelect: () => void;
+  label: string;
+  x: number;
+  y: number;
+  index: number;
 }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 30, damping: 12 });
-  const springY = useSpring(y, { stiffness: 30, damping: 12 });
-  const [isHovered, setIsHovered] = useState(false);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const springX = useSpring(mx, { stiffness: 30, damping: 12 });
+  const springY = useSpring(my, { stiffness: 30, damping: 12 });
 
   const handleDragEnd = () => {
-    x.set(0);
-    y.set(0);
+    mx.set(0);
+    my.set(0);
   };
 
   return (
     <motion.div
-      style={{ x: springX, y: springY }}
-      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.5, delay }}
+      style={{
+        x: springX,
+        y: springY,
+        left: `calc(50% + ${x}%)`,
+        top: `calc(50% + ${y}%)`,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
+      className="absolute cursor-grab active:cursor-grabbing z-10"
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.06,
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+      }}
       drag
       dragMomentum={false}
       dragElastic={0.8}
       onDrag={(_, info) => {
-        x.set(info.offset.x);
-        y.set(info.offset.y);
+        mx.set(info.offset.x);
+        my.set(info.offset.y);
       }}
       onDragEnd={handleDragEnd}
-      onClick={onSelect}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ scale: 1.08, y: -3 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       whileDrag={{ scale: 1.12, zIndex: 50 }}
-      className="cursor-grab active:cursor-grabbing"
     >
-      <div
-        className={`relative px-5 md:px-7 py-2.5 md:py-3 rounded-full border backdrop-blur-xl transition-all duration-500 overflow-hidden ${
-          isActive
-            ? `border-white/25 bg-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_2px_8px_rgba(0,0,0,0.2)]`
-            : isHovered
-              ? "border-white/20 bg-white/[0.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]"
-              : "border-white/[0.12] bg-white/[0.02]"
-        }`}
-      >
-        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.08] via-transparent to-transparent pointer-events-none" />
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.08] pointer-events-none" />
-        
-        <span
-          className={`relative z-10 font-normal text-xs md:text-sm whitespace-nowrap transition-colors duration-300 ${
-            isActive ? "text-white font-medium" : "text-white/70"
-          }`}
-        >
-          {module}
-        </span>
+      <div className="px-5 md:px-7 py-2.5 md:py-3 rounded-full bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--primary))] text-xs md:text-sm font-medium whitespace-nowrap select-none">
+        {label}
       </div>
     </motion.div>
   );
 };
 
 const ModulesCarousel = () => {
-  const [activeModule, setActiveModule] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
-  const chipsY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
 
   return (
-    <section ref={sectionRef} className="relative py-10 md:py-16 overflow-hidden">
-      {/* Parallax ambient glow */}
-      <motion.div className="absolute inset-0 -z-10" style={{ y: bgGlowY }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-[120px]" />
-      </motion.div>
-
-      {/* Gradient Fades */}
-      <div className="absolute top-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-background via-background/50 to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background via-background/50 to-transparent pointer-events-none z-10" />
-
-      <motion.div style={{ y: chipsY }} className="relative z-[5] container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-['Cormorant_Garamond'] italic text-center text-foreground mb-10 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+    <section ref={sectionRef} className="relative py-20 md:py-32 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="relative w-full"
+          style={{ minHeight: "500px" }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          My Design Superpowers
-        </motion.h2>
-        <div className="flex flex-col items-center gap-4 md:gap-5">
-          {modules.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="flex flex-wrap justify-center gap-3 md:gap-4"
+          {/* Center title */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
+            {/* Diamond icon */}
+            <motion.div
+              className="mb-4 w-12 h-16 border border-foreground/20 rounded-md flex items-center justify-center pointer-events-auto"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              {row.map((module, index) => (
-                <DraggableModule
-                  key={module}
-                  module={module}
-                  delay={(rowIndex * 4 + index) * 0.08}
-                  isActive={activeModule === module}
-                  onSelect={() =>
-                    setActiveModule((prev) => (prev === module ? null : module))
-                  }
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 0L16 8L8 16L0 8L8 0Z" fill="hsl(var(--primary))" />
+              </svg>
+            </motion.div>
+
+            <motion.h2
+              className="text-3xl md:text-4xl lg:text-5xl font-['Cormorant_Garamond'] italic text-center text-foreground pointer-events-auto cursor-default"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              My Design
+              <br />
+              Superpowers
+            </motion.h2>
+          </div>
+
+          {/* Scattered skill chips - appear on hover */}
+          <AnimatePresence>
+            {isHovered &&
+              skills.map((skill, index) => (
+                <DraggableChip
+                  key={skill.label}
+                  label={skill.label}
+                  x={skill.x}
+                  y={skill.y}
+                  index={index}
                 />
               ))}
-            </div>
-          ))}
+          </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
