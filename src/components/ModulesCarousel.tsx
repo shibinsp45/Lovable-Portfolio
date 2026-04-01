@@ -4,18 +4,8 @@ import { useState, useRef } from "react";
 const modules = [
   ["Design Systems", "Product Design", "User Research", "User Experience Design"],
   ["Interaction Design", "Design Thinking", "Visual Design", "Prototyping"],
+  ["Gamification", "Experience Design", "Branding", "Game UI/UX"],
 ];
-
-const moduleGlows: Record<string, { border: string; glow: string; bg: string }> = {
-  "Design Systems": { border: "border-rose-400/40", glow: "shadow-rose-500/20", bg: "from-rose-500/15 to-pink-500/10" },
-  "Product Design": { border: "border-cyan-400/40", glow: "shadow-cyan-500/20", bg: "from-cyan-500/15 to-teal-500/10" },
-  "User Research": { border: "border-violet-400/40", glow: "shadow-violet-500/20", bg: "from-violet-500/15 to-purple-500/10" },
-  "User Experience Design": { border: "border-amber-400/40", glow: "shadow-amber-500/20", bg: "from-amber-500/15 to-orange-500/10" },
-  "Interaction Design": { border: "border-blue-400/40", glow: "shadow-blue-500/20", bg: "from-blue-500/15 to-indigo-500/10" },
-  "Design Thinking": { border: "border-emerald-400/40", glow: "shadow-emerald-500/20", bg: "from-emerald-500/15 to-green-500/10" },
-  "Visual Design": { border: "border-fuchsia-400/40", glow: "shadow-fuchsia-500/20", bg: "from-fuchsia-500/15 to-pink-500/10" },
-  "Prototyping": { border: "border-red-400/40", glow: "shadow-red-500/20", bg: "from-red-500/15 to-rose-500/10" },
-};
 
 const DraggableModule = ({
   module,
