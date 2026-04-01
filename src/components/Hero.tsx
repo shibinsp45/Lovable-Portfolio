@@ -141,7 +141,7 @@ const Hero = () => {
 
       <motion.div
         style={{ y, opacity, scale }}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-left flex-1 flex flex-col justify-center max-w-5xl"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex-1 flex flex-col items-center justify-center max-w-5xl"
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -149,6 +149,15 @@ const Hero = () => {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="space-y-6"
         >
+          <motion.p
+            className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Hey there, I'm Shibin S P
+          </motion.p>
+
           <motion.h1
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-['Anton'] uppercase tracking-tight leading-[0.95] text-white"
             initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
@@ -165,12 +174,11 @@ const Hero = () => {
           </motion.h1>
 
           <motion.div
-            className="h-16 sm:h-20 md:h-24 lg:h-28 flex items-center overflow-hidden"
+            className="h-16 sm:h-20 md:h-24 lg:h-28 flex items-center justify-center overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mr-2">(</span>
             <AnimatePresence mode="wait">
               <motion.span
                 key={roleIndex}
@@ -183,7 +191,6 @@ const Hero = () => {
                 {roles[roleIndex]}
               </motion.span>
             </AnimatePresence>
-            <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light ml-2">)</span>
           </motion.div>
         </motion.div>
 
