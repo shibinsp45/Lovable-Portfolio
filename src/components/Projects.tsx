@@ -283,12 +283,15 @@ const Projects = () => {
                 {group.caption}
               </motion.h3>
 
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {group.projects.map((project, i) => (
-                    <ProjectCard key={project.slug} project={project} index={i} />
-                  ))}
-                </div>
+              <div
+                className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory px-6 sm:px-12 pb-4"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {group.projects.map((project, i) => (
+                  <div key={project.slug} className="flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[30vw]">
+                    <ProjectCard project={project} index={i} />
+                  </div>
+                ))}
               </div>
             </div>
           ))}
