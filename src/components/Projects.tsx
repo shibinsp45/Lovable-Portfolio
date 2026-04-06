@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const projectGroups = [
   {
@@ -15,7 +15,6 @@ const projectGroups = [
         year: "2025",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-emerald-500",
       },
       {
         title: "Tools - Service App",
@@ -25,7 +24,6 @@ const projectGroups = [
         year: "2025",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-orange-500",
       },
       {
         title: "Fudit - Food Delivery",
@@ -35,7 +33,6 @@ const projectGroups = [
         year: "2024",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-red-500",
       },
       {
         title: "GetFit - Fitness Tracker",
@@ -45,7 +42,6 @@ const projectGroups = [
         year: "2024",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-lime-500",
       },
       {
         title: "GroPlan - Grocery App",
@@ -55,7 +51,6 @@ const projectGroups = [
         year: "2025",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-emerald-500",
       },
       {
         title: "ProMedic - Medicine Vending",
@@ -65,7 +60,6 @@ const projectGroups = [
         year: "2024",
         role: "UI/UX Designer",
         type: "Case Study",
-        accent: "bg-sky-500",
       },
     ],
   },
@@ -80,7 +74,6 @@ const projectGroups = [
         year: "2024",
         role: "Web Designer",
         type: "Website",
-        accent: "bg-violet-500",
       },
       {
         title: "ElitePath Dashboard",
@@ -90,7 +83,6 @@ const projectGroups = [
         year: "2024",
         role: "UI/UX Designer",
         type: "Dashboard",
-        accent: "bg-indigo-500",
       },
       {
         title: "Beat Landing Page",
@@ -100,7 +92,6 @@ const projectGroups = [
         year: "2024",
         role: "Web Developer",
         type: "Landing Page",
-        accent: "bg-yellow-500",
       },
       {
         title: "TeaTym Product Website",
@@ -110,7 +101,6 @@ const projectGroups = [
         year: "2024",
         role: "Web Developer",
         type: "Product Website",
-        accent: "bg-amber-600",
       },
     ],
   },
@@ -125,7 +115,6 @@ const projectGroups = [
         year: "2024",
         role: "Brand Designer",
         type: "Branding",
-        accent: "bg-pink-500",
       },
       {
         title: "Smiley Wallpaper Design",
@@ -135,7 +124,6 @@ const projectGroups = [
         year: "2024",
         role: "Graphic Designer",
         type: "Graphic Design",
-        accent: "bg-yellow-400",
       },
     ],
   },
@@ -150,7 +138,6 @@ const projectGroups = [
         year: "2025",
         role: "AI Designer",
         type: "AI Design",
-        accent: "bg-rose-400",
       },
     ],
   },
@@ -165,7 +152,6 @@ const projectGroups = [
         year: "2025",
         role: "Writer",
         type: "Blog",
-        accent: "bg-cyan-500",
       },
       {
         title: "How Your Brain Shapes UX",
@@ -175,7 +161,6 @@ const projectGroups = [
         year: "2025",
         role: "Writer",
         type: "Blog",
-        accent: "bg-purple-500",
       },
       {
         title: "Human-Computer Interaction",
@@ -185,186 +170,68 @@ const projectGroups = [
         year: "2025",
         role: "Writer & Researcher",
         type: "Article",
-        accent: "bg-teal-500",
       },
     ],
   },
 ];
 
-const CarouselGroup = ({
-  group,
-  groupIndex,
+const ProjectCard = ({
+  project,
+  index,
 }: {
-  group: (typeof projectGroups)[0];
-  groupIndex: number;
-}) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const groupRef = useRef(null);
+  project: (typeof projectGroups)[0]["projects"][0];
+  index: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+  >
+    <Link to={`/project/${project.slug}`} className="group block">
+      <div className="relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] group-hover:border-white/[0.15] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
 
-  const { scrollYProgress } = useScroll({
-    target: groupRef,
-    offset: ["start end", "end start"],
-  });
-
-  const titleY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
-  const cardsY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
-  const dotsY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
-
-  const scrollToIndex = (index: number) => {
-    if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const cards = container.children;
-    if (cards[index]) {
-      const card = cards[index] as HTMLElement;
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const scrollLeft = card.offsetLeft - containerRect.width / 2 + cardRect.width / 2;
-      container.scrollTo({ left: scrollLeft, behavior: "smooth" });
-    }
-    setActiveIndex(index);
-  };
-
-  useEffect(() => {
-    if (isPlaying && group.projects.length > 1) {
-      intervalRef.current = setInterval(() => {
-        setActiveIndex((prev) => {
-          const next = (prev + 1) % group.projects.length;
-          scrollToIndex(next);
-          return next;
-        });
-      }, 4000);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isPlaying, group.projects.length]);
-
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const scrollCenter = container.scrollLeft + container.clientWidth / 2;
-    let closestIndex = 0;
-    let closestDist = Infinity;
-    Array.from(container.children).forEach((child, i) => {
-      const el = child as HTMLElement;
-      const center = el.offsetLeft + el.offsetWidth / 2;
-      const dist = Math.abs(scrollCenter - center);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closestIndex = i;
-      }
-    });
-    setActiveIndex(closestIndex);
-  };
-
-  return (
-    <div ref={groupRef}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
-      >
-        <motion.h3
-          style={{ y: titleY }}
-          className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-10"
-          {...{ style: { fontFamily: "'Quicksand', sans-serif", y: titleY } }}
-        >
-          {group.caption}
-        </motion.h3>
-
-        <motion.div style={{ y: cardsY }}>
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-6 sm:px-12 pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        <div className="px-5 pt-5 pb-3 relative z-20">
+          <h4
+            className="text-base sm:text-lg font-semibold text-foreground truncate"
+            style={{ fontFamily: "'Quicksand', sans-serif" }}
           >
-          {group.projects.map((project) => (
-              <Link
-                key={project.slug}
-                to={`/project/${project.slug}`}
-                className="group flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[32vw] xl:w-[28vw]"
-              >
-                <div className="relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] group-hover:border-white/[0.15] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500">
-                  {/* Glass shine overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
-                  
-                  {/* Project name on top */}
-                  <div className="px-5 pt-5 pb-3 relative z-20">
-                    <h4
-                      className="text-base sm:text-lg font-semibold text-foreground truncate"
-                      style={{ fontFamily: "'Quicksand', sans-serif" }}
-                    >
-                      {project.title}
-                    </h4>
-                  </div>
+            {project.title}
+          </h4>
+        </div>
 
-                  {/* Image */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                  </div>
+        <div className="relative w-full aspect-[4/3] overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            loading="lazy"
+          />
+        </div>
 
-                  {/* Description and type at bottom */}
-                  <div className="px-5 pt-4 pb-5 relative z-20">
-                    <p
-                      className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      {project.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span
-                        className="text-xs text-muted-foreground/70 font-medium uppercase tracking-wider"
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                      >
-                        {project.type} · {project.year}
-                      </span>
-                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-
-        {group.projects.length > 1 && (
-          <motion.div style={{ y: dotsY }} className="flex items-center justify-center gap-4 mt-5 sm:mt-6">
-            <div className="flex items-center gap-1.5">
-              {group.projects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollToIndex(i)}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === activeIndex
-                      ? "w-6 h-2.5 bg-foreground"
-                      : "w-2.5 h-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
-                  }`}
-                />
-              ))}
-            </div>
-            <button
-              onClick={() => setIsPlaying((p) => !p)}
-              className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+        <div className="px-5 pt-4 pb-5 relative z-20">
+          <p
+            className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            {project.description}
+          </p>
+          <div className="flex items-center justify-between">
+            <span
+              className="text-xs text-muted-foreground/70 font-medium uppercase tracking-wider"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
-              {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-            </button>
-          </motion.div>
-        )}
-      </motion.div>
-    </div>
-  );
-};
+              {project.type} · {project.year}
+            </span>
+            <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+          </div>
+        </div>
+      </div>
+    </Link>
+  </motion.div>
+);
 
 const Projects = () => {
   const sectionRef = useRef(null);
@@ -404,7 +271,26 @@ const Projects = () => {
 
         <div className="flex flex-col gap-20 sm:gap-28">
           {projectGroups.map((group, groupIndex) => (
-            <CarouselGroup key={group.caption} group={group} groupIndex={groupIndex} />
+            <div key={group.caption}>
+              <motion.h3
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
+                className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-12"
+                style={{ fontFamily: "'Quicksand', sans-serif" }}
+              >
+                {group.caption}
+              </motion.h3>
+
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                  {group.projects.map((project, i) => (
+                    <ProjectCard key={project.slug} project={project} index={i} />
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
