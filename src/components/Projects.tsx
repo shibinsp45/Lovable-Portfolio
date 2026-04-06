@@ -270,31 +270,89 @@ const Projects = () => {
         </motion.div>
 
         <div className="flex flex-col gap-20 sm:gap-28">
-          {projectGroups.map((group, groupIndex) => (
-            <div key={group.caption}>
-              <motion.h3
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
-                className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-12"
-                style={{ fontFamily: "'Quicksand', sans-serif" }}
-              >
-                {group.caption}
-              </motion.h3>
+          {projectGroups.map((group, groupIndex) => {
+            const scrollRef = useRef<HTMLDivElement>(null);
+            const [canScrollLeft, setCanScrollLeft] = useState(false);
+            const [canScrollRight, setCanScrollRight] = useState(true);
 
-              <div
-                className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory px-6 sm:px-12 pb-4"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
-                {group.projects.map((project, i) => (
-                  <div key={project.slug} className="flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[30vw]">
-                    <ProjectCard project={project} index={i} />
+            const checkScroll = useCallback(() => {
+              if (!scrollRef.current) return;
+              const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+              setCanScrollLeft(scrollLeft > 10);
+              setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+            }, []);
+
+            useEffect(() => {
+              checkScroll();
+            }, [checkScroll]);
+
+            const scroll = (direction: "left" | "right") => {
+              if (!scrollRef.current) return;
+              const amount = scrollRef.current.clientWidth * 0.75;
+              scrollRef.current.scrollBy({
+                left: direction === "left" ? -amount : amount,
+                behavior: "smooth",
+              });
+            };
+
+            return (
+              <div key={group.caption}>
+                <motion.h3
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
+                  className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8 sm:mb-12"
+                  style={{ fontFamily: "'Quicksand', sans-serif" }}
+                >
+                  {group.caption}
+                </motion.h3>
+
+                <div className="relative group/scroll">
+                  {/* Left arrow */}
+                  {canScrollLeft && (
+                    <button
+                      onClick={() => scroll("left")}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                  )}
+
+                  {/* Right arrow */}
+                  {canScrollRight && (
+                    <button
+                      onClick={() => scroll("right")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  )}
+
+                  {/* Fade edges */}
+                  {canScrollLeft && (
+                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+                  )}
+                  {canScrollRight && (
+                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+                  )}
+
+                  <div
+                    ref={scrollRef}
+                    onScroll={checkScroll}
+                    className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory px-6 sm:px-12 pb-4"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  >
+                    {group.projects.map((project, i) => (
+                      <div key={project.slug} className="flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[30vw]">
+                        <ProjectCard project={project} index={i} />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
