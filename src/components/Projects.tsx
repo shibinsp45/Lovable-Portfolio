@@ -112,7 +112,7 @@ const projectGroups = [
         description: "Complete branding design for AJ Delight Point Bakery – packaging, logo, and visual identity.",
         image: "/projects/aj-delight-point.png",
         slug: "aj-delight-point",
-        year: "2024",
+        year: "2026",
         role: "Brand Designer",
         type: "Branding",
         objectFit: "contain" as const,
