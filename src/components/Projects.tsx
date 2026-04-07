@@ -53,7 +53,7 @@ const projectGroups = [
         type: "Case Study",
       },
       {
-        title: "ProMedic - Medicine Vending",
+        title: "PROMedic - Emergency Medicine ",
         description: "Medicine vending machine case study – access medicines faster during emergencies.",
         image: "/projects/medicine-vending.png",
         slug: "medicine-vending",
