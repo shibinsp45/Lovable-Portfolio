@@ -115,6 +115,7 @@ const projectGroups = [
         year: "2024",
         role: "Brand Designer",
         type: "Branding",
+        objectFit: "contain" as const,
       },
       {
         title: "Happy Cart Branding",
@@ -211,11 +212,11 @@ const ProjectCard = ({
           </h4>
         </div>
 
-        <div className="relative w-full aspect-[4/3] overflow-hidden">
+        <div className="relative w-full aspect-[4/3] overflow-hidden bg-black/20">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            className={`w-full h-full ${project.objectFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-700`}
             loading="lazy"
           />
         </div>
