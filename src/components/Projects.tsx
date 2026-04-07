@@ -26,7 +26,7 @@ const projectGroups = [
         type: "Case Study",
       },
       {
-        title: "Fudit - Food Delivery",
+        title: "Fudit -AI powered  Food Delivery App",
         description: "AI-powered food delivery app – satisfy your cravings, delivered to your home.",
         image: "/projects/fudit-app.png",
         slug: "fudit-app",
