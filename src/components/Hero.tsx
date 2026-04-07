@@ -163,9 +163,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            A Product Design
+            A Product Designer
             <br />
-            partner with focus on
+            with focus on
             <br />
             interactive experiences
           </motion.h1>
