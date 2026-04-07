@@ -17,7 +17,7 @@ const projectGroups = [
         type: "Case Study",
       },
       {
-        title: "Tools - Service App",
+        title: "Tools - Emergency Service App",
         description: "On-demand tools and repair service app – we are here to help you.",
         image: "/projects/tools-app.png",
         slug: "tools-app",
