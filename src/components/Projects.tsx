@@ -116,6 +116,7 @@ const projectGroups = [
         role: "Brand Designer",
         type: "Branding",
         objectFit: "contain" as const,
+        imageBg: "#f5efe6",
       },
       {
         title: "Happy Cart Branding",
@@ -212,7 +213,7 @@ const ProjectCard = ({
           </h4>
         </div>
 
-        <div className="relative w-full aspect-[4/3] overflow-hidden bg-black/20">
+        <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ backgroundColor: project.imageBg || 'rgba(0,0,0,0.2)' }}>
           <img
             src={project.image}
             alt={project.title}
