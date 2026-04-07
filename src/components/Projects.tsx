@@ -35,7 +35,7 @@ const projectGroups = [
         type: "Case Study",
       },
       {
-        title: "GetFit - Fitness Tracker",
+        title: "GetFit - Personalized  Fitness Tracker App",
         description: "Fitness tracking app case study – where fitness meets passion.",
         image: "/projects/fitness-app.jpg",
         slug: "fitness-app",
