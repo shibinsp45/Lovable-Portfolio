@@ -149,7 +149,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <motion.p
-            className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase text-muted-foreground mb-6 md:mb-10"
+            className="text-sm sm:text-base md:text-lg tracking-[0.3em] text-muted-foreground mb-6 md:mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
