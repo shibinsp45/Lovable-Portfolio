@@ -8,7 +8,7 @@ const projectGroups = [
     caption: "UI UX Designs and Case Studies",
     projects: [
       {
-        title: "Invoice Generator App",
+        title: "Billzy - Simple Invoice Generator App",
         description: "A mobile invoice app case study – create bills faster, manage your shop better.",
         image: "/projects/invoice-generator.jpg",
         slug: "invoice-generator",
