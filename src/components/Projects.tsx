@@ -108,6 +108,15 @@ const projectGroups = [
     caption: "Product Branding",
     projects: [
       {
+        title: "AJ Delight Point Branding",
+        description: "Complete branding design for AJ Delight Point Bakery – packaging, logo, and visual identity.",
+        image: "/projects/aj-delight-point.png",
+        slug: "aj-delight-point",
+        year: "2024",
+        role: "Brand Designer",
+        type: "Branding",
+      },
+      {
         title: "Happy Cart Branding",
         description: "Branding design for a shopping cart – vibrant and playful identity.",
         image: "/projects/happy-cart.png",
