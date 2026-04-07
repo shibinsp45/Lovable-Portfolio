@@ -44,7 +44,7 @@ const projectGroups = [
         type: "Case Study",
       },
       {
-        title: "GroPlan - Grocery App",
+        title: "GroPlan - Grocery Planner  App",
         description: "Smart grocery & meal planning app – your smart kitchen buddy.",
         image: "/projects/grocery-app.jpg",
         slug: "grocery-app",
