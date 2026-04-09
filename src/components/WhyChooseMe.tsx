@@ -35,7 +35,7 @@ const WhyChooseMe = () => {
 
   return (
     <section
-      className="py-16 md:py-24 bg-background overflow-hidden relative"
+      className="py-24 md:py-32 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       {/* Parallax background elements */}
