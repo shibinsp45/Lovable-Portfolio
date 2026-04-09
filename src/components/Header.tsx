@@ -54,7 +54,7 @@ const Header = () => {
               <img
                 src={isDark ? logoDark : logoLight}
                 alt="Logo"
-                className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
+                className="h-8 sm:h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
               />
             </Link>
 
