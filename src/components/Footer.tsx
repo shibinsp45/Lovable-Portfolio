@@ -41,7 +41,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12"
         >
           {/* Brand */}
           <div className="space-y-4">
@@ -58,40 +58,40 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Pages */}
-          <div>
-            <h4 className="text-foreground font-medium text-sm mb-4">Pages</h4>
-            <ul className="flex flex-col gap-3">
-              {footerLinks.pages.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h4 className="text-foreground font-medium text-sm mb-4">Social</h4>
-            <ul className="flex flex-col gap-3">
-              {footerLinks.social.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {/* Links */}
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <h4 className="text-foreground font-medium text-sm mb-4">Pages</h4>
+              <ul className="flex flex-col gap-3">
+                {footerLinks.pages.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-foreground font-medium text-sm mb-4">Social</h4>
+              <ul className="flex flex-col gap-3">
+                {footerLinks.social.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
       </motion.div>
