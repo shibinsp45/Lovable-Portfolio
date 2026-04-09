@@ -44,8 +44,8 @@ const Header = () => {
             : ""
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center justify-center relative h-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <nav className="flex items-center justify-center relative h-9 sm:h-10">
             {/* Logo - Left (absolute) */}
             <Link
               to="/"
