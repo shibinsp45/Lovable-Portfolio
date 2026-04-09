@@ -59,7 +59,7 @@ const Header = () => {
             </Link>
 
             {/* Center Navigation - Desktop */}
-            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1.5 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
+            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
               {navLinks.map((link) =>
                 link.external ? (
                   <a
