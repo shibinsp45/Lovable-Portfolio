@@ -351,7 +351,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16 md:mb-24"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
           <span
             className="text-xs sm:text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-3 sm:mb-4 block"
@@ -367,7 +367,7 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="flex flex-col gap-20 sm:gap-28">
+        <div className="flex flex-col gap-14 sm:gap-20">
           {projectGroups.map((group, groupIndex) => (
             <ScrollableProjectRow key={group.caption} group={group} groupIndex={groupIndex} />
           ))}
