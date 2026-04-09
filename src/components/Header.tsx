@@ -44,8 +44,8 @@ const Header = () => {
             : ""
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center justify-center relative h-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <nav className="flex items-center justify-center relative h-9 sm:h-10">
             {/* Logo - Left (absolute) */}
             <Link
               to="/"
@@ -54,12 +54,12 @@ const Header = () => {
               <img
                 src={isDark ? logoDark : logoLight}
                 alt="Logo"
-                className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
+                className="h-8 sm:h-10 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
               />
             </Link>
 
             {/* Center Navigation - Desktop */}
-            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1.5 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
+            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
               {navLinks.map((link) =>
                 link.external ? (
                   <a
