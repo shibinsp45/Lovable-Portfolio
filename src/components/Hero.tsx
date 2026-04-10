@@ -51,8 +51,8 @@ const Hero = () => {
       ref={ref}
       className="min-h-screen flex flex-col justify-center pt-20 relative overflow-hidden bg-background"
     >
-      {/* Galaxy background with planet horizon */}
-      <div className="absolute inset-0 -z-10">
+      {/* Galaxy background - dark mode only */}
+      <div className="absolute inset-0 -z-10 dark:block hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(240,20%,3%)] via-[hsl(240,15%,5%)] to-[hsl(240,10%,8%)]" />
         {stars.map((star) => (
           <motion.div
@@ -139,6 +139,13 @@ const Hero = () => {
         />
       </div>
 
+      {/* Light mode background */}
+      <div className="absolute inset-0 -z-10 dark:hidden block">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary via-background to-background" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
+      </div>
+
       <motion.div
         style={{ y, opacity, scale }}
         className="container mx-auto px-4 sm:px-6 lg:px-8 text-left flex-1 flex flex-col justify-center max-w-6xl"
@@ -158,7 +165,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-sans font-medium tracking-tight leading-[1.1] text-white"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-sans font-medium tracking-tight leading-[1.1] text-foreground"
             initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.2 }}

@@ -200,10 +200,7 @@ const ProjectCard = ({
     transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
   >
     <Link to={`/project/${project.slug}`} className="group block">
-      <div className="relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] group-hover:border-white/[0.15] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-10 rounded-2xl" />
-
+      <div className="relative rounded-2xl overflow-hidden bg-card/50 backdrop-blur-2xl border border-border/30 shadow-sm group-hover:border-border/50 group-hover:shadow-md transition-all duration-500">
         <div className="px-5 pt-5 pb-3 relative z-20">
           <h4
             className="text-base sm:text-lg font-semibold text-foreground truncate"
@@ -213,7 +210,7 @@ const ProjectCard = ({
           </h4>
         </div>
 
-        <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ backgroundColor: project.imageBg || 'rgba(0,0,0,0.2)' }}>
+        <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ backgroundColor: project.imageBg || 'hsl(var(--muted))' }}>
           <img
             src={project.image}
             alt={project.title}

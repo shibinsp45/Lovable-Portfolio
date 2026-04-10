@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const footerLinks = {
   pages: [
@@ -48,7 +49,12 @@ const Footer = () => {
             <img
               src={logoDark}
               alt="Shibin"
-              className="h-12 md:h-14 w-auto object-contain"
+              className="h-12 md:h-14 w-auto object-contain dark:block hidden"
+            />
+            <img
+              src={logoLight}
+              alt="Shibin"
+              className="h-12 md:h-14 w-auto object-contain dark:hidden block"
             />
             <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
               UX Designer who crafting clean & modern designs with soul

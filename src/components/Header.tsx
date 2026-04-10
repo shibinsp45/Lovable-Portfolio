@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sparkles, Sun, ArrowUpRight, Menu, X } from "lucide-react";
+import { Sun, Moon, ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoDark from "@/assets/logo-dark.png";
@@ -45,7 +45,7 @@ const Header = () => {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-          <nav className="flex items-center justify-center relative h-10 sm:h-12">
+          <nav className="flex items-center justify-center relative h-12 sm:h-14">
             {/* Logo - Left (absolute) */}
             <Link
               to="/"
@@ -54,7 +54,7 @@ const Header = () => {
               <img
                 src={isDark ? logoDark : logoLight}
                 alt="Logo"
-                className="h-10 sm:h-12 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
+                className="h-14 sm:h-16 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
               />
             </Link>
 
@@ -84,36 +84,46 @@ const Header = () => {
               )}
             </div>
 
-            {/* Theme Toggle - Right (absolute) */}
+            {/* Theme Toggle - Right (absolute) - On/Off style */}
             <div className="absolute right-0 hidden md:flex">
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
                 onClick={toggleTheme}
-                className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl hover:bg-secondary/50"
+                className="relative w-16 h-8 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl hover:bg-secondary/50 transition-all duration-300 flex items-center p-1"
+                aria-label="Toggle theme"
               >
-                {isDark ? (
-                  <Sparkles className="h-4 w-4 text-foreground" />
-                ) : (
-                  <Sun className="h-4 w-4 text-foreground" />
-                )}
-              </Button>
+                <div
+                  className={`absolute w-6 h-6 rounded-full bg-primary shadow-md transition-all duration-300 flex items-center justify-center ${
+                    isDark ? "left-1" : "left-[calc(100%-28px)]"
+                  }`}
+                >
+                  {isDark ? (
+                    <Moon className="h-3.5 w-3.5 text-primary-foreground" />
+                  ) : (
+                    <Sun className="h-3.5 w-3.5 text-primary-foreground" />
+                  )}
+                </div>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="absolute right-0 flex md:hidden items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
                 onClick={toggleTheme}
-                className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
+                className="relative w-14 h-7 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl transition-all duration-300 flex items-center p-0.5"
+                aria-label="Toggle theme"
               >
-                {isDark ? (
-                  <Sparkles className="h-4 w-4 text-foreground" />
-                ) : (
-                  <Sun className="h-4 w-4 text-primary" />
-                )}
-              </Button>
+                <div
+                  className={`absolute w-5.5 h-5.5 w-[22px] h-[22px] rounded-full bg-primary shadow-md transition-all duration-300 flex items-center justify-center ${
+                    isDark ? "left-0.5" : "left-[calc(100%-24px)]"
+                  }`}
+                >
+                  {isDark ? (
+                    <Moon className="h-3 w-3 text-primary-foreground" />
+                  ) : (
+                    <Sun className="h-3 w-3 text-primary-foreground" />
+                  )}
+                </div>
+              </button>
               <Button
                 variant="ghost"
                 size="icon"
@@ -131,7 +141,7 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Mobile Menu - Fullscreen (outside header to avoid container clipping) */}
+      {/* Mobile Menu - Fullscreen */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 w-full h-full bg-background/95 backdrop-blur-xl md:hidden z-[60] flex flex-col items-center justify-center">
           <Button
