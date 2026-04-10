@@ -53,7 +53,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-24 md:py-32 bg-background overflow-hidden relative"
+      className="py-16 md:py-20 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       {/* Parallax background elements */}
@@ -85,7 +85,7 @@ const About = () => {
         </motion.p>
 
         <motion.div
-          className="flex justify-center mb-16 md:mb-20"
+          className="flex justify-center mb-10 md:mb-12"
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
