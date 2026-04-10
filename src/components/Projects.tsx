@@ -344,14 +344,14 @@ const Projects = () => {
     <section id="portfolio" className="relative bg-background" ref={sectionRef}>
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-10 py-16 sm:py-24 md:py-32">
+      <div className="relative z-10 py-14 sm:py-16 md:py-20">
         <motion.div
           style={{ y: headerY }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16 md:mb-24"
+          className="text-center mb-10 sm:mb-12 md:mb-14"
         >
           <span
             className="text-xs sm:text-sm font-light tracking-[0.3em] uppercase text-muted-foreground mb-3 sm:mb-4 block"
@@ -367,7 +367,7 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="flex flex-col gap-20 sm:gap-28">
+        <div className="flex flex-col gap-14 sm:gap-16">
           {projectGroups.map((group, groupIndex) => (
             <ScrollableProjectRow key={group.caption} group={group} groupIndex={groupIndex} />
           ))}

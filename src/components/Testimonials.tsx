@@ -45,7 +45,7 @@ const Testimonials = () => {
 
   return (
     <section
-      className="py-24 md:py-32 bg-background overflow-hidden relative"
+      className="py-16 md:py-20 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

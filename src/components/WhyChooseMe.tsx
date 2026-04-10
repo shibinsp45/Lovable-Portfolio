@@ -35,7 +35,7 @@ const WhyChooseMe = () => {
 
   return (
     <section
-      className="py-24 md:py-32 bg-background overflow-hidden relative"
+      className="py-16 md:py-20 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       {/* Parallax background elements */}
@@ -57,7 +57,7 @@ const WhyChooseMe = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-10 md:mb-12"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

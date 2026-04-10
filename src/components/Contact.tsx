@@ -18,7 +18,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 bg-background relative overflow-hidden"
+      className="py-16 md:py-20 bg-background relative overflow-hidden"
       ref={containerRef}
     >
       {/* Parallax animated background orbs */}
