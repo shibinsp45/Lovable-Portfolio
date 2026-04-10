@@ -79,7 +79,6 @@ const Career = () => {
         </motion.div>
 
         <motion.div style={{ y: cardsY }} className="space-y-16 relative">
-
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.title}
@@ -91,7 +90,7 @@ const Career = () => {
                 delay: index * 0.15,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-white/[0.03] backdrop-blur-2xl rounded-none p-6 border border-white/[0.06] shadow-[0_4px_24px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-white/[0.12] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-500"
+              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-card/30 backdrop-blur-2xl rounded-none p-6 border border-border/20 shadow-sm hover:border-border/40 hover:shadow-md transition-all duration-500"
             >
               <div className="flex items-start gap-4">
                 <motion.div

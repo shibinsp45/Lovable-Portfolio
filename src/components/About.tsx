@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useRef, useEffect, useState } from "react";
 
@@ -93,7 +93,7 @@ const About = () => {
         />
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Profile Image - parallax layer */}
+          {/* Profile Image */}
           <motion.div
             style={{ y: imageY }}
             initial={{ opacity: 0, x: -80, rotateY: 15 }}
@@ -123,7 +123,7 @@ const About = () => {
             />
           </motion.div>
 
-          {/* About Content - different parallax speed */}
+          {/* About Content */}
           <motion.div
             style={{ y: contentY }}
             initial={{ opacity: 0, x: 80 }}
@@ -193,9 +193,8 @@ const About = () => {
                     stiffness: 100,
                   }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="text-center cursor-default bg-white/[0.04] backdrop-blur-2xl rounded-2xl p-4 border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] hover:border-white/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500"
+                  className="text-center cursor-default bg-card/50 backdrop-blur-2xl rounded-2xl p-4 border border-border/30 shadow-sm hover:border-border/50 hover:shadow-md transition-all duration-500"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] via-transparent to-transparent pointer-events-none rounded-2xl" />
                   <div
                     className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground relative z-10"
                   >
