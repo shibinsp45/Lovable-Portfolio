@@ -320,9 +320,6 @@ const ScrollableProjectRow = ({
   group: (typeof projectGroups)[0];
   groupIndex: number;
 }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const isMobile = useIsMobile();
 
   const rowRef = useRef<HTMLDivElement>(null);
