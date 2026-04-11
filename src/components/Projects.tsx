@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const projectGroups = [
@@ -320,33 +320,20 @@ const ScrollableProjectRow = ({
   group: (typeof projectGroups)[0];
   groupIndex: number;
 }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const isMobile = useIsMobile();
 
-  const checkScroll = useCallback(() => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  }, []);
+  const rowRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: rowProgress } = useScroll({
+    target: rowRef,
+    offset: ["start end", "end start"],
+  });
 
-  useEffect(() => {
-    checkScroll();
-  }, [checkScroll]);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = scrollRef.current.clientWidth * 0.75;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
+  // Alternate direction: even rows scroll left, odd rows scroll right
+  const direction = groupIndex % 2 === 0 ? -1 : 1;
+  const x = useTransform(rowProgress, [0, 1], [direction * 100, direction * -300]);
 
   return (
-    <div>
+    <div ref={rowRef}>
       <motion.h3
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -370,44 +357,17 @@ const ScrollableProjectRow = ({
           ))}
         </div>
       ) : (
-        <div className="relative group/scroll">
-          {canScrollLeft && (
-            <button
-              onClick={() => scroll("left")}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          )}
-
-          {canScrollRight && (
-            <button
-              onClick={() => scroll("right")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center text-foreground opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          )}
-
-          {canScrollLeft && (
-            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-          )}
-          {canScrollRight && (
-            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
-          )}
-
-          <div
-            ref={scrollRef}
-            onScroll={checkScroll}
-            className="flex gap-6 sm:gap-8 overflow-x-auto snap-x snap-mandatory px-6 sm:px-12 pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        <div className="overflow-hidden">
+          <motion.div
+            style={{ x }}
+            className="flex gap-8 px-12"
           >
             {group.projects.map((project, i) => (
-              <div key={project.slug} className="flex-shrink-0 snap-center w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[30vw]">
+              <div key={project.slug} className="flex-shrink-0 w-[30vw]">
                 <ProjectCard project={project} index={i} />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       )}
     </div>
