@@ -328,9 +328,8 @@ const ScrollableProjectRow = ({
     offset: ["start end", "end start"],
   });
 
-  // Alternate direction: even rows scroll left, odd rows scroll right
-  const direction = groupIndex % 2 === 0 ? -1 : 1;
-  const x = useTransform(rowProgress, [0, 1], [direction * 100, direction * -300]);
+  // All rows scroll left
+  const x = useTransform(rowProgress, [0, 1], [100, -300]);
 
   return (
     <div ref={rowRef}>
