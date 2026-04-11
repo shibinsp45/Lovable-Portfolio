@@ -57,7 +57,7 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <Button variant="secondary" className="rounded-full px-6">
-              Contact
+              Get in Touch <ArrowUpRight className="ml-1 h-4 w-4" />
             </Button>
           </motion.div>
 
