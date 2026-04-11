@@ -50,16 +50,8 @@ const Contact = () => {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center max-w-2xl mx-auto space-y-8"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Button variant="secondary" className="rounded-full px-6">
-              Get in Touch <ArrowUpRight className="ml-1 h-4 w-4" />
-            </Button>
-          </motion.div>
+
+
 
           <motion.h2
             className="text-3xl sm:text-4xl md:text-6xl font-light tracking-wide"
