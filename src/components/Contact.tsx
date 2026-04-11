@@ -131,7 +131,7 @@ const Contact = () => {
                 className="rounded-full px-8 py-6 text-lg border-border/30 bg-card/30 backdrop-blur-xl hover:bg-card/50 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group"
                 asChild
               >
-                <a href="https://linkedin.com/in/shibinsp45" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <a href="https://www.linkedin.com/in/shibinsp45/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                   <span className="hidden md:inline">LinkedIn</span>
                   <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
