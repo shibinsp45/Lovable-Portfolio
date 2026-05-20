@@ -115,6 +115,12 @@ export default {
   				'Noto Sans',
   				'sans-serif'
   			],
+  			heading: [
+  				'Inter Tight',
+  				'Inter',
+  				'system-ui',
+  				'sans-serif'
+  			],
   			serif: [
   				'Cormorant Garamond',
   				'Lora',
