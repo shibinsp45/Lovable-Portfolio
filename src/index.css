@@ -221,3 +221,9 @@
   scroll-snap-align: start;
   scroll-snap-stop: normal;
 }
+
+/* Use Inter Tight for all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
