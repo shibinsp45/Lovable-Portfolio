@@ -32,13 +32,13 @@ const testimonials = [
 // Scattered positions (percent based) for two rows of avatars.
 // We repeat avatars to fill the scatter while keeping real testimonials selectable.
 const scatter = [
-  { left: "20%", top: "8%", size: 88, idx: 0 },
-  { left: "45%", top: "4%", size: 96, idx: 1 },
-  { left: "72%", top: "10%", size: 84, idx: 2 },
-  { left: "8%", top: "55%", size: 76, idx: 1 },
-  { left: "32%", top: "62%", size: 92, idx: 2 },
-  { left: "58%", top: "58%", size: 88, idx: 0 },
-  { left: "82%", top: "60%", size: 80, idx: 1 },
+  { left: "20%", top: "8%", size: 64, idx: 0 },
+  { left: "45%", top: "4%", size: 72, idx: 1 },
+  { left: "72%", top: "10%", size: 60, idx: 2 },
+  { left: "8%", top: "55%", size: 56, idx: 1 },
+  { left: "32%", top: "62%", size: 68, idx: 2 },
+  { left: "58%", top: "58%", size: 64, idx: 0 },
+  { left: "82%", top: "60%", size: 58, idx: 1 },
 ];
 
 const Testimonials = () => {
@@ -86,7 +86,7 @@ const Testimonials = () => {
         {/* Scatter + quote */}
         <div className="relative max-w-5xl mx-auto">
           {/* Avatar scatter (desktop) */}
-          <div className="relative hidden md:block h-[420px]">
+          <div className="relative hidden md:block h-[320px]">
             {scatter.map((pos, i) => {
               const t = testimonials[pos.idx];
               const isActive = pos.idx === active;
@@ -137,7 +137,7 @@ const Testimonials = () => {
                 <img
                   src={t.avatar}
                   alt={t.name}
-                  className={`w-20 h-20 rounded-[22%] object-cover shadow-md transition-all ${
+                  className={`w-14 h-14 rounded-[22%] object-cover shadow-md transition-all ${
                     active === i
                       ? "ring-4 ring-primary/60"
                       : "ring-1 ring-border/40 opacity-70"
