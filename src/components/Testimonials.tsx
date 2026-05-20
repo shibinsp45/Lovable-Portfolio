@@ -1,59 +1,66 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Quote } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { Quote } from "lucide-react";
+import { useRef, useState } from "react";
 import adarshImg from "@/assets/adarsh.png";
 import libinImg from "@/assets/libin.png";
 import jestinImg from "@/assets/jestin.png";
 
 const testimonials = [
   {
-    quote: "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes.",
+    quote:
+      "Shibin's ability to create intuitive user experiences and solve complex problems with ease is commendable. His interpersonal skills foster collaboration, and he consistently brings energy and positivity to every project he undertakes.",
     name: "Dr.Libin P Oommen",
     role: "HOD at PRC",
     avatar: libinImg,
   },
   {
-    quote: "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability.",
+    quote:
+      "I had the pleasure of working with Shibin. He is skilled with Figma and AI-based UI/UX design tools, and he collaborates seamlessly with dynamic teams. A strong designer with both creativity and adaptability.",
     name: "Adarsh Sharma",
     role: "CEO Nuren AI",
     avatar: adarshImg,
   },
   {
-    quote: "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions.",
+    quote:
+      "Shibin is an outstanding individual who excels at problem-solving and brings a creative approach to every challenge. His design skills are second to none, and he has consistently demonstrated a knack for finding elegant solutions.",
     name: "Jestin Sabu",
     role: "Application Developer - IBM",
     avatar: jestinImg,
   },
 ];
 
+// Scattered positions (percent based) for two rows of avatars.
+// We repeat avatars to fill the scatter while keeping real testimonials selectable.
+const scatter = [
+  { left: "20%", top: "8%", size: 88, idx: 0 },
+  { left: "45%", top: "4%", size: 96, idx: 1 },
+  { left: "72%", top: "10%", size: 84, idx: 2 },
+  { left: "8%", top: "55%", size: 76, idx: 1 },
+  { left: "32%", top: "62%", size: 92, idx: 2 },
+  { left: "58%", top: "58%", size: 88, idx: 0 },
+  { left: "82%", top: "60%", size: 80, idx: 1 },
+];
+
 const Testimonials = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
-
   const titleY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const current = testimonials[active];
 
   return (
     <section
-      className="py-16 md:py-20 bg-background overflow-hidden relative"
+      className="py-16 md:py-24 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          style={{ y: titleY }}
-          className="text-center mb-12 md:mb-16"
-        >
+        <motion.div style={{ y: titleY }} className="text-center mb-10 md:mb-14">
           <motion.h2
             className="text-3xl md:text-5xl font-bold text-foreground mb-4"
             initial={{ opacity: 0, y: 30 }}
@@ -76,61 +83,99 @@ const Testimonials = () => {
           </motion.p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              className="relative bg-card/50 backdrop-blur-2xl border border-border/30 shadow-sm hover:border-border/50 hover:shadow-md rounded-2xl p-6 md:p-8 flex flex-col gap-5 transition-all duration-500"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-            >
-              <Quote className="w-8 h-8 text-primary/20" />
-              <p
-                className="text-sm sm:text-base text-muted-foreground leading-relaxed flex-1"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-              >
-                "{testimonial.quote}"
-              </p>
-              <div className="flex items-center gap-3 pt-2 border-t border-border/20">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                  <h3
-                    className="text-sm font-semibold text-foreground"
-                    style={{ fontFamily: "'Quicksand', sans-serif" }}
-                  >
-                    {testimonial.name}
-                  </h3>
-                  <span className="text-xs text-muted-foreground">{testimonial.role}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Scatter + quote */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Avatar scatter (desktop) */}
+          <div className="relative hidden md:block h-[420px]">
+            {scatter.map((pos, i) => {
+              const t = testimonials[pos.idx];
+              const isActive = pos.idx === active;
+              return (
+                <motion.button
+                  key={i}
+                  onClick={() => setActive(pos.idx)}
+                  className="absolute focus:outline-none"
+                  style={{ left: pos.left, top: pos.top }}
+                  initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  whileHover={{ scale: 1.08, y: -4 }}
+                >
+                  <motion.img
+                    src={t.avatar}
+                    alt={t.name}
+                    style={{ width: pos.size, height: pos.size }}
+                    animate={{
+                      y: [0, -6, 0],
+                    }}
+                    transition={{
+                      duration: 4 + (i % 3),
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
+                    }}
+                    className={`rounded-[22%] object-cover shadow-lg transition-all duration-300 ${
+                      isActive
+                        ? "ring-4 ring-primary/60 shadow-2xl"
+                        : "ring-1 ring-border/40 opacity-80 hover:opacity-100"
+                    }`}
+                  />
+                </motion.button>
+              );
+            })}
+          </div>
 
-        {/* CTA */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <Button
-            variant="secondary"
-            className="rounded-full px-8 gap-2 group"
-            onClick={scrollToContact}
-          >
-            Get in Touch
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Button>
-        </motion.div>
+          {/* Mobile: simple row of avatars */}
+          <div className="md:hidden flex flex-wrap justify-center gap-4 mb-8">
+            {testimonials.map((t, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className="focus:outline-none"
+              >
+                <img
+                  src={t.avatar}
+                  alt={t.name}
+                  className={`w-20 h-20 rounded-[22%] object-cover shadow-md transition-all ${
+                    active === i
+                      ? "ring-4 ring-primary/60"
+                      : "ring-1 ring-border/40 opacity-70"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Active quote */}
+          <div className="md:absolute md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pointer-events-none">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4 }}
+                className="mx-auto max-w-xl text-center bg-card/70 backdrop-blur-xl border border-border/40 rounded-2xl p-6 md:p-8 shadow-lg pointer-events-auto"
+              >
+                <Quote className="w-7 h-7 text-primary/40 mx-auto mb-3" />
+                <p
+                  className="text-sm md:text-base text-foreground/90 leading-relaxed mb-4"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  "{current.quote}"
+                </p>
+                <h3
+                  className="text-sm font-semibold text-foreground"
+                  style={{ fontFamily: "'Quicksand', sans-serif" }}
+                >
+                  {current.name}
+                </h3>
+                <span className="text-xs text-muted-foreground">{current.role}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );
