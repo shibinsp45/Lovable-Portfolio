@@ -29,16 +29,11 @@ const testimonials = [
   },
 ];
 
-// Scattered positions (percent based) for two rows of avatars.
-// We repeat avatars to fill the scatter while keeping real testimonials selectable.
+// Scattered positions (percent based) — one per testimonial, no duplicates.
 const scatter = [
-  { left: "20%", top: "8%", size: 64, idx: 0 },
-  { left: "45%", top: "4%", size: 72, idx: 1 },
-  { left: "72%", top: "10%", size: 60, idx: 2 },
-  { left: "8%", top: "55%", size: 56, idx: 1 },
-  { left: "32%", top: "62%", size: 68, idx: 2 },
-  { left: "58%", top: "58%", size: 64, idx: 0 },
-  { left: "82%", top: "60%", size: 58, idx: 1 },
+  { left: "18%", top: "20%", size: 72, idx: 0 },
+  { left: "48%", top: "8%", size: 80, idx: 1 },
+  { left: "78%", top: "22%", size: 72, idx: 2 },
 ];
 
 const Testimonials = () => {
