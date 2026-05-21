@@ -82,30 +82,42 @@ const Testimonials = () => {
 
         {/* Scatter + quote */}
         <div className="relative max-w-5xl mx-auto">
-          {/* Avatar scatter (desktop) */}
-          <div className="relative hidden md:block h-[320px]">
+          {/* Avatar scatter (tablet & desktop) */}
+          <div className="relative hidden md:block h-[360px] lg:h-[420px]">
             {scatter.map((pos, i) => {
               const t = testimonials[pos.idx];
               const isActive = pos.idx === active;
+              const translateX = pos.centerX
+                ? "-50%"
+                : pos.anchorRight
+                ? "-100%"
+                : "0%";
               return (
                 <motion.button
                   key={i}
                   onClick={() => setActive(pos.idx)}
+                  onMouseEnter={() => setActive(pos.idx)}
+                  onFocus={() => setActive(pos.idx)}
                   className="absolute focus:outline-none"
-                  style={{ left: pos.left, top: pos.top }}
+                  style={{
+                    left: pos.left,
+                    top: pos.top,
+                    transform: `translateX(${translateX})`,
+                  }}
                   initial={{ opacity: 0, scale: 0.6, y: 20 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  whileHover={{ scale: 1.08, y: -4 }}
+                  whileHover={{ scale: 1.12, y: -6 }}
                 >
                   <motion.img
                     src={t.avatar}
                     alt={t.name}
-                    style={{ width: pos.size, height: pos.size }}
-                    animate={{
-                      y: [0, -6, 0],
+                    style={{
+                      width: "clamp(60px, 7vw, 96px)",
+                      height: "clamp(60px, 7vw, 96px)",
                     }}
+                    animate={{ y: [0, -6, 0] }}
                     transition={{
                       duration: 4 + (i % 3),
                       repeat: Infinity,
