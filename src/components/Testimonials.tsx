@@ -29,11 +29,13 @@ const testimonials = [
   },
 ];
 
-// Scattered positions (percent based) — one per testimonial, no duplicates.
+// Scattered positions — kept clear of the centered quote card.
+// Side avatars sit at mid-height, one floats above center.
+// `centerX` / `anchorRight` let us translate so avatars never clip the edges.
 const scatter = [
-  { left: "18%", top: "20%", size: 72, idx: 0 },
-  { left: "48%", top: "8%", size: 80, idx: 1 },
-  { left: "78%", top: "22%", size: 72, idx: 2 },
+  { left: "4%", top: "38%", idx: 0 },
+  { left: "50%", top: "0%", idx: 1, centerX: true },
+  { left: "96%", top: "38%", idx: 2, anchorRight: true },
 ];
 
 const Testimonials = () => {
