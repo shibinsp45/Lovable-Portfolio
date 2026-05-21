@@ -156,22 +156,22 @@ const Testimonials = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
                 transition={{ duration: 0.4 }}
-                className="mx-auto max-w-xl text-center bg-card/70 backdrop-blur-xl border border-border/40 rounded-2xl p-6 md:p-8 shadow-lg pointer-events-auto"
+                className="mx-auto max-w-sm text-center bg-card/70 backdrop-blur-xl border border-border/40 rounded-2xl p-4 md:p-5 shadow-lg pointer-events-auto"
               >
-                <Quote className="w-7 h-7 text-primary/40 mx-auto mb-3" />
+                <Quote className="w-5 h-5 text-primary/40 mx-auto mb-2" />
                 <p
-                  className="text-sm md:text-base text-foreground/90 leading-relaxed mb-4"
+                  className="text-xs md:text-sm text-foreground/90 leading-relaxed mb-3"
                   style={{ fontFamily: "'Poppins', sans-serif" }}
                 >
                   "{current.quote}"
                 </p>
                 <h3
-                  className="text-sm font-semibold text-foreground"
+                  className="text-xs font-semibold text-foreground"
                   style={{ fontFamily: "'Quicksand', sans-serif" }}
                 >
                   {current.name}
                 </h3>
-                <span className="text-xs text-muted-foreground">{current.role}</span>
+                <span className="text-[10px] text-muted-foreground">{current.role}</span>
               </motion.div>
             </AnimatePresence>
           </div>
