@@ -1,7 +1,7 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const projectGroups = [
@@ -313,6 +313,127 @@ const MobileStickyCard = ({
   );
 };
 
+const DesktopProjectCarousel = ({
+  group,
+}: {
+  group: (typeof projectGroups)[0];
+}) => {
+  const [active, setActive] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const total = group.projects.length;
+
+  const go = (dir: number) => {
+    setDirection(dir);
+    setActive((prev) => (prev + dir + total) % total);
+  };
+
+  const project = group.projects[active];
+
+  return (
+    <div className="relative">
+      <div className="relative max-w-5xl mx-auto px-16">
+        <div className="relative overflow-hidden rounded-3xl">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={project.slug}
+              custom={direction}
+              initial={{ opacity: 0, x: direction >= 0 ? 120 : -120 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction >= 0 ? -120 : 120 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Link to={`/project/${project.slug}`} className="group block">
+                <div className="relative rounded-3xl overflow-hidden bg-card/50 backdrop-blur-2xl border border-border/30 shadow-lg hover:shadow-xl hover:border-border/50 transition-all duration-500">
+                  <div className="px-8 pt-7 pb-4">
+                    <h4
+                      className="text-2xl md:text-3xl font-semibold text-foreground"
+                      style={{ fontFamily: "'Quicksand', sans-serif" }}
+                    >
+                      {project.title}
+                    </h4>
+                  </div>
+
+                  <div
+                    className="relative w-full aspect-[16/9] overflow-hidden"
+                    style={{ backgroundColor: project.imageBg || "hsl(var(--muted))" }}
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={`w-full h-full ${
+                        project.objectFit === "contain" ? "object-contain" : "object-cover"
+                      } group-hover:scale-105 transition-transform duration-700`}
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="px-8 pt-5 pb-7">
+                    <p
+                      className="text-base md:text-lg text-muted-foreground leading-relaxed mb-5 max-w-3xl"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {project.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span
+                        className="text-xs md:text-sm text-muted-foreground/70 font-medium uppercase tracking-wider"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {project.type} · {project.year}
+                      </span>
+                      <ArrowUpRight className="w-6 h-6 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {total > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous project"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/70 backdrop-blur-xl border border-border/40 shadow-md flex items-center justify-center text-foreground hover:bg-card hover:scale-105 transition-all"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next project"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/70 backdrop-blur-xl border border-border/40 shadow-md flex items-center justify-center text-foreground hover:bg-card hover:scale-105 transition-all"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </>
+        )}
+
+        {total > 1 && (
+          <div className="flex justify-center gap-2 mt-6">
+            {group.projects.map((p, i) => (
+              <button
+                key={p.slug}
+                type="button"
+                aria-label={`Go to project ${i + 1}`}
+                onClick={() => {
+                  setDirection(i > active ? 1 : -1);
+                  setActive(i);
+                }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === active ? "w-8 bg-foreground" : "w-2 bg-foreground/30 hover:bg-foreground/50"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ScrollableProjectRow = ({
   group,
   groupIndex,
@@ -322,17 +443,8 @@ const ScrollableProjectRow = ({
 }) => {
   const isMobile = useIsMobile();
 
-  const rowRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: rowProgress } = useScroll({
-    target: rowRef,
-    offset: ["start end", "end start"],
-  });
-
-  // All rows scroll left
-  const x = useTransform(rowProgress, [0, 1], [100, -300]);
-
   return (
-    <div ref={rowRef}>
+    <div>
       <motion.h3
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -356,18 +468,7 @@ const ScrollableProjectRow = ({
           ))}
         </div>
       ) : (
-        <div className="overflow-hidden">
-          <motion.div
-            style={{ x }}
-            className="flex gap-8 px-12"
-          >
-            {group.projects.map((project, i) => (
-              <div key={project.slug} className="flex-shrink-0 w-[30vw]">
-                <ProjectCard project={project} index={i} />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        <DesktopProjectCarousel group={group} />
       )}
     </div>
   );
