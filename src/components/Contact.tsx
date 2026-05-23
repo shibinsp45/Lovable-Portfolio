@@ -28,19 +28,27 @@ const Contact = () => {
       className="py-16 md:py-20 bg-background relative overflow-hidden"
       ref={containerRef}
     >
-      {/* Parallax animated background orbs */}
-      <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgOrbY }}>
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <AnimatedGradientBackground
+          Breathing
+          startingGap={125}
+          breathingRange={8}
+          animationSpeed={0.015}
+          gradientColors={[
+            "hsl(var(--background))",
+            "#2979FF",
+            "#7C4DFF",
+            "#FF80AB",
+            "#FFD600",
+            "#00E676",
+            "#3D5AFE",
+          ]}
+          gradientStops={[30, 50, 62, 74, 84, 92, 100]}
         />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl"
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.3, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-2xl" />
+      </div>
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
