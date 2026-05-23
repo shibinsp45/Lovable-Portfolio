@@ -28,26 +28,31 @@ const Contact = () => {
       className="py-16 md:py-20 bg-background relative overflow-hidden"
       ref={containerRef}
     >
-      {/* Animated gradient background */}
+      {/* Animated gradient background - subtly blended with page */}
       <div className="absolute inset-0 pointer-events-none">
-        <AnimatedGradientBackground
-          Breathing
-          startingGap={125}
-          breathingRange={8}
-          animationSpeed={0.015}
-          gradientColors={[
-            "hsl(var(--background))",
-            "#2979FF",
-            "#7C4DFF",
-            "#FF80AB",
-            "#FFD600",
-            "#00E676",
-            "#3D5AFE",
-          ]}
-          gradientStops={[30, 50, 62, 74, 84, 92, 100]}
-        />
-        <div className="absolute inset-0 bg-background/40 backdrop-blur-2xl" />
+        {/* Top + bottom fade to seamlessly blend with adjacent sections */}
+        <div className="absolute inset-0 z-20 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="absolute inset-0 opacity-40 mix-blend-screen dark:opacity-50">
+          <AnimatedGradientBackground
+            Breathing
+            startingGap={140}
+            breathingRange={6}
+            animationSpeed={0.012}
+            gradientColors={[
+              "hsl(var(--background))",
+              "#1e3a8a",
+              "#4338ca",
+              "#7C4DFF",
+              "#2979FF",
+              "#0ea5e9",
+              "hsl(var(--background))",
+            ]}
+            gradientStops={[20, 45, 60, 72, 84, 92, 100]}
+          />
+        </div>
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-3xl" />
       </div>
+
 
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
