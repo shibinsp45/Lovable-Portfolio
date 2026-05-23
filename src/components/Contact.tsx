@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Mail, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
