@@ -44,7 +44,7 @@ export const AnimatedTestimonials = ({
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
         {/* Image stack */}
         <div>
-          <div className="relative h-72 w-full md:h-96">
+          <div className="relative h-72 w-72 md:h-96 md:w-96 mx-auto">
             <AnimatePresence>
               {testimonials.map((t, index) => (
                 <motion.div
@@ -76,13 +76,14 @@ export const AnimatedTestimonials = ({
                     src={t.src}
                     alt={t.name}
                     draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center shadow-xl"
+                    className="h-full w-full rounded-3xl object-cover object-center"
                   />
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
         </div>
+
 
         {/* Text + controls */}
         <div className="flex flex-col justify-between py-4">
