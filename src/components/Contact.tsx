@@ -96,18 +96,11 @@ const Contact = () => {
           >
             <AnimatedAIChat />
           </motion.div>
-
-                  <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  <span className="hidden md:inline">LinkedIn</span>
-                  <ArrowUpRight className="ml-1 h-5 w-5 hidden md:inline group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                </a>
-              </Button>
-            </motion.div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 };
+
 
 export default Contact;
