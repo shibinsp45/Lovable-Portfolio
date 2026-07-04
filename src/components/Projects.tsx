@@ -410,7 +410,7 @@ const ScrollableProjectRow = ({
           ))}
         </div>
       ) : (
-        <DesktopProjectCarousel group={group} />
+        <DesktopProjectGrid group={group} />
       )}
     </div>
   );
