@@ -1,25 +1,15 @@
 import { useState, useEffect } from "react";
-import { Sun, Moon, ArrowUpRight, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Sun, Moon, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
 
 const Header = () => {
   const [isDark, setIsDark] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
@@ -28,154 +18,117 @@ const Header = () => {
   };
 
   const navLinks = [
-    { name: "Portfolio", href: "#portfolio" },
+    { name: "Work", href: "#portfolio" },
     { name: "About", href: "#about" },
-    { name: "Journey", href: "#journey" },
-    { name: "Connect", href: "#contact" },
-    { name: "LinkedIn", href: "https://linkedin.com/in/shibinsp45", external: true },
+    { name: "Process", href: "#journey" },
+    { name: "Experience", href: "#journey" },
   ];
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-background/60 backdrop-blur-xl border-b border-border/30"
-            : ""
-        }`}
-      >
+      <header className="fixed top-0 left-0 right-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-          <nav className="flex items-center justify-center relative h-12 sm:h-14">
-            {/* Logo - Left (absolute) */}
-            <Link
-              to="/"
-              className="absolute left-0 flex items-center gap-3 group"
-            >
-              <img
-                src={isDark ? logoDark : logoLight}
-                alt="Logo"
-                className="h-14 sm:h-16 w-auto object-contain transition-all duration-300 group-hover:scale-110 invert dark:invert-0"
-              />
-            </Link>
+          <nav className="flex justify-center">
+            {/* Unified pill */}
+            <div className="hidden md:flex items-center gap-6 pl-2 pr-2 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-xl shadow-sm">
+              <Link to="/" className="flex items-center gap-2.5 pl-1 pr-2 group">
+                <img
+                  src={isDark ? logoDark : logoLight}
+                  alt="Shibin SP"
+                  className="h-9 w-9 rounded-full object-cover bg-secondary invert dark:invert-0"
+                />
+                <span className="font-sans text-sm font-medium text-foreground">
+                  Shibin SP
+                </span>
+              </Link>
 
-            {/* Center Navigation - Desktop */}
-            <div className="hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl">
-              {navLinks.map((link) =>
-                link.external ? (
+              <div className="flex items-center gap-1">
+                {navLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 font-sans text-sm px-5 py-2 text-foreground font-medium hover:text-primary hover:bg-secondary/50 rounded-full transition-all duration-200"
-                  >
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3" />
-                  </a>
-                ) : (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="font-sans text-sm px-5 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full transition-all duration-200"
+                    className="font-sans text-sm px-4 py-2 text-muted-foreground hover:text-foreground rounded-full transition-colors"
                   >
                     {link.name}
                   </a>
-                )
-              )}
-            </div>
+                ))}
+              </div>
 
-            {/* Theme Toggle - Right (absolute) - On/Off style */}
-            <div className="absolute right-0 hidden md:flex">
+              <a
+                href="#contact"
+                className="font-sans text-sm px-5 py-2 rounded-full bg-background border border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+              >
+                Connect
+              </a>
+
               <button
                 onClick={toggleTheme}
-                className="relative w-16 h-8 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl hover:bg-secondary/50 transition-all duration-300 flex items-center p-1"
+                className="w-9 h-9 rounded-full border border-border/60 flex items-center justify-center text-foreground hover:bg-secondary transition-colors"
                 aria-label="Toggle theme"
               >
-                <div
-                  className={`absolute w-6 h-6 rounded-full bg-primary shadow-md transition-all duration-300 flex items-center justify-center ${
-                    isDark ? "left-1" : "left-[calc(100%-28px)]"
-                  }`}
-                >
-                  {isDark ? (
-                    <Moon className="h-3.5 w-3.5 text-primary-foreground" />
-                  ) : (
-                    <Sun className="h-3.5 w-3.5 text-primary-foreground" />
-                  )}
-                </div>
+                {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="absolute right-0 flex md:hidden items-center gap-2">
-              <button
-                onClick={toggleTheme}
-                className="relative w-14 h-7 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl transition-all duration-300 flex items-center p-0.5"
-                aria-label="Toggle theme"
-              >
-                <div
-                  className={`absolute w-5.5 h-5.5 w-[22px] h-[22px] rounded-full bg-primary shadow-md transition-all duration-300 flex items-center justify-center ${
-                    isDark ? "left-0.5" : "left-[calc(100%-24px)]"
-                  }`}
+            {/* Mobile compact pill */}
+            <div className="flex md:hidden items-center gap-2 w-full justify-between px-3 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-xl">
+              <Link to="/" className="flex items-center gap-2">
+                <img
+                  src={isDark ? logoDark : logoLight}
+                  alt="Shibin SP"
+                  className="h-8 w-8 rounded-full object-cover bg-secondary invert dark:invert-0"
+                />
+                <span className="font-sans text-sm font-medium text-foreground">
+                  Shibin SP
+                </span>
+              </Link>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleTheme}
+                  className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center"
+                  aria-label="Toggle theme"
                 >
-                  {isDark ? (
-                    <Moon className="h-3 w-3 text-primary-foreground" />
-                  ) : (
-                    <Sun className="h-3 w-3 text-primary-foreground" />
-                  )}
-                </div>
-              </button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="h-10 w-10 rounded-full border border-border/40 bg-card/30 backdrop-blur-xl"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="h-4 w-4" />
-                ) : (
-                  <Menu className="h-4 w-4" />
-                )}
-              </Button>
+                  {isDark ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
+                </button>
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center"
+                  aria-label="Menu"
+                >
+                  {isMobileMenuOpen ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
+                </button>
+              </div>
             </div>
           </nav>
         </div>
       </header>
 
-      {/* Mobile Menu - Fullscreen */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 w-full h-full bg-background/95 backdrop-blur-xl md:hidden z-[60] flex flex-col items-center justify-center">
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="absolute top-6 right-6 h-10 w-10 rounded-full border border-border/40 bg-card/30"
+            className="absolute top-6 right-6 h-10 w-10 rounded-full border border-border/60 flex items-center justify-center"
           >
             <X className="h-5 w-5" />
-          </Button>
+          </button>
           <div className="flex flex-col items-start gap-6 px-8">
-            {navLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-2 font-sans text-2xl font-light text-foreground hover:text-primary transition-all duration-200"
-                >
-                  {link.name} <ArrowUpRight className="w-5 h-5" />
-                </a>
-              ) : (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-sans text-2xl font-light text-muted-foreground hover:text-foreground transition-all duration-200"
-                >
-                  {link.name}
-                </a>
-              )
-            )}
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-sans text-2xl font-medium text-foreground hover:text-primary transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-4 font-sans text-lg px-6 py-3 rounded-full bg-primary text-primary-foreground"
+            >
+              Connect
+            </a>
           </div>
         </div>
       )}
