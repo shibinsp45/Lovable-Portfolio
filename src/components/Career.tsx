@@ -37,7 +37,7 @@ const Career = () => {
 
   return (
     <section
-      className="py-16 md:py-20 bg-background overflow-hidden relative"
+      className="py-10 md:py-14 bg-background overflow-hidden relative"
       id="journey"
       ref={containerRef}
     >
@@ -54,7 +54,7 @@ const Career = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-16"
+          className="mb-8 md:mb-10"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
