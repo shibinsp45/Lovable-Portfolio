@@ -81,50 +81,8 @@ const About = () => {
 
           {/* Right: Where I've been + Bio */}
           <div className="lg:pt-4">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-5"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              Where I've been
-            </motion.p>
 
-            <div className="border-t border-border/60">
-              {experiences.map((exp, i) => (
-                <motion.div
-                  key={exp.company}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="flex items-start justify-between gap-6 py-5 border-b border-border/60"
-                >
-                  <div>
-                    <h3
-                      className="text-base md:text-lg font-semibold text-foreground"
-                      style={{ fontFamily: "'Quicksand', sans-serif" }}
-                    >
-                      {exp.company}
-                    </h3>
-                    <p
-                      className="text-sm text-muted-foreground mt-0.5"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
-                    >
-                      {exp.role}
-                    </p>
-                  </div>
-                  <span
-                    className="text-sm text-muted-foreground whitespace-nowrap pt-1"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    {exp.period}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+
 
             <div
               className="mt-10 space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed"
