@@ -1,22 +1,7 @@
 import { motion } from "framer-motion";
 
-const experiences = [
-  {
-    company: "Webcastle",
-    role: "UI/UX Designer",
-    period: "2025 — Now",
-  },
-  {
-    company: "Kreative Sparkz",
-    role: "UI/UX Designer",
-    period: "2024",
-  },
-  {
-    company: "Nuren AI",
-    role: "UI/UX Designer Intern",
-    period: "2023 — 2024",
-  },
-];
+
+
 
 const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/shibinsp45/" },
