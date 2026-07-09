@@ -117,6 +117,15 @@ const Header = () => {
             >
               Connect
             </a>
+            <button
+              onClick={toggleTheme}
+              className="mt-2 flex items-center gap-3 font-sans text-base px-5 py-3 rounded-full border border-border/60 text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+              <span>{isDark ? "Dark mode" : "Light mode"}</span>
+            </button>
+
           </div>
         </div>
       )}
