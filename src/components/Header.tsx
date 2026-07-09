@@ -31,16 +31,14 @@ const Header = () => {
           <nav className="flex justify-center">
             {/* Unified pill */}
             <div className="hidden md:flex items-center gap-6 pl-2 pr-2 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-xl shadow-sm">
-              <Link to="/" className="flex items-center gap-2.5 pl-1 pr-2 group">
+              <Link to="/" className="flex items-center pl-1 pr-1" aria-label="Home">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="Shibin SP"
                   className="h-9 w-9 rounded-full object-cover bg-secondary invert dark:invert-0"
                 />
-                <span className="font-sans text-sm font-medium text-foreground">
-                  Shibin SP
-                </span>
               </Link>
+
 
               <div className="flex items-center gap-1">
                 {navLinks.map((link) => (
@@ -72,16 +70,14 @@ const Header = () => {
 
             {/* Mobile compact pill */}
             <div className="flex md:hidden items-center gap-2 w-full justify-between px-3 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-xl">
-              <Link to="/" className="flex items-center gap-2">
+              <Link to="/" className="flex items-center" aria-label="Home">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="Shibin SP"
                   className="h-8 w-8 rounded-full object-cover bg-secondary invert dark:invert-0"
                 />
-                <span className="font-sans text-sm font-medium text-foreground">
-                  Shibin SP
-                </span>
               </Link>
+
               <div className="flex items-center gap-2">
                 <button
                   onClick={toggleTheme}
