@@ -429,7 +429,7 @@ const Projects = () => {
     <section id="portfolio" className="relative bg-background" ref={sectionRef}>
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-10 py-14 sm:py-16 md:py-20">
+      <div className="relative z-10 py-10 sm:py-12 md:py-14">
         <motion.div
           style={{ y: headerY }}
           initial={{ opacity: 0, y: 30 }}

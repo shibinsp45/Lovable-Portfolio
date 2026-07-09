@@ -3,7 +3,7 @@ import { Sparkle } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden bg-background">
+    <section className="min-h-screen flex flex-col justify-center pt-28 pb-10 relative overflow-hidden bg-background">
       {/* Soft ambient background — subtle in dark, cream-hint in light */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/40" />
