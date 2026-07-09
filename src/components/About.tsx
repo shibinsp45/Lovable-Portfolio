@@ -70,8 +70,8 @@ const About = () => {
 
 
             <div
-              className="mt-10 space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
+              className="space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed"
+
             >
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
