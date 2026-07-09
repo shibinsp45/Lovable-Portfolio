@@ -70,16 +70,14 @@ const Header = () => {
 
             {/* Mobile compact pill */}
             <div className="flex md:hidden items-center gap-2 w-full justify-between px-3 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-xl">
-              <Link to="/" className="flex items-center gap-2">
+              <Link to="/" className="flex items-center" aria-label="Home">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="Shibin SP"
                   className="h-8 w-8 rounded-full object-cover bg-secondary invert dark:invert-0"
                 />
-                <span className="font-sans text-sm font-medium text-foreground">
-                  Shibin SP
-                </span>
               </Link>
+
               <div className="flex items-center gap-2">
                 <button
                   onClick={toggleTheme}
