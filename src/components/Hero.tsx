@@ -12,38 +12,24 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        {/* Status pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/70 bg-card/60 backdrop-blur-md mb-10 sm:mb-14"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-          </span>
-          <span className="font-sans text-sm text-foreground">Open to opportunities</span>
-        </motion.div>
-
         {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.8, delay: 0.15 }}
-          className="font-sans font-black tracking-tight leading-[1.02] text-[13vw] sm:text-[10vw] lg:text-[7.5vw] xl:text-[6.5rem]"
+          className="font-sans font-black tracking-tight leading-[1.05] text-[10vw] sm:text-[8vw] lg:text-[6vw] xl:text-[5.25rem]"
         >
-          <span className="inline-flex items-center gap-3 sm:gap-5 text-muted-foreground/70">
-            Hey
+          <span className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-muted-foreground/70">
+            <span>Hey</span>
             <Sparkle
-              className="w-8 h-8 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-muted-foreground/60 fill-muted-foreground/40"
+              className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-muted-foreground/60 fill-muted-foreground/40 shrink-0"
               strokeWidth={1.5}
             />
-            I'm Shibin S P.
+            <span className="whitespace-nowrap">I'm Shibin S P.</span>
           </span>
-          <br />
-          <span className="text-foreground">I'm a Product Designer</span>
+          <span className="block text-foreground mt-2 sm:mt-3">I'm a Product Designer</span>
         </motion.h1>
+
 
         {/* Subtext */}
         <motion.p
