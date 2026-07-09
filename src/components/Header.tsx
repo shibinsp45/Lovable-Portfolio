@@ -78,22 +78,14 @@ const Header = () => {
                 />
               </Link>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleTheme}
-                  className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center"
-                  aria-label="Toggle theme"
-                >
-                  {isDark ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
-                </button>
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center"
-                  aria-label="Menu"
-                >
-                  {isMobileMenuOpen ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
-                </button>
-              </div>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center"
+                aria-label="Menu"
+              >
+                {isMobileMenuOpen ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
+              </button>
+
             </div>
           </nav>
         </div>
@@ -125,6 +117,15 @@ const Header = () => {
             >
               Connect
             </a>
+            <button
+              onClick={toggleTheme}
+              className="mt-2 flex items-center gap-3 font-sans text-base px-5 py-3 rounded-full border border-border/60 text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+              <span>{isDark ? "Dark mode" : "Light mode"}</span>
+            </button>
+
           </div>
         </div>
       )}
