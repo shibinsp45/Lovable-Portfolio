@@ -118,7 +118,7 @@ const ModulesCarousel = () => {
 
           {/* Scattered skill chips - appear on hover */}
           <AnimatePresence>
-            {isHovered &&
+            {showChips &&
               skills.map((skill, index) => (
                 <DraggableChip
                   key={skill.label}
