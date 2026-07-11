@@ -64,15 +64,9 @@ const About = () => {
             </motion.div>
           </div>
 
-          {/* Right: Where I've been + Bio */}
-          <div className="lg:pt-4">
-
-
-
-            <div
-              className="space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed"
-
-            >
+          {/* Right: Bio */}
+          <div className="lg:pt-6">
+            <div className="space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
