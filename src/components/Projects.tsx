@@ -201,7 +201,7 @@ const ProjectCard = ({
     transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
   >
     <Link to={`/project/${project.slug}`} className="group block">
-      <div className="relative rounded-2xl overflow-hidden bg-card/50 backdrop-blur-2xl border border-border/30 shadow-sm group-hover:border-border/50 group-hover:shadow-md transition-all duration-500">
+      <div className="relative rounded-[2rem] overflow-hidden bg-card/50 backdrop-blur-2xl border border-border/30 shadow-sm group-hover:border-border/50 group-hover:shadow-md transition-all duration-500">
         <div className="px-5 pt-5 pb-3 relative z-20">
           <h4
             className="text-base sm:text-lg font-semibold text-foreground truncate"
@@ -270,7 +270,7 @@ const MobileStickyCard = ({
         }}
       >
         <Link to={`/project/${project.slug}`} className="group block">
-          <div className="relative rounded-2xl overflow-hidden bg-card border border-border/30 shadow-lg">
+          <div className="relative rounded-[2rem] overflow-hidden bg-card border border-border/30 shadow-lg">
             <div className="px-4 pt-4 pb-2 relative z-20">
               <h4
                 className="text-base font-semibold text-foreground truncate"
@@ -331,7 +331,7 @@ const DesktopProjectGrid = ({
           >
             <Link to={`/project/${project.slug}`} className="group block">
               <div
-                className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-sm group-hover:shadow-xl transition-all duration-500"
+                className="relative rounded-[2rem] overflow-hidden aspect-[4/3] shadow-sm group-hover:shadow-xl transition-all duration-500"
                 style={{ backgroundColor: project.imageBg || "hsl(var(--muted))" }}
               >
                 <img
