@@ -10,9 +10,9 @@ const socials = [
 
 const About = () => {
   return (
-    <section id="about" className="relative bg-background overflow-hidden py-10 md:py-14">
+    <section id="about" className="relative bg-background overflow-hidden py-14 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* Left: Headline + Image + Socials */}
           <div>
             <motion.h2
