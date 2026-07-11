@@ -35,7 +35,7 @@ const WhyChooseMe = () => {
 
   return (
     <section
-      className="py-10 md:py-14 bg-background overflow-hidden relative"
+      className="py-14 md:py-20 bg-background overflow-hidden relative"
       ref={containerRef}
     >
       {/* Parallax background elements */}
@@ -90,16 +90,17 @@ const WhyChooseMe = () => {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 80, rotateX: 15 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                type: "spring",
+                stiffness: 140,
+                damping: 22,
+                delay: index * 0.08,
               }}
-              whileHover={{ y: -15, transition: { duration: 0.3 } }}
-              className="bg-card/30 backdrop-blur-2xl rounded-3xl p-8 border border-border/20 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 group flex flex-col relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary/5 before:via-transparent before:to-transparent before:rounded-3xl before:pointer-events-none"
+              whileHover={{ y: -8, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="bg-card/30 backdrop-blur-2xl rounded-3xl p-8 border border-border/20 hover:border-primary/40 transition-colors duration-300 hover:shadow-2xl hover:shadow-primary/10 group flex flex-col relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary/5 before:via-transparent before:to-transparent before:rounded-3xl before:pointer-events-none"
             >
               <motion.div
                 className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors duration-300"

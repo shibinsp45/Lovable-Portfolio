@@ -10,18 +10,18 @@ const socials = [
 
 const About = () => {
   return (
-    <section id="about" className="relative bg-background overflow-hidden py-10 md:py-14">
+    <section id="about" className="relative bg-background overflow-hidden py-14 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* Left: Headline + Image + Socials */}
           <div>
             <motion.h2
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-foreground mb-8 md:mb-10"
-              style={{ fontFamily: "'Quicksand', sans-serif" }}
+              transition={{ type: "spring", stiffness: 130, damping: 20 }}
+              className="font-semibold tracking-tight leading-[1.05] text-foreground mb-8 md:mb-10"
+              style={{ fontFamily: "'Quicksand', sans-serif", fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
             >
               <span className="text-muted-foreground">Crafted by mind,</span>
               <br />
@@ -64,15 +64,9 @@ const About = () => {
             </motion.div>
           </div>
 
-          {/* Right: Where I've been + Bio */}
-          <div className="lg:pt-4">
-
-
-
-            <div
-              className="space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed"
-
-            >
+          {/* Right: Bio */}
+          <div className="lg:pt-6">
+            <div className="space-y-5 text-[15px] md:text-base text-muted-foreground leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

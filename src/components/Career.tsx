@@ -37,7 +37,7 @@ const Career = () => {
 
   return (
     <section
-      className="py-10 md:py-14 bg-background overflow-hidden relative"
+      className="py-14 md:py-20 bg-background overflow-hidden relative"
       id="journey"
       ref={containerRef}
     >
@@ -78,19 +78,20 @@ const Career = () => {
           </motion.h2>
         </motion.div>
 
-        <motion.div style={{ y: cardsY }} className="space-y-16 relative">
+        <motion.div style={{ y: cardsY }} className="space-y-6 md:space-y-8 relative">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                type: "spring",
+                stiffness: 130,
+                damping: 22,
+                delay: index * 0.08,
               }}
-              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-card/30 backdrop-blur-2xl rounded-none p-6 border border-border/20 shadow-sm hover:border-border/40 hover:shadow-md transition-all duration-500"
+              className="grid md:grid-cols-2 gap-4 md:gap-12 group md:pl-8 bg-card/30 backdrop-blur-2xl rounded-2xl p-6 border border-border/20 shadow-sm hover:border-border/40 hover:shadow-md transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 <motion.div
