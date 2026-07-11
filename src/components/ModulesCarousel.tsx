@@ -76,6 +76,8 @@ const DraggableChip = ({
 
 const ModulesCarousel = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
+  const showChips = isHovered || isMobile;
   const sectionRef = useRef(null);
 
   return (
