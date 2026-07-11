@@ -19,7 +19,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-10 md:py-14 bg-background relative overflow-hidden"
+      className="py-14 md:py-20 bg-background relative overflow-hidden"
       ref={containerRef}
     >
       {/* Animated gradient background - subtly blended with page */}
