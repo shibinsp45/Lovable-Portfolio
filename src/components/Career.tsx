@@ -37,7 +37,7 @@ const Career = () => {
 
   return (
     <section
-      className="py-10 md:py-14 bg-background overflow-hidden relative"
+      className="py-14 md:py-20 bg-background overflow-hidden relative"
       id="journey"
       ref={containerRef}
     >
