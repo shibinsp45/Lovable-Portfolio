@@ -79,11 +79,11 @@ const ModulesCarousel = () => {
   const sectionRef = useRef(null);
 
   return (
-    <section ref={sectionRef} className="relative py-10 md:py-14 overflow-hidden">
+    <section ref={sectionRef} className="relative py-14 md:py-20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className="relative w-full"
-          style={{ minHeight: "380px" }}
+          style={{ minHeight: "clamp(320px, 42vw, 420px)" }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
