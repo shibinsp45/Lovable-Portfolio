@@ -429,13 +429,13 @@ const Projects = () => {
     <section id="portfolio" className="relative bg-background" ref={sectionRef}>
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
 
-      <div className="relative z-10 py-10 sm:py-12 md:py-14">
+      <div className="relative z-10 py-14 sm:py-16 md:py-20">
         <motion.div
           style={{ y: headerY }}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ type: "spring", stiffness: 130, damping: 20 }}
           className="text-center mb-10 sm:mb-12 md:mb-14"
         >
           <span
@@ -445,14 +445,14 @@ const Projects = () => {
             Selected Work
           </span>
           <h2
-            className="text-3xl sm:text-5xl md:text-7xl font-light tracking-tight text-muted-foreground"
-            style={{ fontFamily: "'Quicksand', sans-serif" }}
+            className="font-light tracking-tight text-muted-foreground"
+            style={{ fontFamily: "'Quicksand', sans-serif", fontSize: "clamp(2rem, 6vw, 4.5rem)" }}
           >
             Projects
           </h2>
         </motion.div>
 
-        <div className="flex flex-col gap-14 sm:gap-16">
+        <div className="flex flex-col gap-16 sm:gap-20 md:gap-24">
           {projectGroups.map((group, groupIndex) => (
             <ScrollableProjectRow key={group.caption} group={group} groupIndex={groupIndex} />
           ))}
