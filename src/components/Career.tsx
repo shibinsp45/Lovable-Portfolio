@@ -33,20 +33,12 @@ const Career = () => {
   const lineHeight = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
   const headerY = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
   const cardsY = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
-  const bgGlowY = useTransform(scrollYProgress, [0, 1], ["40%", "-40%"]);
-
   return (
     <section
-      className="py-14 md:py-20 bg-background overflow-hidden relative"
+      className="py-14 md:py-20 overflow-hidden relative"
       id="journey"
       ref={containerRef}
     >
-      {/* Parallax background glow */}
-      <motion.div className="absolute inset-0 -z-10 overflow-hidden" style={{ y: bgGlowY }}>
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-[hsl(280,60%,50%)]/8 rounded-full blur-[150px]" />
-      </motion.div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           style={{ y: headerY }}

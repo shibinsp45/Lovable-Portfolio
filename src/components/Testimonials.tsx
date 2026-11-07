@@ -45,7 +45,7 @@ const Testimonials = () => {
   const active = testimonials[index];
 
   return (
-    <section className="py-14 md:py-20 bg-background overflow-hidden relative">
+    <section className="py-14 md:py-20 overflow-hidden relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-10">
           <motion.h2

@@ -30,26 +30,11 @@ const WhyChooseMe = () => {
 
   const cardsY = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
   const headerY = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
-  const bgGlow1Y = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
-  const bgGlow2Y = useTransform(scrollYProgress, [0, 1], ["-40%", "40%"]);
-
   return (
     <section
-      className="py-14 md:py-20 bg-background overflow-hidden relative"
+      className="py-14 md:py-20 overflow-hidden relative"
       ref={containerRef}
     >
-      {/* Parallax background elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          style={{ y: bgGlow1Y }}
-          className="absolute top-0 left-1/4 w-80 h-80 bg-[hsl(320,80%,60%)]/10 rounded-full blur-[100px]"
-        />
-        <motion.div
-          style={{ y: bgGlow2Y }}
-          className="absolute bottom-0 right-1/4 w-80 h-80 bg-[hsl(220,80%,60%)]/10 rounded-full blur-[100px]"
-        />
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           style={{ y: headerY }}

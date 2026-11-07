@@ -1,16 +1,8 @@
 import { motion } from "framer-motion";
-import { Sparkle } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="min-h-[92vh] flex flex-col justify-center pt-24 pb-12 relative overflow-hidden bg-background">
-      {/* Soft ambient background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/40" />
-        <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[180px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-accent/10 blur-[160px]" />
-      </div>
-
+    <section className="min-h-[92vh] flex flex-col justify-center pt-24 pb-12 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         {/* Headline */}
         <motion.h1
@@ -22,10 +14,6 @@ const Hero = () => {
         >
           <span className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-1 text-muted-foreground/70">
             <span>Hey</span>
-            <Sparkle
-              className="w-[0.9em] h-[0.9em] text-muted-foreground/60 fill-muted-foreground/40 shrink-0"
-              strokeWidth={1.5}
-            />
             <span className="whitespace-nowrap">I'm Shibin S P.</span>
           </span>
           <span className="block text-foreground mt-1 sm:mt-2">I'm a Product Designer</span>
