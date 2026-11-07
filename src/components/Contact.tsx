@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Mail } from "lucide-react";
 
@@ -29,34 +28,8 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-14 md:py-20 bg-background relative overflow-hidden"
+      className="py-14 md:py-20 relative overflow-hidden"
     >
-      {/* Animated gradient background - subtly blended with page */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Top + bottom fade to seamlessly blend with adjacent sections */}
-        <div className="absolute inset-0 z-20 bg-gradient-to-b from-background via-transparent to-background" />
-        <div className="absolute inset-0 opacity-40 mix-blend-screen dark:opacity-50">
-          <AnimatedGradientBackground
-            Breathing
-            startingGap={140}
-            breathingRange={6}
-            animationSpeed={0.012}
-            gradientColors={[
-              "hsl(var(--background))",
-              "#1e3a8a",
-              "#4338ca",
-              "#7C4DFF",
-              "#2979FF",
-              "#0ea5e9",
-              "hsl(var(--background))",
-            ]}
-            gradientStops={[20, 45, 60, 72, 84, 92, 100]}
-          />
-        </div>
-        <div className="absolute inset-0 bg-background/60 backdrop-blur-3xl" />
-      </div>
-
-
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div

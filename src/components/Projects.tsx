@@ -426,9 +426,7 @@ const Projects = () => {
   const headerY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
 
   return (
-    <section id="portfolio" className="relative bg-background" ref={sectionRef}>
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
-
+    <section id="portfolio" className="relative" ref={sectionRef}>
       <div className="relative z-10 py-14 sm:py-16 md:py-20">
         <motion.div
           style={{ y: headerY }}
@@ -458,8 +456,6 @@ const Projects = () => {
           ))}
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
     </section>
   );
 };
